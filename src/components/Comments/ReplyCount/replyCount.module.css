@@ -1,0 +1,20 @@
+.replyCount {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-weight: bold;
+    color: var(--main-color);
+    font-size: .75rem;
+    cursor: pointer;
+    margin-left: 2.5rem;
+    width: fit-content;
+    padding: 2px 10px;
+    border-radius: 1rem;
+    transition: background .2s;
+   user-select: none;
+}
+
+.replyCount:hover,
+.replyCount.open {
+    background: var(--softBg);
+}

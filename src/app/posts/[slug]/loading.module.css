@@ -1,0 +1,139 @@
+.mtop {
+    margin-top: 2.6rem;
+}
+
+.singlePostLoadingBox {
+    display: flex;
+    width: 100%;
+    transition: .3s all;
+    margin-top: 2.6rem;
+    gap: 50px;
+}
+
+.leftLoadingSide {
+    width: 100%;
+    flex: 5;
+}
+
+.leftLoadingSide .h1 {
+    height: 45px;
+}
+
+.skeletonBG {
+    background: var(--softBg);
+}
+
+.userLoadingBox {
+    margin-top: 2.4rem;
+    margin-bottom: .4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userImg {
+    width: 55px;
+    height: 55px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.postLoadingDetail {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.postImg {
+    width: 100%;
+    height: 450px;
+}
+
+.actionLoadingBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.leftLoadingSide .lines {
+    margin-top: 1.5rem;
+}
+
+.actionLoadingBox .right {
+    display: flex;
+    gap: 30px;
+}
+
+.rightLoadingSide {
+    flex: 2;
+}
+
+.rightLoadingSide .posts {
+    margin-top: 2.5rem;
+}
+
+.rightLoadingSide .post {
+    display: flex;
+    gap: 20px;
+    margin-top: 1.1rem;
+}
+
+.post .lines {
+    flex: 5;
+}
+
+.post .img {
+    flex: 2;
+}
+
+.categoriesLoading {
+    margin-top: 2rem;
+}
+
+.categoriesLoading .categories {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+@media screen and (max-width:770px) {
+
+    .leftLoadingSide .h1 {
+        height: 40px;
+    }
+
+    .singlePostLoadingBox {
+        flex-direction: column;
+    }
+
+    .leftLoadingSide {
+        flex: none;
+    }
+
+    .postImg {
+        width: 100%;
+        height: 250px;
+    }
+
+    .rightLoadingSide {
+        flex: none;
+    }
+
+    .mtop {
+        margin-top: 1.2rem;
+    }
+
+    .singlePostLoadingBox {
+        margin-top: 1.2rem;
+    }
+}

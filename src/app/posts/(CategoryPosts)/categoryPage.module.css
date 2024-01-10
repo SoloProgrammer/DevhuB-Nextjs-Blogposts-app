@@ -1,0 +1,45 @@
+.title {
+    padding: 10px 0;
+    background: var(--softBg);
+    font-weight: 500;
+    font-size: 2vmax;
+    color: #fff;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.content {
+    display: flex;
+    gap: 50px;
+}
+
+.category.travel {
+    background: rgb(248, 95, 68);
+}
+
+.category.culture {
+    background-color: rgba(252, 170, 70, 0.982);
+}
+
+.category.coding {
+    background-color: #4909e9f3;
+}
+
+.category.news {
+    background-color: #14a5f3e8;
+}
+
+.category.fashion {
+    background-color: rgb(228, 61, 192);
+}
+
+.category.food {
+    background-color: #2ebe33;
+}
+
+@media screen and (max-width:760px) {
+    .content {
+        flex-direction: column;
+    }
+
+}

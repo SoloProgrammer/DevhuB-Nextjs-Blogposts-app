@@ -1,0 +1,10 @@
+.content{
+    display: flex;
+    gap: 40px;
+}
+@media screen and (max-width:760px) {
+    .content{
+        flex-direction: column;
+    }
+
+}

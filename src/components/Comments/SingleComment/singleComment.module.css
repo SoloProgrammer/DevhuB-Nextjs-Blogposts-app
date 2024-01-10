@@ -1,0 +1,98 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.seperator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.actions {
+    transition: all .2s;
+    display: flex;
+    gap: 5px;
+    opacity: 0;
+    pointer-events: none;
+    cursor: pointer;
+}
+
+.actions span:active {
+    transform: scale(.85);
+}
+
+.container:hover .actions {
+    opacity: 1.1;
+    pointer-events: all;
+}
+
+.actions span {
+    font-size: 1rem;
+    color: var(--softTextColor);
+    background: var(--softBg);
+    padding: 3px;
+    border-radius: .3rem;
+    user-select: none;
+    transition: all .2s;
+}
+
+.actions span:hover {
+    background: var(--bg-light);
+}
+
+.userInfo {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.userAvatar {
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+
+.userAvatar img {
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.userText {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.userName {
+    font-weight: 500;
+    font-size: .95rem;
+    cursor: pointer;
+}
+
+.date {
+    font-size: .75rem;
+    color: var(--softTextColor);
+}
+
+.commentText {
+    margin-left: 3rem;
+}
+
+.repliesContainer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .2s;
+}
+
+.repliesContainer.active {
+    grid-template-rows: 1fr;
+}
+
+@media screen and (max-width:768px) {
+    .actions {
+        opacity: 1;
+        pointer-events: all;
+    }
+}

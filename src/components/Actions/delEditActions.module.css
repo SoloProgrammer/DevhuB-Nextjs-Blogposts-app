@@ -1,0 +1,23 @@
+.actions {
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.actions span:active {
+    transform: scale(.85);
+}
+
+.actions span {
+    font-size: 1rem;
+    color: var(--softTextColor);
+    background: var(--softBg);
+    padding: 3px;
+    border-radius: .3rem;
+    user-select: none;
+    transition: all .2s;
+}
+
+.actions span:hover {
+    background: var(--bg-light);
+}

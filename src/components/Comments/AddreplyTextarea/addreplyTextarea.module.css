@@ -1,0 +1,89 @@
+.replyBoxTextContainer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: all .2s;
+}
+
+.replyContainer {
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+    padding: 10px;
+    border-radius: .3rem;
+    margin-left: 3rem;
+    margin-top: .5rem;
+    opacity: 0;
+    transition: all .2s ;
+}
+
+.replyBoxTextContainer.active{
+    grid-template-rows: 1fr;
+}
+.replyBoxTextContainer.active  .replyContainer {opacity: 1;}
+
+.replyContainer p {
+    color: var(--softTextColor);
+}
+
+.replyActions span {
+    padding: 3px;
+    border-radius: .2rem;
+    background: rgba(0, 0, 0, .1);
+    border: 1px solid var(--bg-light);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.replyTextArea:focus {
+    background: var(--bg-light);
+}
+
+.replyActions span:hover {
+    background: var(--bg-light);
+}
+
+.replyTextArea {
+    border: none;
+    border-radius: .3rem;
+    width: 100%;
+    height: 50px !important;
+    outline: none;
+    padding: .5rem;
+    font-size: .95rem;
+    background: transparent;
+    resize: none;
+    background: var(--softBg);
+    margin: .3rem 0;
+    color: var(--textColor);
+}
+
+.saveReplyBtn {
+    padding: 5px 20px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: .85rem;
+    border-radius: .2rem;
+    box-shadow: 1px 1px 0px var(--softTextColor);
+    background: #3359fa;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--main-color);
+}
+
+.replyActions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.saveReplyBtn:hover {
+    background: var(--main-color-dark);
+}
+
+.saveReplyBtn:disabled {
+    background: var(--bg-light);
+    box-shadow: none;
+    color: var(--softTextColor);
+    cursor: not-allowed;
+}

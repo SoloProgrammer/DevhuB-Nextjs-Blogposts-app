@@ -1,0 +1,43 @@
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 35px;
+}
+
+.category {
+    padding: 10px 20px;
+    font-size: .85rem;
+     font-weight: 500;
+    border-radius: .5rem;
+}
+
+.category.news {
+    background-color: #57c4ff4c;
+    --shadowColor: #57c4ff7b;
+}
+
+.category.fashion {
+    background-color: #da85c853;
+    --shadowColor: #da85c868;
+}
+
+.category.food {
+    background-color: #7fb8814c;
+    --shadowColor: #7fb8817c;
+}
+
+.category.travel {
+    background-color: #ff79574a;
+    --shadowColor: #ff795773;
+}
+
+.category.culture {
+    background-color: #ffb04f50;
+    --shadowColor: #ffb04f76;
+}
+
+.category.coding {
+    background-color: #5e4fff4f;
+    --shadowColor: #5e4fff81;
+}

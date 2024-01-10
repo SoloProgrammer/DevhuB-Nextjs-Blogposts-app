@@ -1,0 +1,114 @@
+.container {
+    margin-top: 30px;
+    display: flex;
+    gap: 50px;
+    scroll-behavior: smooth !important;
+}
+
+.infoContainer {
+    display: flex;
+    gap: 35px;
+    flex-direction: column;
+    flex: 5;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top span {
+    cursor: pointer;
+}
+
+.title {
+    font-size: 2.9vmax;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.desc {
+    font-size: 1.1rem;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+}
+
+.user {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.userImg {
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+
+.userImg img {
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.userText {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: var(--softTextColor);
+}
+
+.userName {
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.date {
+    font-size: .85rem;
+}
+
+.imgContainer {
+    position: relative;
+    height: 400px;
+}
+
+.imgContainer img {
+    object-fit: contain;
+    border-radius: .4rem;
+}
+
+.Menu {
+    display: flex;
+    flex: 2;
+}
+
+@media screen and (max-width:1350px) {
+    .Menu {
+        flex: 3;
+    }
+}
+
+@media screen and (max-width:1250px) {
+    .Menu {
+        display: none;
+    }
+}
+
+@media screen and (max-width:640px) {
+    .infoContainer {
+        gap: 30px;
+    }
+
+    .imgContainer {
+        height: auto;
+        max-height: 400px !important;
+    }
+
+    .imgContainer img {
+        position: static !important;
+    }
+}

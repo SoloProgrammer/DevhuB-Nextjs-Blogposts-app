@@ -1,0 +1,43 @@
+.editCommentArea {
+    background: transparent;
+    border: none;
+    box-shadow: 0 0 0 1px var(--softTextColor);
+    transition: background .2s, font-size .2s;
+    outline: none;
+    font-size: 1rem;
+    margin-left: 3rem;
+    color: var(--textColor);
+    padding: 5px;
+    resize: none;
+    height: fit-content !important;
+}
+
+.editCommentArea:focus,
+.replyTextArea:focus {
+    background: var(--bg-light);
+}
+
+.editCommentArea::-webkit-scrollbar,
+.replyTextArea::-webkit-scrollbar {
+    display: none;
+}
+
+.editActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.editActions span,
+.replyActions span {
+    padding: 4.5px;
+    border-radius: .2rem;
+    background: rgba(0, 0, 0, .1);
+    border: 1px solid var(--bg-light);
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.editActions span:hover, .replyActions span:hover {
+    background: var(--bg-light);
+}

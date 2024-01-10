@@ -1,0 +1,29 @@
+.container{
+    display: flex;
+    border: 1px solid;
+    width: 40px;
+    justify-content: space-between;
+    padding: 2px 2px;
+    border-radius: 1rem;
+    cursor: pointer;
+    position: relative;
+    background: rgb(1, 1, 26);
+}
+.ball{
+    position: absolute;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    transition: .2s all;
+    background: #fff;
+    z-index: 2;
+}
+
+.imgContainer{
+    position: relative;
+    width: 15px;
+    height: 15px;
+}
+.imgContainer img{
+    object-fit: cover;
+}

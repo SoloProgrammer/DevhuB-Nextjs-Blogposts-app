@@ -1,0 +1,71 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-left: 3rem;
+    color: var(--textColor);
+    overflow: hidden;
+}
+
+.reply {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: .1rem;
+}
+
+.seperator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.actions{
+    transition: opacity .2s;
+    opacity: 0;
+}
+.reply:hover .actions{
+    opacity: 1;
+}
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.userAvatar {
+    position: relative;
+    width: 37px;
+    height: 37px;
+}
+
+.userAvatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.userName {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.uName {
+    font-size: .88rem;
+}
+
+.replyDate {
+    font-size: .7rem;
+    color: var(--softTextColor) !important;
+}
+
+.replyDesc {
+    margin-left: 3rem;
+    font-size: 1rem;
+}
+@media screen and (max-width:760px) {
+    .actions{
+        opacity: 1;
+    }
+
+}

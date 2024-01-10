@@ -1,0 +1,71 @@
+
+/* Confirm modal body css starts--- */
+
+.outerBody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.title {
+    padding: 20px 30px 20px 20px;
+    border-bottom: 1px solid var(--bg-light);
+}
+
+.body {
+    padding: 0px 20px 15px 20px;
+}
+.desc{
+    margin-bottom: 1.6rem;
+}
+.actionBtns{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+.actionBtns button{
+    border: none;
+    background: transparent;
+    border: 1px solid var(--softBg);
+    color: var(--textColor);
+    padding: 9px 15px;
+    border-radius: .3rem;
+    font-weight: 500;
+    transition: .2s background;
+    cursor: pointer;
+    min-width: 5.1rem;
+    max-height: 35px;
+}
+
+.actionBtns button:nth-child(1){
+    color: #fff !important;
+    background-color: rgb(11, 137, 239);
+}
+.actionBtns button:nth-child(1):hover{
+    background-color: rgb(52, 163, 254);
+}
+.actionBtns button:nth-child(2){
+    border-color: rgb(212, 5, 5);
+}
+.actionBtns button:nth-child(2):disabled{
+    cursor: not-allowed;
+    border-color: var(--softBg);
+}
+.actionBtns button:nth-child(2):hover{
+    background: rgb(229, 35, 35);
+    color: #fff !important;
+}
+.actionBtns button:nth-child(2):disabled:hover{
+    background: transparent;
+}
+.actionBtns button:nth-child(1):disabled{
+    background: transparent;
+    color: var(--softTextColor) !important;
+}
+.actionBtns button:nth-child(1):disabled:hover{
+    background: transparent;
+    cursor: not-allowed;
+}
+
+
+/* Confirm modal body css ends ---*/

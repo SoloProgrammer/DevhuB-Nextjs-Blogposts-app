@@ -1,0 +1,116 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 3;
+    transition: .2s all;
+}
+
+.social {
+    display: flex;
+    gap: 10px;
+    flex: 1;
+}
+
+.linksCenter {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.userIcon {
+    border-radius: 50%;
+}
+
+.logo {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    gap: 5px;
+}
+
+.logoImg {
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.logoImg img {
+    object-fit: cover;
+}
+
+.logoText {
+    font-weight: bold;
+    font-size: 2rem;
+    flex: 1;
+    background: linear-gradient(0deg, #3359fa 0%, #66c6db 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.menuIcon {
+    display: none;
+    cursor: pointer;
+}
+
+.wall {
+    position: absolute;
+    width: 100%;
+    height: 100dvh;
+    background: transparent;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+@media screen and (max-width:768px) {
+    .linksCenter {
+        z-index: 2;
+        position: absolute;
+        background: var(--softBg);
+        flex-direction: column;
+        top: 0;
+        height: 100vh;
+        left: -130%;
+        padding: 10px 100px;
+        justify-content: center;
+        font-size: large;
+        transition: .2s all;
+        align-items: center;
+        box-shadow: var(--shadow-light);
+        gap: 50px;
+    }
+
+    .logoText {
+        font-size: 3vmax;
+    }
+
+    .linksCenter a {
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .menuIcon {
+        display: block;
+    }
+
+    .linksCenter.show {
+        left: -10%;
+    }
+    .logoImg{
+        width: 25px;
+        height: 25px;
+    }
+}

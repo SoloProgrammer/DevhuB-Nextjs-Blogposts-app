@@ -1,0 +1,61 @@
+.extraActionsContainer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--softBg);
+    padding: 10px 5px;
+    border-bottom: 1px solid var(--softBg);
+    align-items: center;
+}
+
+.shareIcon {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    color: var(--softTextColor);
+}
+
+.shareIcon span {
+    cursor: pointer;
+}
+
+.shareIcon span:nth-child(2) {
+    font-size: 1.4rem;
+    margin-top: .4rem;
+}
+
+.commentsCount {
+    font-size: .6em !important;
+    font-family: monospace;
+}
+
+.subBtn {
+    padding: 5px 20px;
+    border-radius: 1rem;
+    font-weight: 500;
+    font-size: .8rem;
+    border: none;
+    user-select: none;
+    min-width: 110px;
+    color: white;
+    background: rgb(6, 160, 6);
+    cursor: pointer;
+    transition: background .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+}
+.subBtn.unsub{
+    background: rgb(255, 32, 32);
+}
+.subBtn:disabled {
+    background: var(--bg-light);
+    cursor: not-allowed;
+}
+.DelEditActions{
+    gap: 10px !important;
+}
+.DelEditActions span{
+    font-size: 1.2rem !important;
+}

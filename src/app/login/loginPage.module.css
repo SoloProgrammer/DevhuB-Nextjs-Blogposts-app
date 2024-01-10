@@ -1,0 +1,130 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper {
+    width: 600px;
+    max-width: 500px;
+    box-shadow: var(--shadow-light);
+    padding: 40px;
+    transition: padding .2s;
+    margin-top: 40px;
+}
+
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inputBox .inpt {
+    position: relative;
+}
+
+.inputBox .inpt label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    color: var(--softTextColor);
+    pointer-events: none;
+    transition: all .2s;
+    font-size: .9rem;
+}
+
+.inpt input {
+    width: 100%;
+    font-size: 1rem;
+    height: 45px;
+    outline: none;
+    border: none;
+    color: var(--softTextColor);
+    padding: 0 10px;
+    background: transparent;
+    border: 1px solid rgb(101, 2, 172);
+    border-radius: .3rem;
+    transition: all .2s;
+}
+
+.inpt input:focus~label,
+.inpt input:valid~label {
+    top: 0;
+    padding: 0 5px;
+    left: 5px;
+    font-size: 12px;
+    color: rgb(240, 7, 240);
+    background: var(--bg);
+}
+
+.inpt input:focus {
+    background: transparent;
+}
+
+.imgContainer {
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+
+.imgContainer img {
+    object-fit: cover;
+}
+
+.crossline {
+    position: relative;
+    border-bottom: 1px solid var(--softBg);
+    margin: 30px 0;
+    transition: all .2s;
+}
+
+.crossline span {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -8px;
+    background: var(--bg);
+    transition: .2s all;
+    padding: 0 20px;
+}
+
+.socialLinks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    transition: background borderColor .2s;
+}
+
+.socialLink {
+    transition: all .2s;
+    display: flex;
+    gap: 20px;
+    border: 1px solid var(--softBg);
+    padding: 10px 0;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+}
+
+.socialLink:nth-child(3) .imgContainer {
+    margin-left: 22px;
+}
+
+.socialLink:hover {
+    background: var(--bg-lighter);
+}
+
+.darkIcon .imgContainer img {
+    filter: invert(1);
+}
+
+@media screen and (max-width:640px) {
+    .wrapper {
+        padding: 40px 20px;
+    }
+
+}
