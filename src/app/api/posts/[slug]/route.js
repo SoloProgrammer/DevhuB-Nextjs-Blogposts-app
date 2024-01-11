@@ -38,5 +38,4 @@ export const DELETE = TryCatch(async (req, { params }) => {
   const imgName = imgPathSplited[imgPathSplited.length - 1].split(".")[0];
   cloudinaryDeleteImg(imgName);
   return Response("Post deleted successfully!", 200, true);
-
 });

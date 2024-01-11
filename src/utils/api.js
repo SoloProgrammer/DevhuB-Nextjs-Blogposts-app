@@ -23,10 +23,12 @@ export const api = {
   getPopularPosts: () => {
     return `${server.URL}/api/posts/popular`;
   },
-  getSinglePost: (slug) => { // Http method - GET
+  getSinglePost: (slug) => {
+    // Http method - GET
     return `${server.URL}/api/posts/${slug}`;
   },
-  deletePost: (slug) => { // Http method - DELETE
+  deletePost: (slug) => {
+    // Http method - DELETE
     return `${server.URL}/api/posts/${slug}`;
   },
   savePost: (slug) => {
@@ -44,8 +46,8 @@ export const api = {
   updateComment: (query) => {
     return `${server.URL}/api/comments${query}`;
   },
-  getUser: () => {
-    return `${server.URL}/api/user`;
+  getUser: (query = "") => {
+    return `${server.URL}/api/user${query}`;
   },
   subscribeAuthor: (query) => {
     return `${server.URL}/api/user/subscribe${query}`;

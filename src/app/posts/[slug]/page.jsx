@@ -22,6 +22,9 @@ const getSinglePost = async (slug) => {
 export const getUserSlug = (user) => {
   return `${user.name.split(" ").join("_")}_${user.id}`;
 };
+export const extractRawUserIdFromSlug = (userSlugId) => {
+  return userSlugId.split("_").at(-1);
+};
 
 const SingleBlogPage = async ({ params }) => {
   const { slug } = params;

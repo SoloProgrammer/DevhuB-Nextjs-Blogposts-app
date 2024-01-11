@@ -10,7 +10,9 @@ import { ThemeStates } from "@/context/ThemeContext";
 const Loading = ({ category }) => {
   return (
     <div>
-      <h1 className={`${styles1.title} ${styles1.category}`}>
+      <h1
+        className={`${styles1.title} ${styles1.category} ${styles[category]}`}
+      >
         Blog/{category || "Loading..."}
       </h1>
       <PostsListLoadingSkeleton />
