@@ -22,6 +22,7 @@
     right: -10px;
     z-index: 1;
     opacity: 0;
+    visibility: hidden;
 }
 .shareModalCloseIcon{
     position: absolute;
@@ -30,13 +31,14 @@
     z-index: 1;
     background: var(--bg-light);
     border-radius: .1rem;
-    padding: 1px;
+    padding: 3px;
     font-size: 1.2rem;
 }
 .shareModal.show {
     transition-delay: .1s;
     top: -220px;
     opacity: 1;
+    visibility: visible;
 }
 
 .shareIcon span {
@@ -104,6 +106,9 @@
         top: initial;
         opacity: 1;
         bottom: 0;
+    }
+    .shareModalCloseIcon {
+        font-size: 1.34rem;
     }
 
 }

@@ -18,6 +18,8 @@ import ConfirmDeleteModal from "@/components/Modal/Modal";
 import CrfmDelAlertBox from "@/components/CrfmDelAlertBox/CrfmDelAlertBox";
 import useModal from "@/Hooks/useModal";
 import { showToast } from "@/utils/toast";
+import Link from "next/link";
+import { getUserSlug } from "@/app/posts/[slug]/page";
 
 export const getTrimmedValue = (value) => value.replaceAll(/\s+/g, " ").trim();
 
@@ -103,7 +105,10 @@ const SingleComment = ({ comment }) => {
     <>
       <div className={styles.container}>
         <div className={styles.seperator}>
-          <div className={styles.userInfo}>
+          <Link
+            href={`/dev/${getUserSlug(comment.user)}`}
+            className={styles.userInfo}
+          >
             <div className={styles.userAvatar}>
               <Image
                 src={comment?.user?.image}
@@ -118,7 +123,7 @@ const SingleComment = ({ comment }) => {
                 {getFormattedPostDate(comment?.createdAt, true)}
               </span>
             </div>
-          </div>
+          </Link>
           {user && comment.user.id === user?.id ? (
             <div className={styles.actions}>
               <DelEditActions

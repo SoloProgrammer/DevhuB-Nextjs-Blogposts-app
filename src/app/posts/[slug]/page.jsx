@@ -9,6 +9,7 @@ import SavePostIcon from "@/components/SavePostIcon/SavePostIcon";
 import { notFound } from "next/navigation";
 import ExtraActions from "@/components/ExtraActions/ExtraActions";
 import SinglePostLoadingSkeleton from "./loading";
+import Link from "next/link";
 
 const getSinglePost = async (slug) => {
   const res = await fetch(api.getSinglePost(slug), { cache: "no-store" });
@@ -16,6 +17,10 @@ const getSinglePost = async (slug) => {
     throw new Error("Something went wrong");
   }
   return res.json();
+};
+
+export const getUserSlug = (user) => {
+  return `${user.name.split(" ").join("_")}_${user.id}`;
 };
 
 const SingleBlogPage = async ({ params }) => {
@@ -29,7 +34,10 @@ const SingleBlogPage = async ({ params }) => {
         <div className={styles.infoContainer}>
           <h1 className={styles.title}>{post.title}</h1>
           <div className={styles.top}>
-            <div className={styles.user}>
+            <Link
+              href={`/dev/${getUserSlug(post.user)}`}
+              className={styles.user}
+            >
               <div className={styles.userImg}>
                 <Image
                   src={post?.user?.image}
@@ -44,7 +52,7 @@ const SingleBlogPage = async ({ params }) => {
                   {getFormattedPostDate(post.createdAt)}
                 </span>
               </div>
-            </div>
+            </Link>
             <SavePostIcon slug={slug} postId={post.id} />
           </div>
           <ExtraActions

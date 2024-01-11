@@ -28,10 +28,12 @@ const ShareIconsModal = ({
 }) => {
   const handleCopyToCliBoard = (e) => {
     navigator.clipboard.writeText(URL);
-    e.target.innerText = "Copied!";
+    e.target.innerText = "done_all";
     showToast("Post link copied to clipboard!");
+    e.target.disabled = true;
     setTimeout(() => {
-      e.target.innerText = "Copy";
+      e.target.disabled = false;
+      e.target.innerText = "content_copy";
     }, 3000);
   };
   return (
@@ -44,22 +46,22 @@ const ShareIconsModal = ({
           quote={quote}
           hashtag={"#devBlog"}
         >
-          <FacebookIcon size={32} round />
+          <FacebookIcon size={32}  />
         </FacebookShareButton>
         <LineShareButton url={URL} blankTarget={true} title={title}>
-          <LineIcon size={32} round />
+          <LineIcon size={32}  />
         </LineShareButton>
         <LinkedinShareButton url={URL} blankTarget={true}>
-          <LinkedinIcon size={32} round />
+          <LinkedinIcon size={32}  />
         </LinkedinShareButton>
         <RedditShareButton url={URL} blankTarget={true} title={title}>
-          <RedditIcon size={32} round />
+          <RedditIcon size={32}  />
         </RedditShareButton>
         <PinterestShareButton url={URL} blankTarget={true} media={media}>
-          <PinterestIcon size={32} round />
+          <PinterestIcon size={32}  />
         </PinterestShareButton>
         <TwitterShareButton url={URL} blankTarget={true} title={title}>
-          <TwitterIcon size={32} round />
+          <TwitterIcon size={32}  />
         </TwitterShareButton>
         <WhatsappShareButton
           url={URL}
@@ -67,7 +69,7 @@ const ShareIconsModal = ({
           title={title}
           separator=":: "
         >
-          <WhatsappIcon size={32} round />
+          <WhatsappIcon size={32}  />
         </WhatsappShareButton>
       </div>
       <div className={styles.seperator}>
@@ -75,7 +77,12 @@ const ShareIconsModal = ({
       </div>
       <div className={styles.input}>
         <input type="text" value={URL} readOnly />
-        <button onClick={handleCopyToCliBoard}>Copy</button>
+        <button
+          onClick={handleCopyToCliBoard}
+          className="material-symbols-outlined"
+        >
+          content_copy
+        </button>
       </div>
     </div>
   );

@@ -13,6 +13,8 @@ import ConfirmDeleteModal from "@/components/Modal/Modal";
 import CrfmDelAlertBox from "@/components/CrfmDelAlertBox/CrfmDelAlertBox";
 import useModal from "@/Hooks/useModal";
 import { showToast } from "@/utils/toast";
+import Link from "next/link";
+import { getUserSlug } from "@/app/posts/[slug]/page";
 
 const Replies = ({ commentId, replies }) => {
   return (
@@ -88,7 +90,10 @@ const SingleReply = ({ reply, commentId }) => {
     <>
       <div key={reply.id} className={styles.reply}>
         <div className={styles.seperator}>
-          <div className={styles.userInfo}>
+          <Link
+            href={`/dev/${getUserSlug(reply.user)}`}
+            className={styles.userInfo}
+          >
             <div className={styles.userAvatar}>
               <Image src={reply.user.image} fill alt={"Avatar"} />
             </div>
@@ -98,7 +103,7 @@ const SingleReply = ({ reply, commentId }) => {
                 {getFormattedPostDate(reply.createdAt, true)}
               </span>
             </div>
-          </div>
+          </Link>
           {user?.id === reply?.user?.id && (
             <div className={styles.actions}>
               <DelEditActions

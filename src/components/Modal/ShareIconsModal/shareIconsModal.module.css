@@ -1,7 +1,7 @@
 .icons {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
 }
 
 .container {
@@ -48,9 +48,39 @@
 
 .input button {
     border: none;
-    background: #3359fa;
-    color: white;
+    background: var(--bg-light);
+    color: var(--textColor);
     padding: 0 10px;
     cursor: pointer;
     border-radius: .1rem;
+    font-size: .9rem;
+    border-radius: .1rem;
+    transition: .2s background;
+}
+
+.input button:hover,
+.input button:disabled {
+    background: #3359fa;
+    color: white;
+}
+
+@media screen and (max-width:770px) {
+    .input input {
+        font-size: 1rem;
+        padding: 10px 5px;
+    }
+
+    .input button {
+        padding: 0 15px;
+    }
+
+    .input button:hover {
+        background: var(--bg-light);
+    }
+
+    .input button:disabled {
+        background: #3359fa;
+        color: white;
+    }
+
 }

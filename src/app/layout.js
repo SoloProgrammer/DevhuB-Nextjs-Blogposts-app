@@ -4,7 +4,7 @@ import "./globalicons.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { ThemeContextprovider } from "@/context/ThemeContext";
-import ThemeProvider from "@/providers/ThemeProvider";
+import MUIThemeProvider from "@/providers/ThemeProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import ReduxProvider from "@/providers/ReduxProvider";
 import AuthUser from "@/components/Auth/AuthUser";
@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         <ReduxProvider>
           <AuthProvider>
             <ThemeContextprovider>
-              <ThemeProvider>
+              <MUIThemeProvider>
                 <ToastProvider>
                   <div className="container">
                     <div className="wrapper">
@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
                     <AuthUser />
                   </div>
                 </ToastProvider>
-              </ThemeProvider>
+              </MUIThemeProvider>
             </ThemeContextprovider>
           </AuthProvider>
         </ReduxProvider>

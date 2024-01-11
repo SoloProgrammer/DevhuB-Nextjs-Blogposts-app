@@ -4,6 +4,7 @@ import React from "react";
 import styles from "./menu.module.css";
 import { api } from "@/utils/api";
 import { getFormattedPostDate } from "@/utils/date";
+import { getUserSlug } from "@/app/posts/[slug]/page";
 
 const getPosts = async (URL) => {
   try {
@@ -54,7 +55,12 @@ const MenuPosts = async ({ withImg }) => {
                 {getTrimmedString(post.title, 50)}
               </div>
               <div className={styles.detail}>
-                <span className={styles.user}>{post.user.name}</span>
+                <Link
+                  href={`/dev/${getUserSlug(post.user)}`}
+                  className={styles.user}
+                >
+                  {post.user.name}
+                </Link>
                 <span className={styles.date}>
                   &nbsp;-&nbsp;{getFormattedPostDate(post.createdAt)}
                 </span>
