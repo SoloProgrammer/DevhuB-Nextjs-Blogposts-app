@@ -74,13 +74,7 @@ const ShareIconsModal = ({
         <b>OR</b>
       </div>
       <div className={styles.input}>
-        <input
-          type="text"
-          value={
-            "http://localhost:3000/posts/top-30-javascript-interview-questions-and-answers-for-2024"
-          }
-          readOnly
-        />
+        <input type="text" value={URL} readOnly />
         <button onClick={handleCopyToCliBoard}>Copy</button>
       </div>
     </div>
