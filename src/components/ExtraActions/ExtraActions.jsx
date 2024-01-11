@@ -7,7 +7,7 @@ import styles from "./extraActions.module.css";
 import { FaRegComment } from "react-icons/fa";
 import { Link } from "react-scroll";
 import { useSelector } from "react-redux";
-import { api } from "@/utils/api";
+import { PRODUCTION_URL, api } from "@/utils/api";
 import Loader from "../Loader/Loader";
 import { useRouter } from "next/navigation";
 import { ThemeStates } from "@/context/ThemeContext";
@@ -158,7 +158,7 @@ const ExtraActions = ({
             classes={[styles.shareModalCloseIcon]}
           />
           <ShareIconsModal
-            URL={window.location.href}
+            URL={`${PRODUCTION_URL}/posts/${slug}`}
             title={postTitle}
             media={postImg}
           />

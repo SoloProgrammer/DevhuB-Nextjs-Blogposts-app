@@ -21,7 +21,7 @@ import styles from "./shareIconsModal.module.css";
 import { showToast } from "@/utils/toast";
 
 const ShareIconsModal = ({
-  URL = "https://dev-blog-a-nextjs-app.vercel.app/posts/top-30-javascript-interview-questions-and-answers-for-2024",
+  URL,
   title,
   media,
   quote = "Dev-blog, A NetxJs Blog post web platform/app for developers community!",
