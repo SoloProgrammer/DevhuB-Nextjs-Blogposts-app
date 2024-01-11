@@ -16,8 +16,16 @@ import CrfmDelAlertBox from "../CrfmDelAlertBox/CrfmDelAlertBox";
 import Modal from "../Modal/Modal";
 import useModal from "@/Hooks/useModal";
 import { showToast, toastStatus } from "@/utils/toast";
+import ShareIconsModal from "../Modal/ShareIconsModal/ShareIconsModal";
+import { XMarkIcon } from "@/GoogleIcons/Icons";
 
-const ExtraActions = ({ postAuthor, commentsCount, slug }) => {
+const ExtraActions = ({
+  postAuthor,
+  commentsCount,
+  slug,
+  postTitle,
+  postImg,
+}) => {
   const { user, loading: userLoading } = useSelector((state) => state.auth);
   const { tooltipTheme } = ThemeStates();
 
@@ -69,7 +77,7 @@ const ExtraActions = ({ postAuthor, commentsCount, slug }) => {
       const res = await fetch(baseUrl, options);
       const json = await res.json();
       router.push("/");
-      router.refresh()
+      router.refresh();
       showToast(json.message, toastStatus.SUCCESS);
     } catch (error) {
       showToast("Something went wrong!", toastStatus.ERROR);
@@ -78,6 +86,8 @@ const ExtraActions = ({ postAuthor, commentsCount, slug }) => {
       setShowDelModal(false);
     }
   };
+
+  const [showShareModal, , , hideShareModal, toggleModal] = useModal();
 
   return (
     <div className={styles.extraActionsContainer}>
@@ -130,7 +140,7 @@ const ExtraActions = ({ postAuthor, commentsCount, slug }) => {
       ) : (
         <Loader size="tooMini" />
       )}
-      <div className={styles.shareIcon}>
+      <div className={styles.shareIcon} onClick={toggleModal}>
         <span className="material-symbols-outlined">share</span>
         <span>
           <Link to="comments" smooth={true} duration={500}>
@@ -140,6 +150,19 @@ const ExtraActions = ({ postAuthor, commentsCount, slug }) => {
             </span>
           </Link>
         </span>
+        <div
+          className={`${styles.shareModal} ${showShareModal && styles.show}`}
+        >
+          <XMarkIcon
+            handleFunc={hideShareModal}
+            classes={[styles.shareModalCloseIcon]}
+          />
+          <ShareIconsModal
+            URL={window.location.href}
+            title={postTitle}
+            media={postImg}
+          />
+        </div>
       </div>
       <ReactTooltip
         hidden={loading}

@@ -1,0 +1,56 @@
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--bg);
+    box-shadow: var(--shadow-light);
+    padding: 20px;
+    border-radius: .3rem;
+    color: var(--textColor) !important;
+
+}
+
+.seperator {
+    position: relative;
+    border-bottom: 1px solid var(--softBg);
+    margin: 15px 0 20px;
+}
+
+.seperator b {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg);
+    padding: 0px 10px;
+}
+
+.input {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.input input {
+    flex: 2;
+    background: transparent;
+    border: 1px solid var(--softBg);
+    color: var(--TextColor);
+    padding: 6px 5px;
+}
+
+.input button {
+    border: none;
+    background: #3359fa;
+    color: white;
+    padding: 0 10px;
+    cursor: pointer;
+    border-radius: .1rem;
+}

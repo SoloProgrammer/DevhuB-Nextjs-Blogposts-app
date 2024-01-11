@@ -50,6 +50,8 @@ const SingleBlogPage = async ({ params }) => {
           <ExtraActions
             commentsCount={post?.commentsCount}
             slug={post.slug}
+            postTitle={post.title}
+            postImg={post.img}
             postAuthor={post.user}
           />
           <div className={styles.imgContainer}>

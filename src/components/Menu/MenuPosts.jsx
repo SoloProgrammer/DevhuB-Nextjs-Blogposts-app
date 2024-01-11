@@ -17,6 +17,14 @@ const getPosts = async (URL) => {
   }
 };
 
+export const getTrimmedString = (stringText, charCount) => {
+  let trimmedStr = stringText;
+  if (trimmedStr.length > charCount) {
+    trimmedStr = `${trimmedStr.substring(0, charCount)}...`;
+  }
+  return trimmedStr;
+};
+
 const MenuPosts = async ({ withImg }) => {
   const { popular_posts } = await getPosts(api.getPopularPosts());
   return (
@@ -42,11 +50,13 @@ const MenuPosts = async ({ withImg }) => {
               <div className={`${styles.category} ${styles[post.catSlug]}`}>
                 {post.catSlug}
               </div>
-              <div className={styles.title}>{post.title}</div>
+              <div className={styles.title}>
+                {getTrimmedString(post.title, 50)}
+              </div>
               <div className={styles.detail}>
-                <span className={styles.user}>{post.user.name} -</span>
+                <span className={styles.user}>{post.user.name}</span>
                 <span className={styles.date}>
-                  &nbsp;{getFormattedPostDate(post.createdAt)}
+                  &nbsp;-&nbsp;{getFormattedPostDate(post.createdAt)}
                 </span>
               </div>
             </div>

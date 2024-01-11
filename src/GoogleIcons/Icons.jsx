@@ -3,7 +3,10 @@ export const defaultFunc = () => {};
 function returnIconSpan(iconName, classes, handleFunc = defaultFunc) {
   return (
     <span
-      onClick={handleFunc}
+      onClick={(e) => {
+        e.stopPropagation();
+        handleFunc();
+      }}
       className={`material-symbols-outlined ${classes.join(" ")}`}
     >
       {iconName}
@@ -25,7 +28,7 @@ export const XMarkIcon = ({ classes = [], handleFunc }) =>
 
 export const SaveIcon = ({ classes = [], handleFunc }) =>
   returnIconSpan("done", classes, handleFunc);
-  
+
 export const ReplyIcon = ({ classes = [], handleFunc }) =>
   returnIconSpan("reply", classes, handleFunc);
 
@@ -34,6 +37,3 @@ export const EditSquareIcon = ({ classes = [], handleFunc }) =>
 
 export const DeleteIcon = ({ classes = [], handleFunc }) =>
   returnIconSpan("delete", classes, handleFunc);
-
-
-

@@ -13,7 +13,6 @@
     flex-direction: column;
     gap: 30px;
     margin-top: 1.8rem;
-
 }
 
 .menuPostsLoading {
@@ -72,6 +71,4 @@
     .bottom {
         width: 100%;
     }
-
-
 }

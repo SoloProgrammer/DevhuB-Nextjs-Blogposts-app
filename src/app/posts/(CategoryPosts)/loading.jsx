@@ -11,7 +11,7 @@ const Loading = ({ category }) => {
   return (
     <div>
       <h1 className={`${styles1.title} ${styles1.category}`}>
-        Blog/Loading....
+        Blog/{category || "Loading..."}
       </h1>
       <PostsListLoadingSkeleton />
     </div>
@@ -39,7 +39,7 @@ export const PostsListLoadingSkeleton = () => {
                   <div className={styles.postImg}>
                     <Skeleton
                       width={"100%"}
-                      height={200}
+                      height={190}
                       borderRadius={".1rem"}
                     />
                   </div>
