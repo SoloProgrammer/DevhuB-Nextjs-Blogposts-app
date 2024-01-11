@@ -64,7 +64,7 @@ const ExtraActions = ({
     }
   };
 
-  const [showDelModal, setShowDelModal, hideModal] = useModal();
+  const [showDelModal, , openDelModal, hideModal] = useModal();
 
   let [deleteLoading, setDeleteLoading] = useState(false);
 
@@ -133,7 +133,7 @@ const ExtraActions = ({
           </>
         ) : (
           <DelEditActions
-            handleDelete={() => setShowDelModal(true)}
+            handleDelete={openDelModal}
             classNames={[styles.DelEditActions]}
           />
         )

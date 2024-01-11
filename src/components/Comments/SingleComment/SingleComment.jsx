@@ -17,6 +17,7 @@ import SaveCancelEditor from "@/components/SaveCancelEditor/SaveCancelEditor";
 import ConfirmDeleteModal from "@/components/Modal/Modal";
 import CrfmDelAlertBox from "@/components/CrfmDelAlertBox/CrfmDelAlertBox";
 import useModal from "@/Hooks/useModal";
+import { showToast } from "@/utils/toast";
 
 export const getTrimmedValue = (value) => value.replaceAll(/\s+/g, " ").trim();
 
@@ -40,7 +41,8 @@ const SingleComment = ({ comment }) => {
     let updatedComments = comments.filter((c) => c.id !== comment.id);
     dispatch(updateComments(updatedComments));
     setLoading(false);
-    router.refresh()
+    showToast("Comment deleted!");
+    router.refresh();
   };
 
   const handleEdit = () => {
@@ -76,7 +78,7 @@ const SingleComment = ({ comment }) => {
 
   const handleReply = () => {
     if (!user) return router.push("/login");
-    setReply(!reply);
+    setReply(true);
     setShowReplies(false);
   };
 
@@ -95,8 +97,7 @@ const SingleComment = ({ comment }) => {
   function onChangeHandler(e) {
     setValue(e.target.value);
   }
-  const [showDelModal, setShowDelModal, handleCloseConfirmDelModal] =
-    useModal();
+  const [showDelModal, , openDelModal, handleCloseConfirmDelModal] = useModal();
 
   return (
     <>
@@ -122,13 +123,13 @@ const SingleComment = ({ comment }) => {
             <div className={styles.actions}>
               <DelEditActions
                 loading={loading}
-                handleDelete={() => setShowDelModal(true)}
+                handleDelete={openDelModal}
                 handleEdit={handleEdit}
               />
             </div>
           ) : (
-            <div onClick={handleReply} className={styles.actions}>
-              <ReplyIcon />
+            <div className={styles.actions}>
+              <ReplyIcon handleFunc={handleReply} />
             </div>
           )}
         </div>

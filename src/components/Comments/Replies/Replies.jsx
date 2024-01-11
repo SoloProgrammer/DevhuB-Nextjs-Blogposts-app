@@ -12,6 +12,7 @@ import { getTrimmedValue } from "../SingleComment/SingleComment";
 import ConfirmDeleteModal from "@/components/Modal/Modal";
 import CrfmDelAlertBox from "@/components/CrfmDelAlertBox/CrfmDelAlertBox";
 import useModal from "@/Hooks/useModal";
+import { showToast } from "@/utils/toast";
 
 const Replies = ({ commentId, replies }) => {
   return (
@@ -45,6 +46,7 @@ const SingleReply = ({ reply, commentId }) => {
     // deleting reply from redux store
 
     dispatch(deleteReply({ commentId, replyId: reply.id }));
+    showToast("Reply deleted!");
     setLoading(false);
   };
 
@@ -80,8 +82,7 @@ const SingleReply = ({ reply, commentId }) => {
 
   const handleCancel = () => setEdit(false);
 
-  const [showDelModal, setShowDelModal, handleCloseConfirmDelModal] =
-    useModal();
+  const [showDelModal, , openDelModal, handleCloseConfirmDelModal] = useModal();
 
   return (
     <>
@@ -102,7 +103,7 @@ const SingleReply = ({ reply, commentId }) => {
             <div className={styles.actions}>
               <DelEditActions
                 loading={loading}
-                handleDelete={setShowDelModal}
+                handleDelete={openDelModal}
                 handleEdit={handleEdit}
               />
             </div>
