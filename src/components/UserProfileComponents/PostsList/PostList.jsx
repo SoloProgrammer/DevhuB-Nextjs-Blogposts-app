@@ -11,9 +11,13 @@ import { Pagination, Typography } from "@mui/material";
 const PostList = ({ profileUser, saved }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [postsCount, setPostsCount] = useState(0);
+  const POSTS_PER_PAGE = 4;
+  let pages = Math.ceil(postsCount / POSTS_PER_PAGE);
+  const [currPage, setCurrPage] = useState(1);
   const getPostsOfUser = async () => {
     try {
-      const query = `?uId=${profileUser.id}&page=1&${
+      const query = `?uId=${profileUser.id}&page=${currPage}&${
         saved ? `saved=true` : ""
       }`;
       setLoading(true);
@@ -22,6 +26,7 @@ const PostList = ({ profileUser, saved }) => {
         throw new Error("Internal server error");
       }
       const json = await res.json();
+      setPostsCount(json.postsCount);
       setPosts(json.posts);
     } catch (error) {
       showToast(error.message, "error");
@@ -32,9 +37,9 @@ const PostList = ({ profileUser, saved }) => {
   useEffect(() => {
     profileUser?.id &&
       setTimeout(() => {
-        getPostsOfUser();
+        getPostsOfUser(currPage);
       }, 200);
-  }, [profileUser.id]);
+  }, [profileUser.id, currPage]);
   return (
     <div className={styles.wrapper}>
       <div className={styles.postsContainer}>
@@ -46,7 +51,14 @@ const PostList = ({ profileUser, saved }) => {
             );
           })}
       </div>
-      {posts?.length > 0 && <Pagination count={10} color="primary" />}
+      {posts?.length > 0 && !loading && (
+        <Pagination
+          page={currPage}
+          onChange={(e, page) => setCurrPage(page)}
+          count={pages}
+          color="primary"
+        />
+      )}
       {posts.length < 1 && !loading && (
         <Typography variant="h5">
           {profileUser.name} Doesn't {saved ? "saved" : "post"} any posts yet
