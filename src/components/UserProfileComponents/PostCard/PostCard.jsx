@@ -95,7 +95,16 @@ const PortraitCard = ({ post, theme, profileUser }) => {
     >
       <CardActionArea>
         <CardHeader
-          avatar={<Avatar src={post.user.image} aria-label="recipe" />}
+          avatar={
+            <Avatar
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/dev/${getUserSlug(post.user)}`);
+              }}
+              src={post.user.image}
+              aria-label="recipe"
+            />
+          }
           action={
             <IconButton
               className={styles.IconButton}
@@ -109,8 +118,8 @@ const PortraitCard = ({ post, theme, profileUser }) => {
               />
             </IconButton>
           }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
+          title={profileUser.name}
+          subheader={getFormattedPostDate(post.createdAt)}
         />
         <CardMedia
           component="img"
