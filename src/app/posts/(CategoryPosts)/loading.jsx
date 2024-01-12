@@ -2,7 +2,6 @@
 
 import React, { useEffect } from "react";
 import styles1 from "./categoryPage.module.css"; // css for getting diffrent color according to categories
-import styles from "./categoryPageLoading.module.css";
 import { MenuPostLoading } from "../[slug]/loading";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { ThemeStates } from "@/context/ThemeContext";
@@ -11,7 +10,7 @@ const Loading = ({ category }) => {
   return (
     <div>
       <h1
-        className={`${styles1.title} ${styles1.category} ${styles[category]}`}
+        className={`${styles1.title} ${styles1.category} ${styles1[category]}`}
       >
         Blog/{category || "Loading..."}
       </h1>
@@ -20,6 +19,7 @@ const Loading = ({ category }) => {
   );
 };
 
+import styles from "./categoryPageLoading.module.css";
 export const PostsListLoadingSkeleton = () => {
   useEffect(() => {
     window?.scrollTo(0, 0);

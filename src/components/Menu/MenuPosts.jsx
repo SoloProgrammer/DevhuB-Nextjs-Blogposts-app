@@ -5,6 +5,7 @@ import styles from "./menu.module.css";
 import { api } from "@/utils/api";
 import { getFormattedPostDate } from "@/utils/date";
 import { getUserSlug } from "@/app/posts/[slug]/page";
+import { getTrimmedString } from "@/helpers/string";
 
 const getPosts = async (URL) => {
   try {
@@ -16,14 +17,6 @@ const getPosts = async (URL) => {
   } catch (error) {
     throw new Error("Some error occured", error.message);
   }
-};
-
-export const getTrimmedString = (stringText, charCount) => {
-  let trimmedStr = stringText;
-  if (trimmedStr.length > charCount) {
-    trimmedStr = `${trimmedStr.substring(0, charCount)}...`;
-  }
-  return trimmedStr;
 };
 
 const MenuPosts = async ({ withImg }) => {

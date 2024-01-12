@@ -9,8 +9,17 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Loader from "../Loader/Loader";
 
-const SavePostIcon = ({ slug, postId }) => {
-  const { user, loading } = useSelector((state) => state.auth);
+const SavePostIcon = ({ slug, postId, profileUser }) => {
+  const { user: loggedInUser, loading } = useSelector((state) => state.auth);
+
+  // If profile user is there then we check that the proffilUser and LoggedIn user is same if they are same then the uer value will be the loggedIn user because any update in the user data will only be reflected to the loggedinuser value because its value is coming from redux 
+  // if the profile user is there and loggedInuser doesn't match with the profile user we assign profileUser value to const [user] variable 
+  // if profileUser is not there then the value of the user variable is loggedIn user itself and that valids for each n every page other than profile page 
+  
+  const user =
+    (profileUser && profileUser.id === loggedInUser.id
+      ? loggedInUser
+      : profileUser) || loggedInUser;
 
   const [isSaving, setIsSaving] = useState(false);
   const dispatch = useDispatch();
@@ -51,14 +60,21 @@ const SavePostIcon = ({ slug, postId }) => {
         justifyContent: "center",
         alignItems: "center",
         gap: "2px",
-        cursor: "pointer",
+        cursor:
+          !profileUser || profileUser?.id === loggedInUser?.id
+            ? "pointer"
+            : "not-allowed",
       }}
     >
       {isSaving ? (
         <Loader size="mini" />
       ) : (
         <span
-          onClick={hanldeSavePost}
+          onClick={
+            !profileUser || profileUser?.id === loggedInUser?.id
+              ? hanldeSavePost
+              : () => {}
+          }
           className={`${Styles.saveIcon} material-symbols-outlined ${
             user?.savedPosts.includes(postId) ? "fill" : ""
           }`}

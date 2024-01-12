@@ -5,11 +5,8 @@ import Commonbtn from "../Commonbtn/Commonbtn";
 import Link from "next/link";
 import { getFormattedPostDate } from "@/utils/date";
 import SavePostIcon from "../SavePostIcon/SavePostIcon";
+import { getTrimmedString } from "@/helpers/string";
 
-export function getTrimmedPostDesc(desc) {
-  const DESC_LEN = desc.length;
-  return `${desc.slice(0, 210)} ${DESC_LEN > 210 ? " ..." : ""}`;
-}
 const BlogCard = ({ post, showBtn = true }) => {
   const icon = (
     <span style={{ fontSize: ".9rem" }} className="material-symbols-outlined">
@@ -39,10 +36,10 @@ const BlogCard = ({ post, showBtn = true }) => {
           style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
         >
           <h3 style={{ marginBottom: "1rem" }} className={styles.postTitle}>
-            {post.title}
+            {getTrimmedString(post.title, 60)}
           </h3>
-          <p className={styles.postDesc} >
-            {getTrimmedPostDesc(post.desc).replace(/<[^>]*>/g, "")}
+          <p className={styles.postDesc}>
+            {getTrimmedString(post.desc, 150).replace(/<[^>]*>/g, "")}
           </p>
           {showBtn && (
             <Link href={`/posts/${post.slug}`}>

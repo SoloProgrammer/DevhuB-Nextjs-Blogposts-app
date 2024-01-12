@@ -1,7 +1,7 @@
 import Loader from '@/components/Loader/Loader'
 import React from 'react'
 
-const UserProfileLoading = () => {
+const UserProfileLoadingSkeleton = () => {
   return (
     <div>
       <Loader/>
@@ -9,4 +9,4 @@ const UserProfileLoading = () => {
   )
 }
 
-export default UserProfileLoading
+export default UserProfileLoadingSkeleton

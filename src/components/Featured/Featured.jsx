@@ -4,8 +4,8 @@ import Image from "next/image";
 import Commonbtn from "../Commonbtn/Commonbtn";
 import axios from "axios";
 import { api } from "@/utils/api";
-import { getTrimmedPostDesc } from "../BlogCard/BlogCard";
 import Link from "next/link";
+import { getTrimmedString } from "@/helpers/string";
 
 const getData = async () => {
   const response = await axios.get(api.getFeaturedPost());
@@ -47,7 +47,7 @@ const Featured = async () => {
               : post?.title}
           </h1>
           <p className={styles.postDesc}>
-            {getTrimmedPostDesc(post.desc).replace(/<[^>]*>/g, "")}
+            {getTrimmedString(post.desc, 210).replace(/<[^>]*>/g, "")}
           </p>
           <Link href={`/posts/${post.slug}`}>
             <Commonbtn text={"Read more"} />

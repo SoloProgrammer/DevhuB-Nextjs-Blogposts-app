@@ -44,6 +44,8 @@
     border: 1px solid var(--softBg);
     color: var(--TextColor);
     padding: 6px 5px;
+    border: 1px solid var(--textColor);
+    border-radius: .1rem;
 }
 
 .input button {

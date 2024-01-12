@@ -1,0 +1,101 @@
+.container {
+    display: flex;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.left {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+    top: 15%;
+    height: fit-content;
+}
+
+.left .details {
+    margin-block: 30px;
+}
+
+.userEmail {
+    color: var(--softTextColor);
+    font-size: .9rem !important;
+    letter-spacing: .003rem !important;
+}
+
+.audienceStats {
+    margin-block: 5px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+}
+
+.audienceStats button {
+    cursor: pointer;
+    color: var(--main-color-light) !important;
+    font-weight: bold !important;
+    font-size: .8rem !important;
+    text-transform: none !important;
+}
+
+.subtitle2 {
+    font-size: .7rem !important;
+    margin-top: 20px !important;
+    color: var(--softTextColor);
+}
+
+.subscribers {
+    margin-block: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: left;
+}
+
+.subscribers button {
+    font-weight: bold !important;
+    color: rgb(233, 20, 20);
+}
+
+.subscribers button span {
+    font-size: 1.3rem !important;
+    margin-left: 10px;
+}
+
+
+.right {
+    flex: 7;
+    border: 1px solid var(--lightTextColor);
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: -50px;
+}
+
+.left .userImg {
+    width: 180px;
+    height: 180px;
+    position: relative;
+}
+
+.userImg img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+@media screen and (max-width:770px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left {
+        position: static;
+    }
+
+    .right {
+        margin-top: 0;
+    }
+
+}
