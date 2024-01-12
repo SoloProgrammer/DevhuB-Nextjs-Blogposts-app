@@ -26,7 +26,7 @@ export const GET = TryCatch(async (req) => {
       });
   }
 
-  const POSTS_PER_PAGE = 5;
+  const POSTS_PER_PAGE = 4;
 
   // Query to fetch post based on different conditions as follows:
   // 1. if ctegory is send with the params we fetch all the posts of that category and if uId + category is passed in the param then we fetch all the posts od the user of that uId with the category!

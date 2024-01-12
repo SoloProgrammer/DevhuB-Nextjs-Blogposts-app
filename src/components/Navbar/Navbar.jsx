@@ -7,11 +7,14 @@ import Link from "next/link";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import AuthLinks from "../AuthLinks/AuthLinks";
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { getUserSlug } from "@/app/posts/[slug]/page";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [hide, setHide] = useState(true);
   const { data, status } = useSession();
+  const { user } = useSelector((state) => state.auth);
   function toggleSideBar() {
     setHide((prev) => !prev);
   }
@@ -22,6 +25,11 @@ const Navbar = () => {
       if (!hide) setHide(true);
     }
   }, [path]);
+
+  const router = useRouter();
+  const handleAvatarClick = (e) => {
+    router.push(`/dev/${getUserSlug(user)}`);
+  };
 
   return (
     <div className={styles.container}>
@@ -55,14 +63,16 @@ const Navbar = () => {
         </div>
         {status === "authenticated" && (
           <Image
+            onClick={handleAvatarClick}
             className={styles.userIcon}
             style={{
+              cursor: "pointer",
               display: status === "notauthenticated" ? "none" : "block",
             }}
             src={data?.user?.image}
             width={35}
             height={35}
-            alt="default_user"
+            alt="user_avatar"
           />
         )}
       </div>
