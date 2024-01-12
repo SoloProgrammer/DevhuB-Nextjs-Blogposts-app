@@ -2,7 +2,7 @@
 
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import styles from "./extraActions.module.css";
 import { FaRegComment } from "react-icons/fa";
 import { Link } from "react-scroll";
@@ -18,6 +18,7 @@ import useModal from "@/Hooks/useModal";
 import { showToast, toastStatus } from "@/utils/toast";
 import ShareIconsModal from "../Modal/ShareIconsModal/ShareIconsModal";
 import { XMarkIcon } from "@/GoogleIcons/Icons";
+import SubUnSubBtn from "../SubUnSubBtn/SubUnSubBtn";
 
 const ExtraActions = ({
   postAuthor,
@@ -28,41 +29,7 @@ const ExtraActions = ({
 }) => {
   const { user, loading: userLoading } = useSelector((state) => state.auth);
   const { tooltipTheme } = ThemeStates();
-
-  const postAuthorCopy = useRef(structuredClone(postAuthor));
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-
-  const isSubscribed = () =>
-    postAuthorCopy?.current?.subscribers.includes(user?.email);
-
-  const handleSubscribe = async () => {
-    if (!user) {
-      return router.push("/login");
-    }
-
-    const query = `?subId=${user?.id}&authorId=${postAuthor.id}`;
-    try {
-      setLoading(true);
-
-      await fetch(api.subscribeAuthor(query), {
-        method: "PUT",
-      });
-
-      if (isSubscribed()) {
-        postAuthorCopy.current.subscribers =
-          postAuthorCopy.current.subscribers.filter(
-            (sub) => sub !== user?.email
-          );
-      } else postAuthorCopy.current.subscribers.push(user?.email);
-
-      router.refresh();
-    } catch (error) {
-      console.log("Error", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const [showDelModal, , openDelModal, hideModal] = useModal();
 
@@ -93,44 +60,10 @@ const ExtraActions = ({
     <div className={styles.extraActionsContainer}>
       {!userLoading ? (
         postAuthor.id !== user?.id ? (
-          <>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: ".5rem",
-              }}
-            >
-              <button
-                onClick={handleSubscribe}
-                className={`${styles.subBtn} ${
-                  isSubscribed() ? styles.unsub : ""
-                }`}
-                data-tooltip-id="subscribe-btn"
-                disabled={loading}
-              >
-                {loading ? (
-                  <Loader size="tooMini" />
-                ) : isSubscribed() ? (
-                  `Unsubscribe -`
-                ) : (
-                  `Subscribe +`
-                )}
-              </button>
-              <span
-                data-tooltip-id="help-subscribe-icon"
-                style={{
-                  fontSize: "1rem",
-                  opacity: ".7",
-                  cursor: "default",
-                  userSelect: "none",
-                }}
-                className="material-symbols-outlined"
-              >
-                help
-              </span>
-            </div>
-          </>
+          <SubUnSubBtn
+            author={postAuthor}
+            subscriber={user}
+          />
         ) : (
           <DelEditActions
             handleDelete={openDelModal}
@@ -164,38 +97,6 @@ const ExtraActions = ({
           />
         </div>
       </div>
-      <ReactTooltip
-        hidden={loading}
-        opacity={tooltipTheme.opacity}
-        className="react-tooltip"
-        style={{
-          fontSize: ".7rem",
-          borderRadius: "2rem",
-          background: tooltipTheme.color,
-        }}
-        arrowColor={`${tooltipTheme.color}`}
-        id="subscribe-btn"
-        content={`${isSubscribed() ? `Unsubscribe` : `Subscribe`}  ${
-          isSubscribed() ? `from` : `to`
-        } ${postAuthor.name} newsletter!`}
-      />
-      <ReactTooltip
-        opacity={tooltipTheme.opacity}
-        id="help-subscribe-icon"
-        style={{
-          fontSize: ".7rem",
-          zIndex: "1",
-          background: tooltipTheme.color,
-        }}
-        arrowColor={`${tooltipTheme.color}`}
-        place="right"
-        content={
-          <p>
-            Receive email notifications from {postAuthor.name} <br />
-            whenever uploads new post!
-          </p>
-        }
-      />
       {showDelModal && (
         <Modal handleHide={hideModal} isCloseable={!deleteLoading}>
           <CrfmDelAlertBox

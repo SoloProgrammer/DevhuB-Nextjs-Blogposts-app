@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Button, Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import UserProfileLoadingSkeleton from "./loading";
+import UserActionComponent from "@/components/UserProfileComponents/UserActionComponent/UserActionComponent";
 
 export const USER_NOT_FOUND = "User not found";
 export const INTERNAL_SERVER_ERROR = "Internal server error";
@@ -43,6 +44,7 @@ const UserProfilePage = async ({ params }) => {
                 {user.email}
               </Typography>
             </div>
+            {user?.id && <UserActionComponent profileUser={user}/>}
             <Divider variant="fullWidth" />
             <div className={styles.audienceStats}>
               <Button size="small" variant="text">
