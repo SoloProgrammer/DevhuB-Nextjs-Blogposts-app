@@ -1,0 +1,25 @@
+.userActions {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.followBtn {
+    font-weight: bold !important;
+    font-size: .75rem !important;
+    cursor: pointer !important;
+    text-transform: none !important;
+    border-radius: 2rem !important;
+    padding-block: 0px !important;
+    background: rgba(144, 202, 249, 0.08) !important;
+}
+
+@media screen and (max-width:660px) {
+    .followBtn {
+        font-size: .8rem !important;
+        padding-block: 2px !important;
+    }
+}

@@ -56,34 +56,6 @@
     font-family: monospace;
 }
 
-.subBtn {
-    padding: 5px 20px;
-    border-radius: 1rem;
-    font-weight: 500;
-    font-size: .8rem;
-    border: none;
-    user-select: none;
-    min-width: 110px;
-    color: white;
-    background: rgb(6, 160, 6);
-    cursor: pointer;
-    transition: background .2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-
-}
-
-.subBtn.unsub {
-    background: rgb(255, 32, 32);
-}
-
-.subBtn:disabled {
-    background: var(--bg-light);
-    cursor: not-allowed;
-}
-
 .DelEditActions {
     gap: 10px !important;
 }

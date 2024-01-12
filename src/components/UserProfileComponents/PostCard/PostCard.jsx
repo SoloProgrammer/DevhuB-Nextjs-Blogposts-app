@@ -14,6 +14,8 @@ import styles from "./postCard.module.css";
 import { ThemeStates } from "@/context/ThemeContext";
 import { getTrimmedString } from "@/helpers/string";
 import { useRouter } from "next/navigation";
+import { getFormattedPostDate } from "@/utils/date";
+import { getUserSlug } from "@/app/posts/[slug]/page";
 
 export default function PostCard({ post, profileUser }) {
   const { theme } = ThemeStates();
@@ -38,7 +40,16 @@ const LandscapeCard = ({ post, theme, profileUser }) => {
       <CardActionArea sx={{ flexGrow: 1 }}>
         <CardHeader
           sx={{ paddingTop: "2px" }}
-          avatar={<Avatar src={post.user.image} aria-label="recipe" />}
+          avatar={
+            <Avatar
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/dev/${getUserSlug(post.user)}`);
+              }}
+              src={post.user.image}
+              aria-label="recipe"
+            />
+          }
           action={
             <IconButton
               className={styles.IconButton}
@@ -52,8 +63,8 @@ const LandscapeCard = ({ post, theme, profileUser }) => {
               />
             </IconButton>
           }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
+          title={profileUser.name}
+          subheader={getFormattedPostDate(post.createdAt)}
         />
         <CardContent sx={{ paddingBottom: "2px" }}>
           <Typography variant="body2" color="text.secondary">

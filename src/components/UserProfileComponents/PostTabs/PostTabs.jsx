@@ -19,7 +19,11 @@ export default function PostTabs({ profileUser }) {
     <Box sx={{ width: "100%", typography: "body1" }}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
+          <TabList
+            variant="scrollable"
+            onChange={handleChange}
+            aria-label="lab API tabs example"
+          >
             <Tab label="All Posts" value="1" />
             <Tab label="Saved Posts" value="2" />
             <Tab label="Activities" value="3" />

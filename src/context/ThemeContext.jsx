@@ -28,7 +28,7 @@ export const ThemeContextprovider = ({ children }) => {
   };
 
   const tooltipTheme = {
-    color: theme === LIGHT ? "#222" : "#ffffff57",
+    color: theme === LIGHT ? "#222" : "#030303f7",
     opacity: theme === LIGHT ? ".7" : ".8",
   };
 
