@@ -15,5 +15,5 @@ export const getFormattedTime = (date) => {
 export const getFormattedPostDate = (date, requiresTime = false) => {
     date = new Date(date)
     let time = getFormattedTime(date)
-    return `${date.getDate()} ${MONTHS[date.getMonth()]} ${date.getFullYear()} ${requiresTime ? `At ${time}` : ""}`
+    return `${MONTHS[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${requiresTime ? `At ${time}` : ""}`
 }
