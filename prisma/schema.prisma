@@ -46,6 +46,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   subscribers   String[]
+  followers     String[]
+  following     String[]
   savedPosts    String[]
   Post          Post[]
   Comment       Comment[]
