@@ -36,6 +36,7 @@ export const PUT = TryCatch(async (req) => {
         },
       },
     });
+
     await prisma.User.update({
       where: { id: followerId },
       data: {
