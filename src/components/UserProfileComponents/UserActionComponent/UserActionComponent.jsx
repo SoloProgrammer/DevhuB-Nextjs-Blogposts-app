@@ -1,30 +1,112 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import styles from "./userActionComponent.module.css";
 import SubUnSubBtn from "@/components/UserProfileComponents/SubUnSubBtn/SubUnSubBtn";
 import { useSelector } from "react-redux";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { ThemeStates } from "@/context/ThemeContext";
 import FollowUserBtn from "../FollowUserBtn/FollowUserBtn";
+import { Backdrop, Button, Divider, Modal, Typography } from "@mui/material";
+import useModal from "@/Hooks/useModal";
+import AudienceStatsDetail from "../AudienceStatsDetail/AudienceStatsDetail";
+
+export const audiences = Object.freeze({
+  FOLLOWERS: "followers",
+  FOLLOWING: "following",
+  SUBSCRIBERS: "subscribers",
+});
 
 const UserActionComponent = ({ profileUser }) => {
   const { user, loading } = useSelector((state) => state.auth);
-  if (profileUser?.id === user?.id) return <></>;
+
+  const [isModalOpen, _, openModal, hideModal] = useModal();
+
+  const [audienceType, setAudienceType] = useState(audiences.FOLLOWERS);
 
   return (
-    <div className={styles.userActions}>
-      {loading ? (
-        <Loading />
-      ) : (
-        <>
-          <FollowUserBtn author={profileUser} follower={user} />
-          <SubUnSubBtn
-            author={profileUser}
-            subscriber={user}
-            tooltipPlacement={"bottom"}
-          />
-        </>
+    <div>
+      {/* Show follow and subscribe button to the user who visits others profile page hide when visits his own */}
+      {profileUser?.id !== user?.id && (
+        <div className={styles.userActions}>
+          {loading ? (
+            <Loading />
+          ) : (
+            <>
+              <FollowUserBtn author={profileUser} follower={user} />
+              <SubUnSubBtn
+                author={profileUser}
+                subscriber={user}
+                tooltipPlacement={"bottom"}
+              />
+            </>
+          )}
+        </div>
+      )}
+      <Divider variant="fullWidth" />
+      <div className={styles.audienceStats}>
+        <Button
+          onClick={() => {
+            setAudienceType(audiences.FOLLOWERS);
+            openModal();
+          }}
+          size="small"
+          variant="text"
+        >
+          <span>
+            Followers&nbsp;<sup>{profileUser.followers.length}</sup>
+          </span>
+        </Button>
+        <Button
+          onClick={() => {
+            setAudienceType(audiences.FOLLOWING);
+            openModal();
+          }}
+          size="small"
+          variant="text"
+        >
+          <span>
+            Following&nbsp;<sup>{profileUser.following.length}</sup>
+          </span>
+        </Button>
+      </div>
+      <Divider variant="fullWidth" />
+      <Typography className={styles.subtitle2} variant="subtitle2">
+        <b>Subscribers</b>: Users that will receive Email Notifications whenever
+        you uploads new post!
+      </Typography>
+      <div className={styles.subscribers}>
+        <Button
+          onClick={() => {
+            setAudienceType(audiences.SUBSCRIBERS);
+            openModal();
+          }}
+          size="small"
+          variant="text"
+        >
+          <p className={styles.count}>{profileUser.subscribers.length}</p>
+          &nbsp;<p>Subscribers</p>
+          <span className="material-symbols-outlined">mark_email_read</span>
+        </Button>
+      </div>
+
+      {/* Modal audice stats detail */}
+      {isModalOpen && (
+        <Modal
+          closeAfterTransition
+          open={isModalOpen}
+          onClose={hideModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <AudienceStatsDetail audiencetype={audienceType} />
+        </Modal>
       )}
     </div>
   );
