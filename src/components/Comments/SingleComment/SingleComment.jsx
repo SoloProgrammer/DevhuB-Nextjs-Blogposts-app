@@ -105,25 +105,25 @@ const SingleComment = ({ comment }) => {
     <>
       <div className={styles.container}>
         <div className={styles.seperator}>
-          <Link
-            href={`/dev/${getUserSlug(comment.user)}`}
-            className={styles.userInfo}
-          >
-            <div className={styles.userAvatar}>
+          <div className={styles.userInfo}>
+            <Link
+              href={`/dev/${getUserSlug(comment.user)}`}
+              className={styles.userAvatar}
+            >
               <Image
                 src={comment?.user?.image}
                 priority={false}
                 fill
                 alt="avatar"
               />
-            </div>
+            </Link>
             <div className={styles.userText}>
               <span className={styles.userName}>{comment?.user?.name}</span>
               <span className={styles.date}>
                 {getFormattedPostDate(comment?.createdAt, true)}
               </span>
             </div>
-          </Link>
+          </div>
           {user && comment.user.id === user?.id ? (
             <div className={styles.actions}>
               <DelEditActions

@@ -90,20 +90,20 @@ const SingleReply = ({ reply, commentId }) => {
     <>
       <div key={reply.id} className={styles.reply}>
         <div className={styles.seperator}>
-          <Link
-            href={`/dev/${getUserSlug(reply.user)}`}
-            className={styles.userInfo}
-          >
-            <div className={styles.userAvatar}>
+          <div className={styles.userInfo}>
+            <Link
+              href={`/dev/${getUserSlug(reply.user)}`}
+              className={styles.userAvatar}
+            >
               <Image src={reply.user.image} fill alt={"Avatar"} />
-            </div>
+            </Link>
             <div className={styles.userName}>
               <span className={styles.uName}>{reply.user.name}</span>
               <span className={styles.replyDate}>
                 {getFormattedPostDate(reply.createdAt, true)}
               </span>
             </div>
-          </Link>
+          </div>
           {user?.id === reply?.user?.id && (
             <div className={styles.actions}>
               <DelEditActions

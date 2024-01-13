@@ -38,18 +38,17 @@ const SingleBlogPage = async ({ params }) => {
         <div className={styles.infoContainer}>
           <h1 className={styles.title}>{post.title}</h1>
           <div className={styles.top}>
-            <Link
-              href={`/dev/${getUserSlug(post.user)}`}
-              className={styles.user}
-            >
-              <div className={styles.userImg}>
-                <Image
-                  src={post?.user?.image}
-                  priority={false}
-                  fill
-                  alt="post_Img"
-                />
-              </div>
+            <div className={styles.user}>
+              <Link href={`/dev/${getUserSlug(post.user)}`}>
+                <div className={styles.userImg}>
+                  <Image
+                    src={post?.user?.image}
+                    priority={false}
+                    fill
+                    alt="post_Img"
+                  />
+                </div>
+              </Link>
               <div className={styles.userText}>
                 <div>
                   <span className={styles.userName}>{post?.user?.name}</span>
@@ -61,7 +60,7 @@ const SingleBlogPage = async ({ params }) => {
                   {getFormattedPostDate(post.createdAt)}
                 </span>
               </div>
-            </Link>
+            </div>
             <SavePostIcon slug={slug} postId={post.id} />
           </div>
           <ExtraActions
