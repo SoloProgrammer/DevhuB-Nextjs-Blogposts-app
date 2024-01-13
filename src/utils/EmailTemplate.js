@@ -1,3 +1,5 @@
+import { getUserSlug } from "@/app/posts/[slug]/page";
+
 export const getEmailTemplate = (post) => {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -225,19 +227,24 @@ export const getEmailTemplate = (post) => {
                         </tr>
                         <tr style="display: inline-block; padding: 0 5px 0 10px">
                           <td>
-                            <a target="_blank" href="#">
+                            <a target="_blank" href='https://dev-blog-a-nextjs-app.vercel.app/dev/${getUserSlug(
+                              post.user
+                            )}'>
                               <img
                                 style="border-radius: 50%"
                                 width="25"
                                 src=${post.user.image}
-                                alt=""
+                                alt="user_avatar"
                               />
                             </a>
                           </td>
                         </tr>
                         <tr style="display: inline-block">
                           <td>
-                            <a target="_blank" style="color: #ddd" href="#"
+                            <a target="_blank" style="color: #ddd" 
+                            href='https://dev-blog-a-nextjs-app.vercel.app/dev/${getUserSlug(
+                              post.user
+                            )}'
                               >${post.user.name}</a
                             >
                           </td>
@@ -373,7 +380,7 @@ export const getEmailTemplate = (post) => {
                       <img
                         width="60"
                         style="max-width: 60px; border-radius: 50%"
-                        src="https://lh3.googleusercontent.com/a/ACg8ocIOPt3vWC4DWTZDy8ZYx6EI-zLUNeN_aDrbQ34aRXEuon4=s96-c"
+                        src=${post.user.image}
                         alt=""
                       />
                       <h2 style="padding-top: 10px">${post.user.name}</h2>
@@ -382,13 +389,15 @@ export const getEmailTemplate = (post) => {
                   <tr>
                     <td style="width: 100%; text-align: center; padding-top: 20px">
                       <a
-                        href="https://dev-blog-a-nextjs-app.vercel.app/"
+                        href='https://dev-blog-a-nextjs-app.vercel.app/dev/${getUserSlug(
+                          post.user
+                        )}'
                         style="
                           color: #d6d6d6;
                           text-decoration: underline;
                           font-size: 12px;
                         "
-                        >Visit Page</a
+                        >Visit Profile</a
                       >
                       <a
                         href="https://dev-blog-a-nextjs-app.vercel.app/"

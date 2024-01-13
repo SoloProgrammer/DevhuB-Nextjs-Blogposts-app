@@ -51,8 +51,9 @@ const PostList = ({ profileUser, saved }) => {
             );
           })}
       </div>
-      {posts?.length > 0 && !loading && (
+      {posts?.length > 0 && !loading &&  (
         <Pagination
+          sx={{ display: "flex", justifyContent: "center" }}
           page={currPage}
           onChange={(e, page) => setCurrPage(page)}
           count={pages}

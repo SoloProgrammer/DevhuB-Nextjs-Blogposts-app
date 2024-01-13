@@ -3,7 +3,6 @@
     flex-direction: column;
     justify-content: center;
     gap: 40px;
-    align-items: center;
 }
 .postsContainer{
     display: flex;
