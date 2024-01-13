@@ -7,3 +7,9 @@
     padding-block: 0px !important;
     background: rgba(144, 202, 249, 0.08) !important;
 }
+
+@media screen and (max-width:660px) {
+    .followBtn {
+        padding-block: 1px !important;
+    }
+}
