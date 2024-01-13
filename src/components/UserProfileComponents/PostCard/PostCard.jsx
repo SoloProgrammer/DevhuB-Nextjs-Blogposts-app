@@ -63,7 +63,7 @@ const LandscapeCard = ({ post, theme, profileUser }) => {
               />
             </IconButton>
           }
-          title={profileUser.name}
+          title={post.user.name}
           subheader={getFormattedPostDate(post.createdAt)}
         />
         <CardContent sx={{ paddingBottom: "2px" }}>
@@ -118,7 +118,7 @@ const PortraitCard = ({ post, theme, profileUser }) => {
               />
             </IconButton>
           }
-          title={profileUser.name}
+          title={post.user.name}
           subheader={getFormattedPostDate(post.createdAt)}
         />
         <CardMedia

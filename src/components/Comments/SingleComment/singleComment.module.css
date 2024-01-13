@@ -16,7 +16,6 @@
     gap: 5px;
     opacity: 0;
     pointer-events: none;
-    cursor: pointer;
 }
 
 .actions span:active {
@@ -68,7 +67,6 @@
 .userName {
     font-weight: 500;
     font-size: .95rem;
-    cursor: pointer;
 }
 
 .date {

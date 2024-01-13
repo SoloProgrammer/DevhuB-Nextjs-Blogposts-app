@@ -18,6 +18,7 @@ const FollowUserBtn = ({ author }) => {
     return user?.following.includes(author.id);
   };
   const router = useRouter();
+  
   const followUnFollowAuthor = async (e) => {
     e.preventDefault();
     try {
@@ -42,6 +43,7 @@ const FollowUserBtn = ({ author }) => {
       setLoading(false);
     }
   };
+
   if (userLoading) return <></>;
   if (author.id === user?.id) return <></>;
   return (

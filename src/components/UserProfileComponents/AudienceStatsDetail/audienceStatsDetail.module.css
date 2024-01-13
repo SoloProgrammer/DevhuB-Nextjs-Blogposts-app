@@ -1,0 +1,47 @@
+.container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--softBg);
+    margin-top: 4rem;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: all .2s;
+    margin-top: 2rem;
+    opacity: 0;
+    width: 500px;
+    max-width: 99%;
+}
+
+.wrapper {
+    overflow: hidden;
+}
+
+.container.show {
+    opacity: 1;
+    margin-top: 4rem;
+    grid-template-rows: 1fr;
+}
+
+.container.dark {
+    background-color: #15191d !important;
+    background-color: #202932 !important;
+}
+
+.wrapper {
+    padding: 20px;
+}
+
+@media screen and (max-width:770px) {
+    .container {
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: -2rem;
+    }
+
+    .container.show {
+        opacity: 1;
+        margin-top: 0;
+    }
+
+}
