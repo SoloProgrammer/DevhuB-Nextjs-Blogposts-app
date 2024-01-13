@@ -14,7 +14,6 @@ const FollowUserBtn = ({ author }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
-  if (author.id === user?.id) return <></>;
   const isFollowing = () => {
     return user?.following.includes(author.id);
   };
@@ -44,6 +43,7 @@ const FollowUserBtn = ({ author }) => {
     }
   };
   if (userLoading) return <></>;
+  if (author.id === user?.id) return <></>;
   return (
     <Button
       onClick={followUnFollowAuthor}
