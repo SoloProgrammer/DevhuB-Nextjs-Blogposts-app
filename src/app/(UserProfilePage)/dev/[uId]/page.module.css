@@ -24,47 +24,6 @@
     letter-spacing: .003rem !important;
 }
 
-.audienceStats {
-    margin-block: 5px;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    gap: 10px;
-}
-
-.audienceStats button {
-    cursor: pointer;
-    color: var(--main-color-light) !important;
-    font-weight: bold !important;
-    font-size: .8rem !important;
-    text-transform: none !important;
-}
-
-.subtitle2 {
-    font-size: .7rem !important;
-    margin-top: 20px !important;
-    color: var(--softTextColor);
-}
-
-.subscribers {
-    margin-block: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    align-items: left;
-}
-
-.subscribers button {
-    font-weight: bold !important;
-    color: rgb(233, 20, 20);
-}
-
-.subscribers button span {
-    font-size: 1.3rem !important;
-    margin-left: 10px;
-}
-
-
 .right {
     flex: 7;
     border: 1px solid var(--lightTextColor);

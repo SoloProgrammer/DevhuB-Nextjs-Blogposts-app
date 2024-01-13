@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import styles from "./page.module.css";
 import PostTabs from "@/components/UserProfileComponents/PostTabs/PostTabs";
 import Image from "next/image";
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import UserProfileLoadingSkeleton from "./loading";
 import UserActionComponent from "@/components/UserProfileComponents/UserActionComponent/UserActionComponent";
@@ -44,34 +44,7 @@ const UserProfilePage = async ({ params }) => {
                 {user.email}
               </Typography>
             </div>
-            {user?.id && <UserActionComponent profileUser={user}/>}
-            <Divider variant="fullWidth" />
-            <div className={styles.audienceStats}>
-              <Button size="small" variant="text">
-                <span>
-                  Followers&nbsp;<sup>{user.followers.length}</sup>
-                </span>
-              </Button>
-              <Button size="small" variant="text">
-                <span>
-                  Following&nbsp;<sup>{user.following.length}</sup>
-                </span>
-              </Button>
-            </div>
-            <Divider variant="fullWidth" />
-            <Typography className={styles.subtitle2} variant="subtitle2">
-              <b>Subscribers</b>: Users that will receive Email Notifications
-              whenever you uploads new post!
-            </Typography>
-            <div className={styles.subscribers}>
-              <Button size="small" variant="text">
-                <p className={styles.count}>{user.subscribers.length}</p>
-                &nbsp;<p>Subscribers</p>
-                <span className="material-symbols-outlined">
-                  mark_email_read
-                </span>
-              </Button>
-            </div>
+            <UserActionComponent profileUser={user} />
             <Divider variant="fullWidth" />
           </div>
           <div className={styles.right}>
