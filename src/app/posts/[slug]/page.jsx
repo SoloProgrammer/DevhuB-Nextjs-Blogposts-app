@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 import ExtraActions from "@/components/ExtraActions/ExtraActions";
 import SinglePostLoadingSkeleton from "./loading";
 import Link from "next/link";
+import FollowUserBtn from "@/components/UserProfileComponents/FollowUserBtn/FollowUserBtn";
 
 const getSinglePost = async (slug) => {
   const res = await fetch(api.getSinglePost(slug), { cache: "no-store" });
@@ -50,7 +51,12 @@ const SingleBlogPage = async ({ params }) => {
                 />
               </div>
               <div className={styles.userText}>
-                <span className={styles.userName}>{post?.user?.name}</span>
+                <div>
+                  <span className={styles.userName}>{post?.user?.name}</span>
+                  <span style={{ marginLeft: "10px" }}>
+                    <FollowUserBtn author={post.user} />
+                  </span>
+                </div>
                 <span className={styles.date}>
                   {getFormattedPostDate(post.createdAt)}
                 </span>

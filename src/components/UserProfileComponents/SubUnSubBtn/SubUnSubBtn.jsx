@@ -5,7 +5,7 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import { ThemeStates } from "@/context/ThemeContext";
 import { api } from "@/utils/api";
 import { showToast } from "@/utils/toast";
-import Loader from "../Loader/Loader";
+import Loader from "../../Loader/Loader";
 import { useRouter } from "next/navigation";
 
 const SubUnSubBtn = ({ author, subscriber, tooltipPlacement = "top" }) => {
@@ -15,6 +15,7 @@ const SubUnSubBtn = ({ author, subscriber, tooltipPlacement = "top" }) => {
   const { tooltipTheme } = ThemeStates();
 
   const AuthorCopy = useRef(structuredClone(author));
+  const authorName = AuthorCopy?.current?.name;
 
   const isSubscribed = () =>
     AuthorCopy?.current?.subscribers.includes(subscriber?.email);
@@ -33,10 +34,14 @@ const SubUnSubBtn = ({ author, subscriber, tooltipPlacement = "top" }) => {
       });
 
       if (isSubscribed()) {
+        showToast(`Unsubscribed from ${authorName}`);
         AuthorCopy.current.subscribers = AuthorCopy.current.subscribers.filter(
           (sub) => sub !== subscriber?.email
         );
-      } else AuthorCopy.current.subscribers.push(subscriber?.email);
+      } else {
+        showToast(`Subscribed to ${authorName}`);
+        AuthorCopy.current.subscribers.push(subscriber?.email);
+      }
 
       router.refresh();
     } catch (error) {
@@ -94,7 +99,7 @@ const SubUnSubBtn = ({ author, subscriber, tooltipPlacement = "top" }) => {
         id="subscribe-btn"
         content={`${isSubscribed() ? `Unsubscribe` : `Subscribe`}  ${
           isSubscribed() ? `from` : `to`
-        } ${AuthorCopy.current.name} newsletter!`}
+        } ${authorName} newsletter!`}
       />
       <ReactTooltip
         opacity={tooltipTheme.opacity}
@@ -108,7 +113,7 @@ const SubUnSubBtn = ({ author, subscriber, tooltipPlacement = "top" }) => {
         place={tooltipPlacement}
         content={
           <p>
-            Receive email notifications from {AuthorCopy.current.name} <br />
+            Receive email notifications from {authorName} <br />
             whenever uploads new post!
           </p>
         }

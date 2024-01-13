@@ -30,6 +30,7 @@
 @media screen and (max-width:770px) {
     .subBtn {
         font-size: .8rem;
+        padding-block: 12px;
     }
 
 }

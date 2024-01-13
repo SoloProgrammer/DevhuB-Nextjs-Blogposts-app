@@ -52,6 +52,9 @@ export const api = {
   subscribeAuthor: (query) => {
     return `${server.URL}/api/user/subscribe${query}`;
   },
+  followAuthor: (query) =>{
+    return `${server.URL}/api/user/follow${query}`;
+  },
   addReply: (commentId) => {
     return `${server.URL}/api/comments/${commentId}/reply`;
   },

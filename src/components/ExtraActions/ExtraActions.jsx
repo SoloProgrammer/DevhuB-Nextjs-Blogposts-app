@@ -18,7 +18,7 @@ import useModal from "@/Hooks/useModal";
 import { showToast, toastStatus } from "@/utils/toast";
 import ShareIconsModal from "../Modal/ShareIconsModal/ShareIconsModal";
 import { XMarkIcon } from "@/GoogleIcons/Icons";
-import SubUnSubBtn from "../SubUnSubBtn/SubUnSubBtn";
+import SubUnSubBtn from "../UserProfileComponents/SubUnSubBtn/SubUnSubBtn";
 
 const ExtraActions = ({
   postAuthor,

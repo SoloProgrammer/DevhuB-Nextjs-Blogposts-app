@@ -7,16 +7,6 @@
     align-items: center;
 }
 
-.followBtn {
-    font-weight: bold !important;
-    font-size: .75rem !important;
-    cursor: pointer !important;
-    text-transform: none !important;
-    border-radius: 2rem !important;
-    padding-block: 0px !important;
-    background: rgba(144, 202, 249, 0.08) !important;
-}
-
 @media screen and (max-width:660px) {
     .followBtn {
         font-size: .8rem !important;

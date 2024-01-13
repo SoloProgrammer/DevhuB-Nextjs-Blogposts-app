@@ -34,7 +34,7 @@ const UserProfilePage = async ({ params }) => {
         <div className={styles.container}>
           <div className={styles.left}>
             <div className={styles.userImg}>
-              <Image src={user.image.split("=")[0].concat("=s200-c")} fill />
+              <Image src={user.image.split("=")[0].concat("=s300-c")} fill />
             </div>
             <div className={styles.details}>
               <Typography textAlign={"center"} variant="h4">
@@ -49,12 +49,12 @@ const UserProfilePage = async ({ params }) => {
             <div className={styles.audienceStats}>
               <Button size="small" variant="text">
                 <span>
-                  Followers&nbsp;<sup>10</sup>
+                  Followers&nbsp;<sup>{user.followers.length}</sup>
                 </span>
               </Button>
               <Button size="small" variant="text">
                 <span>
-                  Following&nbsp;<sup>25</sup>
+                  Following&nbsp;<sup>{user.following.length}</sup>
                 </span>
               </Button>
             </div>
