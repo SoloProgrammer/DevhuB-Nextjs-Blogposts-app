@@ -9,7 +9,6 @@ import {
   Card,
   CardActionArea,
   CardHeader,
-  IconButton,
   Tab,
   Tabs,
   Typography,
@@ -20,7 +19,7 @@ import { audiences } from "../UserActionComponent/UserActionComponent";
 import { showToast, toastStatus } from "@/utils/toast";
 import { api } from "@/utils/api";
 import FollowUserBtn from "../FollowUserBtn/FollowUserBtn";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/navigation";
 import { getUserSlug } from "@/app/posts/[slug]/page";
 
