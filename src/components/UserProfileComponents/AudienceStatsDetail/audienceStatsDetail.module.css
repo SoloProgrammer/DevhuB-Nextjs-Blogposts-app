@@ -24,7 +24,9 @@
 
 .container.dark {
     background-color: #202932 !important;
+    background-color: #0f172a !important;
 }
+
 .container {
     background-color: #fff !important;
 }
@@ -33,14 +35,26 @@
     padding: 20px;
 }
 
+.card {
+    position: relative !important;
+}
+
 .card.dark {
     background: #1a2238 !important;
 }
 
-.audienceListWrapper{
-    display: flex;   
+.audienceListWrapper {
+    display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.folllowBtn {
+    position: absolute;
+    z-index: 2;
+    right: 6px;
+    top: 6px;
+    font-size: .65rem !important;
 }
 
 

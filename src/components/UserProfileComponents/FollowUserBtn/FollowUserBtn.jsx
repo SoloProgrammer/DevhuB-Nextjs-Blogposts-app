@@ -9,7 +9,11 @@ import { showToast, toastStatus } from "@/utils/toast";
 import { useRouter } from "next/navigation";
 import { followAuthor, unFollowAuthor } from "@/redux/slices/authSlice";
 
-const FollowUserBtn = ({ author }) => {
+const FollowUserBtn = ({ author, size = "medium" }) => {
+  const buttonSizes = {
+    small: ".65rem",
+    medium: ".75rem",
+  };
   const { user, loading: userLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -54,6 +58,7 @@ const FollowUserBtn = ({ author }) => {
   if (author.id === user?.id) return <></>;
   return (
     <Button
+      sx={{ fontSize: buttonSizes[size] }}
       onClick={followUnFollowAuthor}
       disabled={loading}
       variant="outlined"

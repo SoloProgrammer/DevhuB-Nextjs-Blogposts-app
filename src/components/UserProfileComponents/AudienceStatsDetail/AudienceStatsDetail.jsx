@@ -170,7 +170,9 @@ const AudienceList = ({ audienceType, author }) => {
                   title={audience.name}
                   subheader={audience.email}
                 />
-                <FollowUserBtn author={audience} />
+                <div className={styles.folllowBtn}>
+                  <FollowUserBtn author={audience} size="small" />
+                </div>
               </CardActionArea>
             </Card>
           );
