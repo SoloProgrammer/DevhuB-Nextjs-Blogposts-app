@@ -124,7 +124,7 @@ const AudienceList = ({ audienceType, author }) => {
     }
   };
   useEffect(() => {
-    getAudiences(audienceType);
+    author[audienceType].length > 0 && getAudiences(audienceType);
   }, [audienceType]);
 
   const router = useRouter();

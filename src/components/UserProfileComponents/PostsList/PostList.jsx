@@ -10,12 +10,13 @@ import { Pagination, Typography } from "@mui/material";
 import Image from "next/image";
 
 const PostList = ({ profileUser, saved }) => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postsCount, setPostsCount] = useState(0);
   const POSTS_PER_PAGE = 4;
   let pages = Math.ceil(postsCount / POSTS_PER_PAGE);
   const [currPage, setCurrPage] = useState(1);
+
   const getPostsOfUser = async () => {
     try {
       const query = `?uId=${profileUser.id}&page=${currPage}&${
@@ -35,12 +36,14 @@ const PostList = ({ profileUser, saved }) => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     profileUser?.id &&
       setTimeout(() => {
         getPostsOfUser(currPage);
       }, 200);
   }, [profileUser.id, currPage]);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.postsContainer}>
@@ -61,7 +64,7 @@ const PostList = ({ profileUser, saved }) => {
           color="primary"
         />
       )}
-      {posts.length < 1 && !loading && (
+      {posts && posts?.length < 1 && !loading && (
         <div
           style={{
             display: "flex",
@@ -70,8 +73,9 @@ const PostList = ({ profileUser, saved }) => {
             flexDirection: "column",
           }}
         >
-          <Typography variant="h5" textAlign={'center'}>
-            {profileUser.name} Doesn't {saved ? "saved" : "posted"} any posts yet
+          <Typography variant="h5" textAlign={"center"}>
+            {profileUser.name} Doesn't {saved ? "saved" : "posted"} any posts
+            yet
           </Typography>
           <div className={styles.postsNotFoundImage}>
             <Image

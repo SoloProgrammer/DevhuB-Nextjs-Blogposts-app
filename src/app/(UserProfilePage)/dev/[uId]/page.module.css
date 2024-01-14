@@ -22,6 +22,7 @@
     color: var(--softTextColor);
     font-size: .9rem !important;
     letter-spacing: .003rem !important;
+    text-align: center;
 }
 
 .right {

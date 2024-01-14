@@ -54,7 +54,7 @@ const UserActionComponent = ({ profileUser }) => {
           variant="text"
         >
           <span>
-            Followers&nbsp;<sup>{profileUser.followers.length}</sup>
+            {audiences.FOLLOWERS}&nbsp;<sup>{profileUser.followers.length}</sup>
           </span>
         </Button>
         <Button
@@ -66,14 +66,14 @@ const UserActionComponent = ({ profileUser }) => {
           variant="text"
         >
           <span>
-            Following&nbsp;<sup>{profileUser.following.length}</sup>
+            {audiences.FOLLOWING}&nbsp;<sup>{profileUser.following.length}</sup>
           </span>
         </Button>
       </div>
       <Divider variant="fullWidth" />
       <Typography className={styles.subtitle2} variant="subtitle2">
-        <b>Subscribers</b>: Users that will receive Email Notifications whenever
-        you uploads new post!
+        <b>{audiences.SUBSCRIBERS}</b>: Users that will receive Email
+        Notifications whenever you uploads new post!
       </Typography>
       <div className={styles.subscribers}>
         <Button
@@ -90,7 +90,7 @@ const UserActionComponent = ({ profileUser }) => {
         </Button>
       </div>
 
-      {/* Modal audice stats detail */}
+      {/* Modal audience stats detail */}
       {isModalOpen && (
         <Modal
           closeAfterTransition
@@ -105,7 +105,10 @@ const UserActionComponent = ({ profileUser }) => {
             },
           }}
         >
-          <AudienceStatsDetail profileUser={profileUser} audienceType={audienceType} />
+          <AudienceStatsDetail
+            profileUser={profileUser}
+            audienceType={audienceType}
+          />
         </Modal>
       )}
     </div>
