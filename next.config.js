@@ -10,6 +10,7 @@ const nextConfig = {
       "lh3.googleusercontent.com",
       "uploads-ssl.webflow.com",
       "avatars.githubusercontent.com",
+      "cdni.iconscout.com",
     ],
   },
   reactStrictMode: false,

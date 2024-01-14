@@ -49,10 +49,13 @@ export const api = {
   getUser: (query = "") => {
     return `${server.URL}/api/user${query}`;
   },
+  getAudiencesOfAuthor: (query) => {
+    return `${server.URL}/api/user/audiences${query}`;
+  },
   subscribeAuthor: (query) => {
     return `${server.URL}/api/user/subscribe${query}`;
   },
-  followAuthor: (query) =>{
+  followAuthor: (query) => {
     return `${server.URL}/api/user/follow${query}`;
   },
   addReply: (commentId) => {

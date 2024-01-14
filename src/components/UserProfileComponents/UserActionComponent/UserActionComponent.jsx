@@ -12,9 +12,9 @@ import useModal from "@/Hooks/useModal";
 import AudienceStatsDetail from "../AudienceStatsDetail/AudienceStatsDetail";
 
 export const audiences = Object.freeze({
-  FOLLOWERS: "followers",
-  FOLLOWING: "following",
-  SUBSCRIBERS: "subscribers",
+  FOLLOWERS: "Followers",
+  FOLLOWING: "Following",
+  SUBSCRIBERS: "Subscribers",
 });
 
 const UserActionComponent = ({ profileUser }) => {
@@ -105,7 +105,7 @@ const UserActionComponent = ({ profileUser }) => {
             },
           }}
         >
-          <AudienceStatsDetail audiencetype={audienceType} />
+          <AudienceStatsDetail profileUser={profileUser} audienceType={audienceType} />
         </Modal>
       )}
     </div>

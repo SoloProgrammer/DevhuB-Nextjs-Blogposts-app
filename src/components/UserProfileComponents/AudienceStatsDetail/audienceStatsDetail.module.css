@@ -2,7 +2,6 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--softBg);
     margin-top: 4rem;
     display: grid;
     grid-template-rows: 0fr;
@@ -10,7 +9,7 @@
     margin-top: 2rem;
     opacity: 0;
     width: 500px;
-    max-width: 99%;
+    max-width: 98%;
 }
 
 .wrapper {
@@ -24,13 +23,26 @@
 }
 
 .container.dark {
-    background-color: #15191d !important;
     background-color: #202932 !important;
+}
+.container {
+    background-color: #fff !important;
 }
 
 .wrapper {
     padding: 20px;
 }
+
+.card.dark {
+    background: #1a2238 !important;
+}
+
+.audienceListWrapper{
+    display: flex;   
+    flex-direction: column;
+    gap: 10px;
+}
+
 
 @media screen and (max-width:770px) {
     .container {

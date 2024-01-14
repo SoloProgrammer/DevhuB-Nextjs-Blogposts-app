@@ -7,9 +7,10 @@ import {
   createTheme,
 } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 const ThemeProvider = ({ children }) => {
-  const { theme } = ThemeStates();
+  const { theme, skeletonTheme } = ThemeStates();
 
   const Theme = createTheme({
     palette: {
@@ -22,7 +23,14 @@ const ThemeProvider = ({ children }) => {
     return (
       <MUIThemeProvider theme={Theme}>
         <CssBaseline />
-        <div className={theme}>{children}</div>
+        <div className={theme}>
+          <SkeletonTheme
+            baseColor={skeletonTheme.color}
+            highlightColor={skeletonTheme.highlightColor}
+          >
+            {children}
+          </SkeletonTheme>
+        </div>
       </MUIThemeProvider>
     );
 };
