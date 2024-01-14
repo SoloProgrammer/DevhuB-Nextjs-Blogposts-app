@@ -18,9 +18,15 @@ const FollowUserBtn = ({ author }) => {
     return user?.following.includes(author.id);
   };
   const router = useRouter();
-  
+
   const followUnFollowAuthor = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
+
+    if (!user) {
+      return router.push("/login");
+    }
+
     try {
       setLoading(true);
       const query = `?authorId=${author.id}&followerId=${user?.id}`;

@@ -7,6 +7,7 @@ import { api } from "@/utils/api";
 import { showToast } from "@/utils/toast";
 import Loader from "@/components/Loader/Loader";
 import { Pagination, Typography } from "@mui/material";
+import Image from "next/image";
 
 const PostList = ({ profileUser, saved }) => {
   const [posts, setPosts] = useState([]);
@@ -51,7 +52,7 @@ const PostList = ({ profileUser, saved }) => {
             );
           })}
       </div>
-      {posts?.length > 0 && !loading &&  (
+      {posts?.length > 0 && !loading && (
         <Pagination
           sx={{ display: "flex", justifyContent: "center" }}
           page={currPage}
@@ -61,9 +62,24 @@ const PostList = ({ profileUser, saved }) => {
         />
       )}
       {posts.length < 1 && !loading && (
-        <Typography variant="h5">
-          {profileUser.name} Doesn't {saved ? "saved" : "post"} any posts yet
-        </Typography>
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <Typography variant="h5" textAlign={'center'}>
+            {profileUser.name} Doesn't {saved ? "saved" : "posted"} any posts yet
+          </Typography>
+          <div className={styles.postsNotFoundImage}>
+            <Image
+              fill
+              src="https://cdni.iconscout.com/illustration/premium/thumb/not-found-4064375-3363936.png"
+            />
+          </div>
+        </div>
       )}
     </div>
   );

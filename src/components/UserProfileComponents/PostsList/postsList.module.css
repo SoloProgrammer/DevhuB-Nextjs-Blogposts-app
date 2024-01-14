@@ -1,12 +1,25 @@
-.wrapper{
+.wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 40px;
 }
-.postsContainer{
+
+.postsContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
+}
+
+.postsNotFoundImage {
+    width: 300px;
+    height: 300px;
+    position: relative;
+}
+
+.postsNotFoundImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
