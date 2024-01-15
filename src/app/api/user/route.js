@@ -2,7 +2,7 @@ const { getAuthSession } = require("@/utils/auth");
 import prisma from "@/utils/connect";
 import { Response } from "@/utils/responses";
 
-// GET session user data
+// GET session/profile user data
 export const GET = async (req) => {
   try {
     const { searchParams } = new URL(req.url);
@@ -18,10 +18,17 @@ export const GET = async (req) => {
     }
     const user = await prisma.User.findUnique(query);
 
-    if (!user)
+    if (!user) {
       return Response("Some error occured", 404, false, {
         message: "User not found",
       });
+    }
+
+    const postCount = await prisma.Post.count({
+      where: { userEmail: user.email },
+    });
+
+    user.postCount = postCount;
 
     return Response("", 200, true, false, { user });
   } catch (error) {

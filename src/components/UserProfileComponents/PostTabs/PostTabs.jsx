@@ -1,19 +1,31 @@
 "use client";
 
-import * as React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import PostList from "../PostsList/PostList";
+import { useDispatch } from "react-redux";
+import { clearProfileData, newProfile } from "@/redux/slices/profileUserSlice";
 
 export default function PostTabs({ profileUser }) {
   const [value, setValue] = React.useState("1");
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (_, newValue) => {
     setValue(newValue);
   };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    profileUser && dispatch(newProfile({ profile: profileUser }));
+
+    // cleanUp function
+    // to clear cached/stored user profile data - useFull when we redirect from one profile page to other we will always see the profile users data instead of any user profile stored previously
+    return () => dispatch(clearProfileData());
+  }, [profileUser?.id]);
 
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>

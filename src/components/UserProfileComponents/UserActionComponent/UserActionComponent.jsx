@@ -71,7 +71,11 @@ const UserActionComponent = ({ profileUser }) => {
         </Button>
       </div>
       <Divider variant="fullWidth" />
-      <Typography className={styles.subtitle2} variant="subtitle2">
+      <Typography
+        id="subscribersText"
+        className={styles.subtitle2}
+        variant="subtitle2"
+      >
         <b>{audiences.SUBSCRIBERS}</b>: Users that will receive Email
         Notifications whenever you uploads new post!
       </Typography>

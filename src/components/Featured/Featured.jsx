@@ -6,6 +6,7 @@ import axios from "axios";
 import { api } from "@/services/api";
 import Link from "next/link";
 import { getTrimmedString } from "@/helpers/string";
+import { getUserSlug } from "@/app/posts/[slug]/page";
 
 const getData = async () => {
   const response = await axios.get(api.getFeaturedPost());
@@ -30,12 +31,12 @@ const Featured = async () => {
         </div>
         <div className={styles.content}>
           <div className={styles.top}>
-            <a href="#" className={styles.authorInfo}>
+            <Link href={`/dev/${getUserSlug(post.user)}`} className={styles.authorInfo}>
               <div className={styles.authorImg_Container}>
                 <Image src={post.user.image} fill alt="author_avatar" />
               </div>
               <span>{post.user.name}</span>
-            </a>
+            </Link>
             <span className={styles.featuredText}>
               <span class="material-symbols-outlined">editor_choice</span>
               <i>Featured</i>

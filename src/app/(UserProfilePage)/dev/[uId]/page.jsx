@@ -45,7 +45,7 @@ const UserProfilePage = async ({ params }) => {
               </Typography>
             </div>
             <UserActionComponent profileUser={user} />
-            <Divider variant="fullWidth" />
+            <Divider variant="fullWidth"/>
           </div>
           <div className={styles.right}>
             <div className={styles.aboutSection}></div>

@@ -31,7 +31,7 @@ const AudienceStatsDetail = ({ profileUser, audienceType }) => {
   };
   const { theme } = ThemeStates();
   const [value, setValue] = useState(selectedTabValue[audienceType]);
-  const handleChange = (e, newValue) => {
+  const handleChange = (_, newValue) => {
     setValue(newValue);
   };
 
@@ -102,10 +102,13 @@ const AudienceStatsDetail = ({ profileUser, audienceType }) => {
 };
 
 const AudienceList = ({ audienceType, author }) => {
+  // converting audienceType props value in lowerCase() 
   audienceType = audienceType.toLowerCase();
+
   const { theme } = ThemeStates();
   const [audiences, setAudiences] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const getAudiences = async (audienceType) => {
     try {
       const query = `?authorId=${author.id}&audienceType=${audienceType}`;
@@ -123,6 +126,7 @@ const AudienceList = ({ audienceType, author }) => {
       setLoading(false);
     }
   };
+  
   useEffect(() => {
     author[audienceType].length > 0 && getAudiences(audienceType);
   }, [audienceType]);

@@ -68,7 +68,7 @@ const LandscapeCard = ({ post, theme, profileUser }) => {
         />
         <CardContent sx={{ paddingBottom: "2px" }}>
           <Typography variant="body2" color="text.secondary">
-            {getTrimmedString(post.desc.replace(/<[^>]*>/g, ""), 95)}
+            {getTrimmedString(post.desc.replace(/<[^>]*>/g, ""), 110)}
           </Typography>
         </CardContent>
       </CardActionArea>
