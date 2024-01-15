@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./singleComment.module.css";
 import Image from "next/image";
 import { getFormattedPostDate } from "@/utils/date";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import { useDispatch, useSelector } from "react-redux";
 import AddreplyTextarea from "../AddreplyTextarea/AddreplyTextarea";
 import { useRouter } from "next/navigation";

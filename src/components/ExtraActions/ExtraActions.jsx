@@ -7,7 +7,7 @@ import styles from "./extraActions.module.css";
 import { FaRegComment } from "react-icons/fa";
 import { Link } from "react-scroll";
 import { useSelector } from "react-redux";
-import { PRODUCTION_URL, api } from "@/utils/api";
+import { PRODUCTION_URL, api } from "@/services/api";
 import Loader from "../Loader/Loader";
 import { useRouter } from "next/navigation";
 import { ThemeStates } from "@/context/ThemeContext";

@@ -1,5 +1,5 @@
 import { extractRawUserIdFromSlug } from "@/app/posts/[slug]/page";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import React, { Suspense } from "react";
 import CustomError from "@/lib/exceptions";
 import { notFound } from "next/navigation";

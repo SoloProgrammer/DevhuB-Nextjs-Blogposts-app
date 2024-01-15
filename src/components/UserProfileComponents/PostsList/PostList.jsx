@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./postsList.module.css";
 import PostCard from "../PostCard/PostCard";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import { showToast } from "@/utils/toast";
 import Loader from "@/components/Loader/Loader";
 import { Pagination, Typography } from "@mui/material";

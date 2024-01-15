@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import styles from "./replyCount.module.css";
 import Loader from "@/components/Loader/Loader";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import { addReplies } from "@/redux/slices/commentsSlice";
 import { useDispatch } from "react-redux";
 

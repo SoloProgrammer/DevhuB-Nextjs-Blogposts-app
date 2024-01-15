@@ -1,6 +1,6 @@
 "use client";
 
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, setLoading } from "@/redux/slices/authSlice";

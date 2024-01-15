@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import styles from "./subUnSubBtn.module.css";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { ThemeStates } from "@/context/ThemeContext";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import { showToast } from "@/utils/toast";
 import Loader from "../../Loader/Loader";
 import { useRouter } from "next/navigation";

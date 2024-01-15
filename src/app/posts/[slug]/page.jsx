@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { Suspense } from "react";
 import styles from "./singleBlogPage.module.css";
 import Comments from "@/components/Comments/Comments";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import { getFormattedPostDate } from "@/utils/date";
 import SavePostIcon from "@/components/SavePostIcon/SavePostIcon";
 import { notFound } from "next/navigation";

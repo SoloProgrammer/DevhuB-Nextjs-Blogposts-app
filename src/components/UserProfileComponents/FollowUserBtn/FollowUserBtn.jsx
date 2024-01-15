@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import React, { useState } from "react";
 import styles from "./style.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import { showToast, toastStatus } from "@/utils/toast";
 import { useRouter } from "next/navigation";
 import { followAuthor, unFollowAuthor } from "@/redux/slices/authSlice";

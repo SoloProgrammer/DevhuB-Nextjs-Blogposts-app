@@ -3,7 +3,7 @@ import styles from "./featured.module.css";
 import Image from "next/image";
 import Commonbtn from "../Commonbtn/Commonbtn";
 import axios from "axios";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import Link from "next/link";
 import { getTrimmedString } from "@/helpers/string";
 

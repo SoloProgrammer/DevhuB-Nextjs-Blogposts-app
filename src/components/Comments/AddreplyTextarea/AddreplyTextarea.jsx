@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./addreplyTextarea.module.css";
 import TextareaAutosize from "react-textarea-autosize";
 import Loader from "@/components/Loader/Loader";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import { useDispatch } from "react-redux";
 import { incrementRepliesCount, removeReplies } from "@/redux/slices/commentsSlice";
 import { XMarkIcon } from "@/GoogleIcons/Icons";

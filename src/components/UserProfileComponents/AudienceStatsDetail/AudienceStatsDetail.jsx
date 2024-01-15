@@ -17,7 +17,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import { TabContext } from "@mui/lab";
 import { audiences } from "../UserActionComponent/UserActionComponent";
 import { showToast, toastStatus } from "@/utils/toast";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import FollowUserBtn from "../FollowUserBtn/FollowUserBtn";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/navigation";

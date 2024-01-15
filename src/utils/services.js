@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { api } from './api'
+import { api } from '../services/api'
 
 export const getCategories = async () => {
     return new Promise(async (res, rej) => {

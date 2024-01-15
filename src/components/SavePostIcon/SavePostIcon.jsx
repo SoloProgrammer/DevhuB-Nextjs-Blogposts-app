@@ -1,7 +1,7 @@
 "use client";
 
 import { savePost, unSavePost } from "@/redux/slices/authSlice";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "./saveposticon.module.css";

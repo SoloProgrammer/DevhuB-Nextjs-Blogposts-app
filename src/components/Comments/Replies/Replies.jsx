@@ -5,7 +5,7 @@ import Image from "next/image";
 import { getFormattedPostDate } from "@/utils/date";
 import DelEditActions from "@/components/Actions/DelEditActions";
 import { useDispatch, useSelector } from "react-redux";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import { deleteReply, updateReply } from "@/redux/slices/commentsSlice";
 import SaveCancelEditor from "@/components/SaveCancelEditor/SaveCancelEditor";
 import { getTrimmedValue } from "../SingleComment/SingleComment";

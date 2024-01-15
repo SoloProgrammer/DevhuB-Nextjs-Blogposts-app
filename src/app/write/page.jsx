@@ -21,7 +21,7 @@ import { updateCategories } from "@/redux/slices/categoriesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "@/utils/services";
 import axios from "axios";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import HomePageLoading from "../(HomePage)/loading";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 

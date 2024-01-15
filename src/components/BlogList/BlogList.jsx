@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./blogList.module.css";
 import Pagination from "../Pagination/Pagination";
 import BlogCard from "../BlogCard/BlogCard";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import PageProvider from "@/providers/PageProvider";
 import Commonbtn from "../Commonbtn/Commonbtn";
 import Link from "next/link";

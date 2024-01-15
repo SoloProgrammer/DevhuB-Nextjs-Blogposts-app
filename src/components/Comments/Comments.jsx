@@ -5,7 +5,7 @@ import styles from "./comments.module.css";
 import SingleComment, { getTrimmedValue } from "./SingleComment/SingleComment";
 import Commonbtn from "../Commonbtn/Commonbtn";
 import { useSession } from "next-auth/react";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import Loader from "../Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewComment, updateComments } from "@/redux/slices/commentsSlice";

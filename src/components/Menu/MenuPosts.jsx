@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import styles from "./menu.module.css";
-import { api } from "@/utils/api";
+import { api } from "@/services/api";
 import { getFormattedPostDate } from "@/utils/date";
 import { getUserSlug } from "@/app/posts/[slug]/page";
 import { getTrimmedString } from "@/helpers/string";
