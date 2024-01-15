@@ -170,9 +170,6 @@ const AudienceList = ({ audienceType, author }) => {
                 <CardHeader
                   sx={{
                     padding: "0px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "5px",
                   }}
                   avatar={<Avatar src={audience.image} aria-label="recipe" />}
                   title={audience.name}
