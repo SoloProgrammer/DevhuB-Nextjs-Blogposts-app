@@ -74,12 +74,10 @@ const PostList = ({ saved }) => {
   };
 
   useEffect(() => {
-    console.log(currPage, profileUser?.savedPosts.length);
     if (
       saved && currPage > 1 &&
       profileUser?.savedPosts.length === (currPage - 1) * POSTS_PER_PAGE
     ) {
-      console.log(currPage, profileUser.savedPosts.length);
       setCurrPage((page) => page - 1);
     }
   }, [profileUser?.savedPosts.length]);

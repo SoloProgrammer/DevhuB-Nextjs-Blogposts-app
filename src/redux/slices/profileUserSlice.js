@@ -35,7 +35,6 @@ const profile = createSlice({
         : { [payload.page]: payload.savedPosts };
     },
     addToSavedPostsSavedPostsInProfile: (state, { payload }) => {
-      console.log("payload", payload);
       state.profile.savedPosts.push(payload.postId);
     },
     removeFromSavedPostsInProfile: (state, { payload }) => {

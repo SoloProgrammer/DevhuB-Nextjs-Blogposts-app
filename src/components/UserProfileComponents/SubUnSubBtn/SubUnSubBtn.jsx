@@ -46,7 +46,7 @@ const SubUnSubBtn = ({ author, subscriber, tooltipPlacement = "top" }) => {
       router.refresh();
     } catch (error) {
       showToast(error.message, "error");
-      console.log("Error", error);
+      // console.log("Error", error);
     } finally {
       setLoading(false);
     }

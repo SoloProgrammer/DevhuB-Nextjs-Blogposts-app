@@ -17,7 +17,6 @@ const ImageDropZone = ({ handleSetImg, hideImgDropZone = defaultFunc }) => {
 
   const onDrop = useCallback(async (acceptedFiles) => {
     // Do something with the files
-    console.log(acceptedFiles);
     let e = {
       target: {
         files: [acceptedFiles[0]],
