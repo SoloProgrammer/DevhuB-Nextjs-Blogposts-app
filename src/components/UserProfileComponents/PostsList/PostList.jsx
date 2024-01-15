@@ -74,8 +74,19 @@ const PostList = ({ saved }) => {
   };
 
   useEffect(() => {
+    // useEffect to update the page no to the -1 of current page
+
+    // This logic is necessary when the user is on the 'Saved Posts' tab. Consider a scenario where the user is on page 3 of the 'Saved Posts' tab, and there is only one post on that page. If the user attempts to unsave the post from there, in the SavePostComponent where we handle saving/unsaving posts, we clear the saved post data stored in Redux. When the data is cleared, we fetch the fresh/updated list of saved posts with the current page number.
+
+    // However, if the user is on page 3 and the post he/him trying to unsave is the last post, we don't need to refetch the saved posts from page 3. Instead, we should fetch the data from the previous page (page 2 if on page 3, or the preceding page based on the current page number).
+
+    // This adjustment is necessary only when there is exactly one post on the last page. 
+    
+    // The following logic handles the reduction of the page number based on this condition, and once the page number changes, we fetch the saved posts for the updated page.
+
     if (
-      saved && currPage > 1 &&
+      saved &&
+      currPage > 1 &&
       profileUser?.savedPosts.length === (currPage - 1) * POSTS_PER_PAGE
     ) {
       setCurrPage((page) => page - 1);
