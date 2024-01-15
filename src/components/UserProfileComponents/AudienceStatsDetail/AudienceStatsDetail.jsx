@@ -102,7 +102,7 @@ const AudienceStatsDetail = ({ profileUser, audienceType }) => {
 };
 
 const AudienceList = ({ audienceType, author }) => {
-  // converting audienceType props value in lowerCase() 
+  // converting audienceType props value in lowerCase()
   audienceType = audienceType.toLowerCase();
 
   const { theme } = ThemeStates();
@@ -126,7 +126,7 @@ const AudienceList = ({ audienceType, author }) => {
       setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     author[audienceType].length > 0 && getAudiences(audienceType);
   }, [audienceType]);
@@ -168,7 +168,12 @@ const AudienceList = ({ audienceType, author }) => {
                 }}
               >
                 <CardHeader
-                  sx={{ padding: "0px" }}
+                  sx={{
+                    padding: "0px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "5px",
+                  }}
                   avatar={<Avatar src={audience.image} aria-label="recipe" />}
                   title={audience.name}
                   subheader={audience.email}

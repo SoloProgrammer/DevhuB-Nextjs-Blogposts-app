@@ -55,8 +55,8 @@
 .folllowBtn {
     position: absolute;
     z-index: 2;
-    right: 6px;
-    top: 6px;
+    right: 10px;
+    top: 10px;
     font-size: .65rem !important;
 }
 
