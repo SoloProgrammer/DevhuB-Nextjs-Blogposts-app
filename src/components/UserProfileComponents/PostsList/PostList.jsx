@@ -4,12 +4,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./postsList.module.css";
 import PostCard from "../PostCard/PostCard";
 import { api } from "@/services/api";
-import { showToast } from "@/utils/toast";
+import { showToast, toastStatus } from "@/utils/toast";
 import Loader from "@/components/Loader/Loader";
 import { Pagination, Typography } from "@mui/material";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { addPosts, addSavedPosts } from "@/redux/slices/profileUserSlice";
+import { ABORTERROR, ABORTERROR_MESSAGE } from "@/helpers/ErrorHandler";
 
 var prevoiusPage;
 
@@ -41,20 +42,23 @@ const PostList = ({ saved }) => {
   const POSTS_PER_PAGE = 4;
   let pages = Math.ceil(postsCount / POSTS_PER_PAGE);
 
-  const getPostsOfUser = async (currPage) => {
+  const getPostsOfUser = async (currPage, signal) => {
     if (saved && profileUser?.savedPosts.length < 1) return setPosts([]);
     else if (profileUser?.postCount < 1) return setPosts([]);
 
     if (initialPosts && Object.keys(initialPosts).includes(String(currPage))) {
       return setPosts(initialPosts[currPage]);
     }
-
     try {
       const query = `?uId=${profileUser?.id}&page=${currPage}&${
         saved ? `saved=true` : ""
       }`;
       setLoading(true);
-      const res = await fetch(api.getPosts(query), { cache: "no-store" });
+      const res = await fetch(
+        api.getPosts(query),
+        { signal },
+        { cache: "no-store" }
+      );
       if (!res.ok) {
         throw new Error("Internal server error");
       }
@@ -67,7 +71,9 @@ const PostList = ({ saved }) => {
           : addPosts({ posts: json.posts, page: currPage })
       );
     } catch (error) {
-      showToast(error.message, "error");
+      if (error.name === ABORTERROR) {
+        showToast(ABORTERROR_MESSAGE, toastStatus.ERROR);
+      } else showToast(error.message, toastStatus.ERROR);
     } finally {
       setLoading(false);
     }
@@ -80,8 +86,8 @@ const PostList = ({ saved }) => {
 
     // However, if the user is on page 3 and the post he/him trying to unsave is the last post, we don't need to refetch the saved posts from page 3. Instead, we should fetch the data from the previous page (page 2 if on page 3, or the preceding page based on the current page number).
 
-    // This adjustment is necessary only when there is exactly one post on the last page. 
-    
+    // This adjustment is necessary only when there is exactly one post on the last page.
+
     // The following logic handles the reduction of the page number based on this condition, and once the page number changes, we fetch the saved posts for the updated page.
 
     if (
@@ -90,15 +96,25 @@ const PostList = ({ saved }) => {
       profileUser?.savedPosts.length === (currPage - 1) * POSTS_PER_PAGE
     ) {
       setCurrPage((page) => page - 1);
+      // prevoiusPage = "reset";
     }
   }, [profileUser?.savedPosts.length]);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    // Condition to check wheather the savedPostsCount on currPage/selectedPage no is === 0 if so then return - no need to do a fetch call!
+    let savedPostsCountOnCurrentPage =
+      profileUser?.savedPosts.length - (currPage - 1) * POSTS_PER_PAGE;
+
+    if (saved && savedPostsCountOnCurrentPage === 0) return;
+
     if (
       (prevoiusPage && prevoiusPage !== currPage) ||
-      (profileUser?.id && !initialPosts)
+      (profileUser && !initialPosts)
     ) {
-      getPostsOfUser(currPage);
+      getPostsOfUser(currPage, signal);
     }
 
     // scrolling Tabs view after fetching new page posts when page is changed
@@ -119,6 +135,9 @@ const PostList = ({ saved }) => {
       }, 100);
 
     prevoiusPage = currPage;
+
+    // Aborting request to server if component is unmount before succesing the request or user press back button before the request gets succeed!
+    return () => controller.abort();
   }, [profileUser?.id, currPage, initialPosts]);
 
   return (

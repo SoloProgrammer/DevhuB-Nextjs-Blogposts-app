@@ -13,6 +13,7 @@ import {
   clearSavedPosts,
   removeFromSavedPostsInProfile,
 } from "@/redux/slices/profileUserSlice";
+import { showToast, toastStatus } from "@/utils/toast";
 
 const SavePostIcon = ({ slug, postId, profileUser }) => {
   const { user: loggedInUser, loading } = useSelector((state) => state.auth);
@@ -40,26 +41,38 @@ const SavePostIcon = ({ slug, postId, profileUser }) => {
     e.stopPropagation();
 
     if (!user) return router.push("/login");
-    setIsSaving(true);
-    if (e.target.classList.contains("fill")) {
-      toggleFill(e.target);
-      dispatch(unSavePost({ postId }));
-    } else {
-      toggleFill(e.target);
-      dispatch(savePost({ postId }));
+    try {
+      const options = {
+        method: "PUT",
+      };
+      setIsSaving(true);
+      const res = await fetch(api.savePost(slug), options);
+      const json = await res.json();
+      if (!res.ok) {
+        throw new Error(json.error);
+      }
+      if (e.target.classList.contains("fill")) {
+        toggleFill(e.target);
+        dispatch(unSavePost({ postId }));
+      } else {
+        toggleFill(e.target);
+        dispatch(savePost({ postId }));
+      }
+
+      router.refresh()
+
+      if (profile) {
+        profile.savedPosts.includes(postId)
+          ? dispatch(removeFromSavedPostsInProfile({ postId }))
+          : dispatch(addToSavedPostsSavedPostsInProfile({ postId }));
+      }
+
+      dispatch(clearSavedPosts());
+    } catch (error) {
+      showToast(error.message, toastStatus.ERROR);
+    } finally {
+      setIsSaving(false);
     }
-    setTimeout(() => {}, 350);
-    const options = {
-      method: "PUT",
-    };
-    await fetch(api.savePost(slug), options);
-    if (profile) {
-      profile.savedPosts.includes(postId)
-      ? dispatch(removeFromSavedPostsInProfile({ postId }))
-      : dispatch(addToSavedPostsSavedPostsInProfile({ postId }));
-    }
-    setIsSaving(false);
-    dispatch(clearSavedPosts());
   };
   if (loading) return <></>;
 
