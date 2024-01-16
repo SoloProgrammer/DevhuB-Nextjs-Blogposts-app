@@ -114,7 +114,7 @@ const PostList = ({ saved }) => {
       (prevoiusPage && prevoiusPage !== currPage) ||
       (profileUser && !initialPosts)
     ) {
-      getPostsOfUser(currPage, signal);
+      profileUser && getPostsOfUser(currPage, signal);
     }
 
     // scrolling Tabs view after fetching new page posts when page is changed
