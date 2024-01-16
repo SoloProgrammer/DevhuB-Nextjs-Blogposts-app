@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import styles from "./audienceStatsDetail.module.css";
 import { ThemeStates } from "@/context/ThemeContext";
 import {
@@ -22,6 +22,8 @@ import FollowUserBtn from "../FollowUserBtn/FollowUserBtn";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/navigation";
 import { getUserSlug } from "@/app/posts/[slug]/page";
+import { useDispatch, useSelector } from "react-redux";
+import { setAudience } from "@/redux/slices/profileUserSlice";
 
 const AudienceStatsDetail = ({ profileUser, audienceType }) => {
   const selectedTabValue = {
@@ -73,27 +75,17 @@ const AudienceStatsDetail = ({ profileUser, audienceType }) => {
                 <Tab label="Subscribers" value={"3"} />
               </Tabs>
             </Box>
-            <TabPanel value={"1"} index={0}>
-              <AudienceList
-                key={value}
-                author={profileUser}
-                audienceType={getSelectedAudienceType(value)}
-              />
-            </TabPanel>
-            <TabPanel value={"2"} index={1}>
-              <AudienceList
-                key={value}
-                author={profileUser}
-                audienceType={getSelectedAudienceType(value)}
-              />
-            </TabPanel>
-            <TabPanel value={"3"} index={2}>
-              <AudienceList
-                key={value}
-                author={profileUser}
-                audienceType={getSelectedAudienceType(value)}
-              />
-            </TabPanel>
+            {Object.values(audiences).map((key, index) => {
+              return (
+                <TabPanel key={key} value={`${index + 1}`} index={index}>
+                  <AudienceList
+                    key={value}
+                    author={profileUser}
+                    audienceType={getSelectedAudienceType(value)}
+                  />
+                </TabPanel>
+              );
+            })}
           </Box>
         </TabContext>
       </div>
@@ -102,11 +94,18 @@ const AudienceStatsDetail = ({ profileUser, audienceType }) => {
 };
 
 const AudienceList = ({ audienceType, author }) => {
-  // converting audienceType props value in lowerCase()
+  // converting audienceType props value to lowerCase()
   audienceType = audienceType.toLowerCase();
 
+  const { [audienceType]: initialAudiences } = useSelector(
+    (state) => state.profile
+  );
+  const { user: loggedInUser } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
   const { theme } = ThemeStates();
-  const [audiences, setAudiences] = useState([]);
+  const [audiences, setAudiences] = useState(initialAudiences || []);
   const [loading, setLoading] = useState(false);
 
   const getAudiences = async (audienceType) => {
@@ -120,6 +119,7 @@ const AudienceList = ({ audienceType, author }) => {
       }
       const { [audienceType]: audiences } = json;
       setAudiences(audiences);
+      dispatch(setAudience({ audienceType, audiences }));
     } catch (error) {
       showToast(error.message, toastStatus.ERROR);
     } finally {
@@ -128,8 +128,14 @@ const AudienceList = ({ audienceType, author }) => {
   };
 
   useEffect(() => {
-    author[audienceType].length > 0 && getAudiences(audienceType);
-  }, [audienceType]);
+    !audiences?.length &&
+      author[audienceType].length > 0 &&
+      getAudiences(audienceType);
+  }, [audienceType, audiences]);
+
+  useEffect(() => {
+    setAudiences(initialAudiences || []);
+  }, [initialAudiences]);
 
   const router = useRouter();
 
@@ -142,11 +148,13 @@ const AudienceList = ({ audienceType, author }) => {
           {audienceType === "following" ? (
             <Typography variant="h6" style={{ textAlign: "center" }}>
               {" "}
-              {author.name} hasn't followed anyone yet!
+              {author.id === loggedInUser.id ? "You" : author.name} hasn't
+              followed anyone yet!
             </Typography>
           ) : (
             <Typography variant="h6" style={{ textAlign: "center" }}>
-              {author.name} has no {audienceType} yet!
+              {author.id === loggedInUser.id ? "You" : author.name} do not have{" "}
+              {audienceType} yet!
             </Typography>
           )}
         </>

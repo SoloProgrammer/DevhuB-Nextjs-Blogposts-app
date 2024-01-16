@@ -43,9 +43,6 @@ const PostList = ({ saved }) => {
   let pages = Math.ceil(postsCount / POSTS_PER_PAGE);
 
   const getPostsOfUser = async (currPage, signal) => {
-    if (saved && profileUser?.savedPosts.length < 1) return setPosts([]);
-    else if (profileUser?.postCount < 1) return setPosts([]);
-
     if (initialPosts && Object.keys(initialPosts).includes(String(currPage))) {
       return setPosts(initialPosts[currPage]);
     }
@@ -101,6 +98,9 @@ const PostList = ({ saved }) => {
   }, [profileUser?.savedPosts.length]);
 
   useEffect(() => {
+    if (saved && profileUser?.savedPosts.length < 1) return setPosts([]);
+    else if (profileUser?.postCount < 1) return setPosts([]);
+
     const controller = new AbortController();
     const signal = controller.signal;
 

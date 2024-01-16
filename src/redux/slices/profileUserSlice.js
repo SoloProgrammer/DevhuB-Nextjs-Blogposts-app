@@ -24,6 +24,15 @@ const profile = createSlice({
       state.posts = null;
       state.savedPosts = null;
     },
+    setAudience: (state, { payload }) => {
+      state[payload.audienceType] = payload.audiences;
+    },
+    clearFollowingAudienceInProfile: (state) => {
+      state.following = null;
+    },
+    clearFollowersAudienceInProfile: (state) => {
+      state.followers = null;
+    },
     addPosts: (state, { payload }) => {
       state.posts = state.posts
         ? { ...state.posts, [payload.page]: payload.posts }
@@ -53,10 +62,13 @@ const profile = createSlice({
 
 export const {
   newProfile,
+  setAudience,
   addPosts,
   addSavedPosts,
   addToSavedPostsSavedPostsInProfile,
   removeFromSavedPostsInProfile,
+  clearFollowingAudienceInProfile,
+  clearFollowersAudienceInProfile,
   clearProfileData,
   updateSavedPosts,
   clearSavedPosts,
