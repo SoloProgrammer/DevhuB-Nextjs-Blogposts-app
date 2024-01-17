@@ -12,6 +12,7 @@ const transporter = nodemailer.createTransport({
 
 export const sendEmail = async (sender, receiversArr, subject, htmlData) => {
   // send mail with defined transport object
+  console.log("Send Email called");
   try {
     const options = {
       from: `${sender}`, // sender address
@@ -24,6 +25,6 @@ export const sendEmail = async (sender, receiversArr, subject, htmlData) => {
 
     console.log("Message sent: %s", info.messageId);
   } catch (error) {
-    throw new Error(error.message);
+    console.log("Error ----- while sending email",error);
   }
 };

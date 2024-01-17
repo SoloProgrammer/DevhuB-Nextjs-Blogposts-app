@@ -28,10 +28,9 @@ const ExtraActions = ({
   postImg,
 }) => {
   const { user, loading: userLoading } = useSelector((state) => state.auth);
-  const { tooltipTheme } = ThemeStates();
   const router = useRouter();
 
-  const [showDelModal, , openDelModal, hideModal] = useModal();
+  const [showDelModal, , openDelModal, hideDelModal] = useModal();
 
   let [deleteLoading, setDeleteLoading] = useState(false);
 
@@ -50,7 +49,7 @@ const ExtraActions = ({
       showToast("Something went wrong!", toastStatus.ERROR);
     } finally {
       setDeleteLoading(false);
-      setShowDelModal(false);
+      hideDelModal();
     }
   };
 
@@ -60,10 +59,7 @@ const ExtraActions = ({
     <div className={styles.extraActionsContainer}>
       {!userLoading ? (
         postAuthor.id !== user?.id ? (
-          <SubUnSubBtn
-            author={postAuthor}
-            subscriber={user}
-          />
+          <SubUnSubBtn author={postAuthor} subscriber={user} />
         ) : (
           <DelEditActions
             handleDelete={openDelModal}
@@ -98,9 +94,9 @@ const ExtraActions = ({
         </div>
       </div>
       {showDelModal && (
-        <Modal handleHide={hideModal} isCloseable={!deleteLoading}>
+        <Modal handleHide={hideDelModal} isCloseable={!deleteLoading}>
           <CrfmDelAlertBox
-            handleCancel={hideModal}
+            handleCancel={hideDelModal}
             title={"Delete Post!"}
             desc={"Are you sure you want to delete this post?"}
             btnText={"Delete"}

@@ -3,7 +3,7 @@ import { getTrimmedString } from "@/helpers/string";
 
 export const getEmailTemplate = (post) => {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
       <head>
         <meta http-equiv="Content-Type" content="text/html" />
         <meta charset="UTF-8" />
@@ -78,6 +78,16 @@ export const getEmailTemplate = (post) => {
             vertical-align: top;
             max-width: 100%;
             display: inline-block;
+          }
+          @media screen and (min-device-width: 10px) and (max-device-width:600px) {
+            .postTitle {
+              font-size:20px !important;
+              letter-spacing: 0.48px !important;
+              word-break:break-all !important;
+            }
+            .postDesc{
+              word-break:break-all !important;
+            }
           }
         </style>
       </head>
@@ -288,14 +298,11 @@ export const getEmailTemplate = (post) => {
                           post.slug
                         }"
                       >
-                        <h2 style="padding: 30px 0 20px">
-                         ${
-                           window.innerWidth > 770
-                             ? getTrimmedString(post.title, 75)
-                             : getTrimmedString(post.title, 55)
-                         }
+                        <h2 class="postTitle" style="padding: 30px 0 20px">
+                         ${getTrimmedString(post.title, 55)}
                         </h2>
                         <div
+                          class="postDesc"
                           style="
                             padding: 0 0 25px;
                             line-height: 25px;
@@ -304,7 +311,7 @@ export const getEmailTemplate = (post) => {
                         >
                           ${getTrimmedString(
                             post.desc.replace(/<[^>]*>/g, ""),
-                            110
+                            200
                           )}
                         </div>
                       </a>

@@ -148,12 +148,12 @@ const AudienceList = ({ audienceType, author }) => {
           {audienceType === "following" ? (
             <Typography variant="h6" style={{ textAlign: "center" }}>
               {" "}
-              {author.id === loggedInUser.id ? "You" : author.name} hasn't
+              {author.id === loggedInUser?.id ? "You" : author.name} hasn't
               followed anyone yet!
             </Typography>
           ) : (
             <Typography variant="h6" style={{ textAlign: "center" }}>
-              {author.id === loggedInUser.id ? "You" : author.name} do not have{" "}
+              {author.id === loggedInUser?.id ? "You" : author.name} do not have{" "}
               {audienceType} yet!
             </Typography>
           )}

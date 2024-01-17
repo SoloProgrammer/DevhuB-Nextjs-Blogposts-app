@@ -7,10 +7,9 @@ cloudinary.config({
 });
 
 export const cloudinaryDeleteImg = async (fileToDelete) => {
-  cloudinary.uploader.destroy(fileToDelete, (error, _) => {
-    if (error) {
-      console.log("Error while deleting image from cloud -", error.message);
+  cloudinary.uploader.destroy(fileToDelete, (result) => {
+    if (result) {
+      console.log("Image deleted result from cloudinary: -", result);
     }
   });
 };
-
