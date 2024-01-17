@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 
 export const sendEmail = async (sender, receiversArr, subject, post) => {
   // send mail with defined transport object
-  const authorId = post.user.Id;
+  const authorId = post.user.id;
 
   try {
     receiversArr.forEach(async (receiverId, i) => {
@@ -31,7 +31,7 @@ export const sendEmail = async (sender, receiversArr, subject, post) => {
       };
 
       const info = await transporter.sendMail(options);
-      console.log("Email sent to: %s", receiversArr[i], info.messageId);
+      console.log("Email sent to: %s", receiver.email, info.messageId);
     });
   } catch (error) {
     console.log("Error ----- while sending email", error);
