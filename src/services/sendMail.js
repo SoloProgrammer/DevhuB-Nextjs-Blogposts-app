@@ -1,6 +1,6 @@
 import { getEmailTemplate } from "@/utils/EmailTemplate";
 import nodemailer from "nodemailer";
-import { server } from "./api";
+import { PRODUCTION_URL, server } from "./api";
 import prisma from "@/utils/connect";
 
 const transporter = nodemailer.createTransport({
@@ -18,7 +18,7 @@ export const sendEmail = async (sender, receiversArr, subject, post) => {
 
   try {
     receiversArr.forEach(async (receiverId, i) => {
-      const unsubscribeLink = `${server.URL}/${authorId}/newsletter/${receiverId}/unsubscribe`;
+      const unsubscribeLink = `${PRODUCTION_URL}/${authorId}/newsletter/${receiverId}/unsubscribe`;
       const receiver = await prisma.User.findUnique({
         where: { id: receiverId },
         select: { email: true },
