@@ -18,7 +18,7 @@ const SubUnSubBtn = ({ author, subscriber, tooltipPlacement = "top" }) => {
   const authorName = AuthorCopy?.current?.name;
 
   const isSubscribed = () =>
-    AuthorCopy?.current?.subscribers.includes(subscriber?.email);
+    AuthorCopy?.current?.subscribers.includes(subscriber?.id);
 
   const handleSubscribe = async () => {
     if (!subscriber) {

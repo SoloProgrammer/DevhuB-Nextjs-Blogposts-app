@@ -15,12 +15,12 @@ const handleSubscriptionController = async (req) => {
   ]);
 
   const checkIsSubscribed = () =>
-    author.subscribers && author.subscribers.includes(subscriber.email); // return boolean
+    author.subscribers && author.subscribers.includes(subscriber.id); // return boolean
 
   const pullQuery = {
-    set: author.subscribers.filter((sub) => sub !== subscriber.email),
+    set: author.subscribers.filter((sub) => sub !== subscriber.id),
   };
-  const pushQuery = { push: subscriber.email };
+  const pushQuery = { push: subscriber.id };
 
   const MESSAGE = checkIsSubscribed() ? "unsubscribed" : "subscribed";
 

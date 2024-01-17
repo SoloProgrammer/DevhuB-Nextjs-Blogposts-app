@@ -23,11 +23,9 @@ export const GET = TryCatch(async (req) => {
     return Response("Invalid authorId", 400, false);
   }
 
-  let fieldToCheck = audienceType === "subscribers" ? "email" : "id";
-
   const audiences = await prisma.User.findMany({
     where: {
-      [fieldToCheck]: {
+      id: {
         in: author[audienceType],
       },
     },

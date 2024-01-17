@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./audienceStatsDetail.module.css";
 import { ThemeStates } from "@/context/ThemeContext";
 import {
