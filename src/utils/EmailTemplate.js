@@ -91,6 +91,9 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
               font-size: 15px !important;
               line-height:22px !important;
             }
+            .LogoText{
+              font-size: 25px !important;
+            }
           }
         </style>
       </head>
@@ -120,6 +123,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                                     href="https://dev-blog-a-nextjs-app.vercel.app"
                                   >
                                     <p
+                                      class="LogoText"
                                       style="
                                         background: linear-gradient(
                                           0deg,
