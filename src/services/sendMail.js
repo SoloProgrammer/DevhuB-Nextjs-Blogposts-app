@@ -1,5 +1,7 @@
 import { getEmailTemplate } from "@/utils/EmailTemplate";
 import nodemailer from "nodemailer";
+import { server } from "./api";
+import prisma from "@/utils/connect";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -10,21 +12,28 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const sendEmail = async (sender, receiversArr, subject, htmlData) => {
+export const sendEmail = async (sender, receiversArr, subject, post) => {
   // send mail with defined transport object
-  console.log("Send Email called");
+  const authorId = post.user.Id;
+
   try {
-    const options = {
-      from: `${sender}`, // sender address
-      to: receiversArr.join(", "), // list of receivers
-      subject, // Subject line
-      html: getEmailTemplate(htmlData), // html body
-    };
+    receiversArr.forEach(async (receiverId, i) => {
+      const unsubscribeLink = `${server.URL}/${authorId}/newsletter/${receiverId}/unsubscribe`;
+      const receiver = await prisma.User.findUnique({
+        where: { id: receiverId },
+        select: { email: true },
+      });
+      const options = {
+        from: `${sender}`, // sender address
+        to: receiver.email, // receiver
+        subject, // Subject line
+        html: getEmailTemplate(post, unsubscribeLink), // html body
+      };
 
-    const info = await transporter.sendMail(options);
-
-    console.log("Message sent: %s", info.messageId);
+      const info = await transporter.sendMail(options);
+      console.log("Email sent to: %s", receiversArr[i], info.messageId);
+    });
   } catch (error) {
-    console.log("Error ----- while sending email",error);
+    console.log("Error ----- while sending email", error);
   }
 };

@@ -55,6 +55,9 @@ export const api = {
   subscribeAuthor: (query) => {
     return `${server.URL}/api/user/subscribe${query}`;
   },
+  unsubscribe:(query)=>{
+    return `${server.URL}/api/user/unsubscribe${query}`;
+  },
   followAuthor: (query) => {
     return `${server.URL}/api/user/follow${query}`;
   },

@@ -1,7 +1,7 @@
 import { getUserSlug } from "@/app/posts/[slug]/page";
 import { getTrimmedString } from "@/helpers/string";
 
-export const getEmailTemplate = (post) => {
+export const getEmailTemplate = (post, unsubscribeLink) => {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
       <head>
@@ -87,6 +87,9 @@ export const getEmailTemplate = (post) => {
             }
             .postDesc{
               word-break:break-all !important;
+              color:#ffffffb3 !important;
+              font-size: 16px !important;
+              line-height:22px !important;
             }
           }
         </style>
@@ -415,7 +418,7 @@ export const getEmailTemplate = (post) => {
                         >Visit Profile</a
                       >
                       <a
-                        href="https://dev-blog-a-nextjs-app.vercel.app/"
+                        href="${unsubscribeLink}"
                         style="
                           color: #dedede;
                           padding-left: 10px;
