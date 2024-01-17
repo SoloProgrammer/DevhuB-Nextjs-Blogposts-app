@@ -1,4 +1,5 @@
 import { getUserSlug } from "@/app/posts/[slug]/page";
+import { getTrimmedString } from "@/helpers/string";
 
 export const getEmailTemplate = (post) => {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -288,7 +289,11 @@ export const getEmailTemplate = (post) => {
                         }"
                       >
                         <h2 style="padding: 30px 0 20px">
-                         ${post.title}
+                         ${
+                           window.innerWidth > 770
+                             ? getTrimmedString(post.title, 75)
+                             : getTrimmedString(post.title, 55)
+                         }
                         </h2>
                         <div
                           style="
@@ -297,11 +302,10 @@ export const getEmailTemplate = (post) => {
                             font-size: 15px;
                           "
                         >
-                          ${
-                            post.desc.length > 190
-                              ? post.desc.substring(0, 190) + "..."
-                              : post.desc
-                          }
+                          ${getTrimmedString(
+                            post.desc.replace(/<[^>]*>/g, ""),
+                            110
+                          )}
                         </div>
                       </a>
                       <a
@@ -377,12 +381,16 @@ export const getEmailTemplate = (post) => {
                   </tr>
                   <tr>
                     <td style="text-align: center; padding-top: 10px">
+                     <a href='https://dev-blog-a-nextjs-app.vercel.app/dev/${getUserSlug(
+                       post.user
+                     )}'>
                       <img
                         width="60"
-                        style="max-width: 60px; border-radius: 50%"
+                        style="max-width: 60px; border-radius: 50%; cursor:pointer"
                         src=${post.user.image}
                         alt=""
                       />
+                      </a>
                       <h2 style="padding-top: 10px">${post.user.name}</h2>
                     </td>
                   </tr>

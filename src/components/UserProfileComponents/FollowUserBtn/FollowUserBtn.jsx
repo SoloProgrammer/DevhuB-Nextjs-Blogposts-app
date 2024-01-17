@@ -54,9 +54,9 @@ const FollowUserBtn = ({ author, size = "medium" }) => {
       if (user?.id === profile?.id) {
         // If the logedIn user is viewing his own profile page and does some follow/unfollow action then clear following audience data
         dispatch(clearFollowingAudienceInProfile());
-      } else {
+      } else if (author?.id === profile?.id) {
         // If the logged In user ir viewing some othert user profile and do follow to him/her then clear the followers audidece data of that profile user to relavidate!
-        author?.id === profile?.id && dispatch(clearFollowersAudienceInProfile());
+        dispatch(clearFollowersAudienceInProfile());
       }
 
       showToast(json.message, toastStatus.SUCCESS);
