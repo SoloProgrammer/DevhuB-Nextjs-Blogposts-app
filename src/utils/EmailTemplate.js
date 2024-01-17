@@ -88,7 +88,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
             .postDesc{
               word-break:break-all !important;
               color:#ffffffb3 !important;
-              font-size: 16px !important;
+              font-size: 15px !important;
               line-height:22px !important;
             }
           }
