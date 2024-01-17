@@ -36,11 +36,11 @@ const SubUnSubBtn = ({ author, subscriber, tooltipPlacement = "top" }) => {
       if (isSubscribed()) {
         showToast(`Unsubscribed from ${authorName}`);
         AuthorCopy.current.subscribers = AuthorCopy.current.subscribers.filter(
-          (sub) => sub !== subscriber?.email
+          (sub) => sub !== subscriber?.id
         );
       } else {
         showToast(`Subscribed to ${authorName}`);
-        AuthorCopy.current.subscribers.push(subscriber?.email);
+        AuthorCopy.current.subscribers.push(subscriber?.id);
       }
 
       router.refresh();
