@@ -16,6 +16,7 @@ import { getTrimmedString } from "@/helpers/string";
 import { useRouter } from "next/navigation";
 import { getFormattedPostDate } from "@/utils/date";
 import { getUserSlug } from "@/app/posts/[slug]/page";
+import moment from "moment";
 
 export default function PostCard({ post, profileUser }) {
   const { theme } = ThemeStates();
@@ -64,7 +65,7 @@ const LandscapeCard = ({ post, theme, profileUser }) => {
             </IconButton>
           }
           title={post.user.name}
-          subheader={getFormattedPostDate(post.createdAt)}
+          subheader={moment(post.createdAt).startOf("hour").fromNow()}
         />
         <CardContent sx={{ paddingBottom: "2px" }}>
           <Typography variant="body2" color="text.secondary">

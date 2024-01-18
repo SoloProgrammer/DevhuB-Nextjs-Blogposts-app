@@ -87,12 +87,15 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
             }
             .postDesc{
               word-break:break-all !important;
-              color:#ffffffb3 !important;
-              font-size: 15px !important;
+              color:#b9b9b9 !important;
+              font-size: 13px !important;
               line-height:22px !important;
             }
             .LogoText{
-              font-size: 25px !important;
+              font-size: 26px !important;
+            }
+            .Dev_Blog_Logo{
+              width: 26px !important;
             }
           }
         </style>
@@ -152,6 +155,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                                     <img
                                       src="https://iconape.com/wp-content/png_logo_vector/google-web-dev-logo.png"
                                       alt="Dev_Blog_Logo"
+                                      class="Dev_Blog_Logo"
                                       width="30"
                                       style="
                                         max-width: 30px;
@@ -318,7 +322,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                         >
                           ${getTrimmedString(
                             post.desc.replace(/<[^>]*>/g, ""),
-                            200
+                            230
                           )}
                         </div>
                       </a>

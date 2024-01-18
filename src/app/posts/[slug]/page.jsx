@@ -4,13 +4,13 @@ import React, { Suspense } from "react";
 import styles from "./singleBlogPage.module.css";
 import Comments from "@/components/Comments/Comments";
 import { api } from "@/services/api";
-import { getFormattedPostDate } from "@/utils/date";
 import SavePostIcon from "@/components/SavePostIcon/SavePostIcon";
 import { notFound } from "next/navigation";
 import ExtraActions from "@/components/ExtraActions/ExtraActions";
 import SinglePostLoadingSkeleton from "./loading";
 import Link from "next/link";
 import FollowUserBtn from "@/components/UserProfileComponents/FollowUserBtn/FollowUserBtn";
+import moment from "moment";
 
 const getSinglePost = async (slug) => {
   const res = await fetch(api.getSinglePost(slug), { cache: "no-store" });
@@ -57,7 +57,8 @@ const SingleBlogPage = async ({ params }) => {
                   </span>
                 </div>
                 <span className={styles.date}>
-                  {getFormattedPostDate(post.createdAt)}
+                  {/* {getFormattedPostDate(post.createdAt)} */}
+                  {moment(post.createdAt).startOf("hour").fromNow()}
                 </span>
               </div>
             </div>
