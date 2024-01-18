@@ -100,6 +100,7 @@ const AudienceList = ({ audienceType, author }) => {
   const { [audienceType]: initialAudiences } = useSelector(
     (state) => state.profile
   );
+
   const { user: loggedInUser } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
@@ -118,7 +119,6 @@ const AudienceList = ({ audienceType, author }) => {
         throw new Error(json.message);
       }
       const { [audienceType]: audiences } = json;
-      setAudiences(audiences);
       dispatch(setAudience({ audienceType, audiences }));
     } catch (error) {
       showToast(error.message, toastStatus.ERROR);
@@ -131,7 +131,7 @@ const AudienceList = ({ audienceType, author }) => {
     !audiences?.length &&
       author[audienceType].length > 0 &&
       getAudiences(audienceType);
-  }, [audienceType, audiences]);
+  }, [audiences]);
 
   useEffect(() => {
     setAudiences(initialAudiences || []);
