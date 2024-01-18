@@ -57,8 +57,7 @@ const SingleBlogPage = async ({ params }) => {
                   </span>
                 </div>
                 <span className={styles.date}>
-                  {/* {getFormattedPostDate(post.createdAt)} */}
-                  {moment(post.createdAt).startOf("hour").fromNow()}
+                  {moment(post.createdAt).fromNow()}
                 </span>
               </div>
             </div>

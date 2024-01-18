@@ -44,7 +44,9 @@ const ExtraActions = ({
       const json = await res.json();
       router.push("/");
       router.refresh();
-      showToast(json.message, toastStatus.SUCCESS);
+      setTimeout(() => {
+        showToast(json.message, toastStatus.SUCCESS);
+      }, 100);
     } catch (error) {
       showToast("Something went wrong!", toastStatus.ERROR);
     } finally {

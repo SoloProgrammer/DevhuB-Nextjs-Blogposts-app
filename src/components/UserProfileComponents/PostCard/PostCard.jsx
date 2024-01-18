@@ -65,7 +65,7 @@ const LandscapeCard = ({ post, theme, profileUser }) => {
             </IconButton>
           }
           title={post.user.name}
-          subheader={moment(post.createdAt).startOf("hour").fromNow()}
+          subheader={moment(post.createdAt).fromNow()}
         />
         <CardContent sx={{ paddingBottom: "2px" }}>
           <Typography variant="body2" color="text.secondary">
