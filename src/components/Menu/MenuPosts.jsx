@@ -3,9 +3,9 @@ import Link from "next/link";
 import React from "react";
 import styles from "./menu.module.css";
 import { api } from "@/services/api";
-import { getFormattedPostDate } from "@/utils/date";
 import { getUserSlug } from "@/app/posts/[slug]/page";
 import { getTrimmedString } from "@/helpers/string";
+import moment from "moment";
 
 const getPosts = async (URL) => {
   try {
@@ -55,7 +55,7 @@ const MenuPosts = async ({ withImg }) => {
                   {post.user.name}
                 </Link>
                 <span className={styles.date}>
-                  &nbsp;-&nbsp;{getFormattedPostDate(post.createdAt)}
+                  &nbsp;-&nbsp;{moment(post.createdAt).fromNow()}
                 </span>
               </div>
             </div>

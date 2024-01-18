@@ -7,12 +7,16 @@ import { api } from "@/services/api";
 import { showToast } from "@/utils/toast";
 import Loader from "../../Loader/Loader";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { clearSubscribersAudienceInProfile } from "@/redux/slices/profileUserSlice";
 
 const SubUnSubBtn = ({ author, subscriber, tooltipPlacement = "top" }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const { tooltipTheme } = ThemeStates();
+
+  const dispatch = useDispatch();
 
   const AuthorCopy = useRef(structuredClone(author));
   const authorName = AuthorCopy?.current?.name;
@@ -42,8 +46,8 @@ const SubUnSubBtn = ({ author, subscriber, tooltipPlacement = "top" }) => {
         showToast(`Subscribed to ${authorName}`);
         AuthorCopy.current.subscribers.push(subscriber?.id);
       }
-
       router.refresh();
+      dispatch(clearSubscribersAudienceInProfile());
     } catch (error) {
       showToast(error.message, "error");
       // console.log("Error", error);

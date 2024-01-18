@@ -3,9 +3,9 @@ import styles from "./blogCard.module.css";
 import Image from "next/image";
 import Commonbtn from "../Commonbtn/Commonbtn";
 import Link from "next/link";
-import { getFormattedPostDate } from "@/utils/date";
 import SavePostIcon from "../SavePostIcon/SavePostIcon";
 import { getTrimmedString } from "@/helpers/string";
+import moment from "moment";
 
 const BlogCard = ({ post, showBtn = true }) => {
   const icon = (
@@ -25,7 +25,7 @@ const BlogCard = ({ post, showBtn = true }) => {
         <div className={styles.seperator}>
           <div className={styles.details}>
             <span className={styles.date}>
-              {getFormattedPostDate(post.createdAt)} -{" "}
+              {moment(post.createdAt).fromNow()}{" - "}
             </span>
             <span className={styles.cat}>&nbsp;{post.catSlug}</span>
           </div>

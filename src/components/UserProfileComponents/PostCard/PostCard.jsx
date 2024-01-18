@@ -120,7 +120,7 @@ const PortraitCard = ({ post, theme, profileUser }) => {
             </IconButton>
           }
           title={post.user.name}
-          subheader={getFormattedPostDate(post.createdAt)}
+          subheader={moment(post.createdAt).fromNow()}
         />
         <CardMedia
           component="img"

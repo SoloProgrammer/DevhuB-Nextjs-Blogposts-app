@@ -10,7 +10,7 @@ import ExtraActions from "@/components/ExtraActions/ExtraActions";
 import SinglePostLoadingSkeleton from "./loading";
 import Link from "next/link";
 import FollowUserBtn from "@/components/UserProfileComponents/FollowUserBtn/FollowUserBtn";
-import moment from "moment";
+import { getFormattedPostDate } from "@/utils/date";
 
 const getSinglePost = async (slug) => {
   const res = await fetch(api.getSinglePost(slug), { cache: "no-store" });
@@ -57,7 +57,7 @@ const SingleBlogPage = async ({ params }) => {
                   </span>
                 </div>
                 <span className={styles.date}>
-                  {moment(post.createdAt).fromNow()}
+                  {getFormattedPostDate(post.createdAt, true)}
                 </span>
               </div>
             </div>

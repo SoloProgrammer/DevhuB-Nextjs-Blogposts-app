@@ -33,6 +33,9 @@ const profile = createSlice({
     clearFollowersAudienceInProfile: (state) => {
       state.followers = null;
     },
+    clearSubscribersAudienceInProfile: (state) => {
+      state.subscribers = null;
+    },
     addPosts: (state, { payload }) => {
       state.posts = state.posts
         ? { ...state.posts, [payload.page]: payload.posts }
@@ -69,6 +72,7 @@ export const {
   removeFromSavedPostsInProfile,
   clearFollowingAudienceInProfile,
   clearFollowersAudienceInProfile,
+  clearSubscribersAudienceInProfile,
   clearProfileData,
   updateSavedPosts,
   clearSavedPosts,

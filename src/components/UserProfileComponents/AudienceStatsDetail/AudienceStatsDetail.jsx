@@ -75,9 +75,9 @@ const AudienceStatsDetail = ({ profileUser, audienceType }) => {
                 <Tab label="Subscribers" value={"3"} />
               </Tabs>
             </Box>
-            {Object.values(audiences).map((key, index) => {
+            {Object.values(audiences).map((audience, index) => {
               return (
-                <TabPanel key={key} value={`${index + 1}`} index={index}>
+                <TabPanel key={audience} value={`${index + 1}`} index={index}>
                   <AudienceList
                     key={value}
                     author={profileUser}
