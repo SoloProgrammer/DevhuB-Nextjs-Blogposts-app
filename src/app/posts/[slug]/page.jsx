@@ -11,6 +11,7 @@ import SinglePostLoadingSkeleton from "./loading";
 import Link from "next/link";
 import FollowUserBtn from "@/components/UserProfileComponents/FollowUserBtn/FollowUserBtn";
 import { getFormattedPostDate } from "@/utils/date";
+import FormattedDate from "@/components/FormattedDate/FormattedDate";
 
 const getSinglePost = async (slug) => {
   const res = await fetch(api.getSinglePost(slug), { cache: "no-store" });
@@ -57,7 +58,7 @@ const SingleBlogPage = async ({ params }) => {
                   </span>
                 </div>
                 <span className={styles.date}>
-                  {getFormattedPostDate(post.createdAt, true)}
+                  <FormattedDate date={post?.createdAt} showTime={true} />
                 </span>
               </div>
             </div>
