@@ -7,7 +7,7 @@ const Footer = () => {
     <div className={styles.container}>
       <div className={styles.left}>
         <div className={styles.logo}>
-          <div className={styles.logoText}>Dev_Blog</div>
+          <div className={styles.logoText}>{`<Dev>.Hub`}</div>
           <div className={styles.logoImg}>
             <Image
               alt="alt"

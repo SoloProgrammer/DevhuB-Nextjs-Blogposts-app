@@ -21,17 +21,25 @@ const Featured = async () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
-        <b>Hey, Dev Shinde here!</b>
+        <b>Your one stop platform,</b>
         <br />
-        Discover my stories and creative ideas.
+        <p>To discover stories and creative ideas for developers!</p>
       </h1>
+      <div>
+        <h1 className={styles.featuredHeading}>
+          Top Story: The Highlight of the Week!
+        </h1>
+      </div>
       <div className={styles.post}>
         <div className={styles.imgContainer}>
           <Image src={post?.img} priority={false} fill alt="post1" />
         </div>
         <div className={styles.content}>
           <div className={styles.top}>
-            <Link href={`/dev/${getUserSlug(post.user)}`} className={styles.authorInfo}>
+            <Link
+              href={`/dev/${getUserSlug(post.user)}`}
+              className={styles.authorInfo}
+            >
               <div className={styles.authorImg_Container}>
                 <Image src={post.user.image} fill alt="author_avatar" />
               </div>

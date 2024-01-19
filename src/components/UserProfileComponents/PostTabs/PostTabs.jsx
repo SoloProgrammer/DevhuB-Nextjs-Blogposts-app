@@ -27,6 +27,19 @@ export default function PostTabs({ profileUser }) {
     return () => dispatch(clearProfileData());
   }, [profileUser?.id]);
 
+  const MuiTabsScrollerTabDiv = document.querySelector(".MuiTabs-scroller");
+  useEffect(() => {
+    value === "2" &&
+      window.innerWidth < 770 &&
+      MuiTabsScrollerTabDiv?.scrollTo({
+        left:
+          MuiTabsScrollerTabDiv.scrollWidth -
+          MuiTabsScrollerTabDiv.clientWidth -
+          50,
+        behavior: "smooth",
+      });
+  }, [value]);
+
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
       <TabContext value={value}>
