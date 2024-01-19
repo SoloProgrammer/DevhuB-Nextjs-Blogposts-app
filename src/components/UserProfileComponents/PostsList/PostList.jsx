@@ -25,7 +25,6 @@ const PostList = ({ saved }) => {
   const dispatch = useDispatch();
 
   const [currPage, setCurrPage] = useState(1);
-
   // Retrieving stored posts of profile user from redux
   const initialPosts = saved ? savedPosts : allPosts;
 
@@ -99,7 +98,7 @@ const PostList = ({ saved }) => {
 
   useEffect(() => {
     if (saved && profileUser?.savedPosts.length < 1) return setPosts([]);
-    else if (profileUser?.postCount < 1) return setPosts([]);
+    else if (!saved && profileUser?.postCount < 1) return setPosts([]);
 
     const controller = new AbortController();
     const signal = controller.signal;
