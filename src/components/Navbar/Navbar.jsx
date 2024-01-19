@@ -34,7 +34,7 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <Link href={"/"} className={styles.logo}>
-        <div className={styles.logoText}>{`<Dev>.Hub`}</div>
+        <div className={styles.logoText}>{`<Dev>.huB`}</div>
         <div className={styles.logoImg}>
           <Image
             fill
