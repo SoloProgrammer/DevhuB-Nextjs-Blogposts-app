@@ -1,10 +1,11 @@
 "use client";
+
 import React from "react";
 import Notfound from "@/components/NotFound/Notfound";
 import { NOT_FOUND } from "@/helpers/ErrorHandler";
 
 const ErrorPage = ({ error, reset }) => {
-  if (error.message === NOT_FOUND) {
+  if (error.message === "Not Found") {
     return (
       <>
         <Notfound />
