@@ -20,7 +20,6 @@ const AuthUser = () => {
   const dispatch = useDispatch();
   const { data, isLoading } = useSWR(!user ? api.getUser() : null, fetcher);
   useEffect(() => {
-    console.log(isLoading,'---');
     dispatch(setLoading(isLoading));
   }, [isLoading, dispatch]);
   if (data) {

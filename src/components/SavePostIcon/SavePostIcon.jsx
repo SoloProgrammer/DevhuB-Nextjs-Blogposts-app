@@ -69,7 +69,7 @@ const SavePostIcon = ({ slug, postId, profileUser }) => {
 
       dispatch(clearSavedPosts());
     } catch (error) {
-      showToast(error.message, toastStatus.ERROR);
+      showToast("Some error happens, please try again later!", toastStatus.ERROR);
     } finally {
       setIsSaving(false);
     }

@@ -128,6 +128,7 @@ const AudienceList = ({ audienceType, author }) => {
   };
 
   useEffect(() => {
+    console.log(audiences);
     !audiences?.length &&
       author[audienceType].length > 0 &&
       getAudiences(audienceType);

@@ -12,7 +12,9 @@ export const GET = async (req, { params }) => {
       where: { slug },
       include: { user: true },
     });
-    const response = new NextResponse(JSON.stringify({ post, status: 200 }));
+    if (!post) return Response("Post not found!", 404, false);
+
+    const response = Response("Success", 200, true, false, { post });
     return response;
   } catch (error) {
     console.log(error);

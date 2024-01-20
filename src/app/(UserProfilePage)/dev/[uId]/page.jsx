@@ -10,15 +10,13 @@ import { Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import UserProfileLoadingSkeleton from "./loading";
 import UserActionComponent from "@/components/UserProfileComponents/UserActionComponent/UserActionComponent";
-
-export const USER_NOT_FOUND = "User not found";
-export const INTERNAL_SERVER_ERROR = "Internal server error";
+import { INTERNAL_SERVER_ERROR, NOT_FOUND } from "@/helpers/ErrorHandler";
 
 const getUser = async (id) => {
   const query = `?id=${id}`;
   const res = await fetch(api.getUser(query), { cache: "no-store" });
   if (!res.ok) {
-    if (res.status === 404) throw new CustomError(USER_NOT_FOUND, 404);
+    if (res.status === 404) throw new Error(NOT_FOUND);
     throw new CustomError(INTERNAL_SERVER_ERROR, 404);
   }
   return res.json();
@@ -45,7 +43,7 @@ const UserProfilePage = async ({ params }) => {
               </Typography>
             </div>
             <UserActionComponent profileUser={user} />
-            <Divider variant="fullWidth"/>
+            <Divider variant="fullWidth" />
           </div>
           <div className={styles.right}>
             <div className={styles.aboutSection}></div>

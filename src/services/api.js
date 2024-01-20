@@ -25,7 +25,7 @@ export const api = {
   },
   getSinglePost: (slug) => {
     // Http method - GET
-    return `${server.URL}/api/posts/${slug}`;
+    return `/posts/${slug}`;
   },
   deletePost: (slug) => {
     // Http method - DELETE
@@ -55,7 +55,7 @@ export const api = {
   subscribeAuthor: (query) => {
     return `${server.URL}/api/user/subscribe${query}`;
   },
-  unsubscribe:(query)=>{
+  unsubscribe: (query) => {
     return `${server.URL}/api/user/unsubscribe${query}`;
   },
   followAuthor: (query) => {
