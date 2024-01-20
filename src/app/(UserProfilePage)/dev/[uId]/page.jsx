@@ -9,21 +9,14 @@ import { Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import UserProfileLoadingSkeleton from "./loading";
 import UserActionComponent from "@/components/UserProfileComponents/UserActionComponent/UserActionComponent";
+import { TryCatchWrapper } from "@/helpers/ErrorHandler";
 import axiosClient from "@/services/axiosClient";
-import { NOT_FOUND } from "@/helpers/ErrorHandler";
 
-const getUser = async (id) => {
-  try {
-    const query = `?id=${id}`;
-    const { data } = await axiosClient.get(api.getUser(query));
-    return data;
-  } catch (err) {
-    let statusCode = err.response.status;
-    if (statusCode === 404) {
-      throw new Error(NOT_FOUND);
-    } else throw new Error(INTERNAL_SERVER_ERROR);
-  }
-};
+const getUser = TryCatchWrapper(async (id) => {
+  const query = `?id=${id}`;
+  const { data } = await axiosClient.get(api.getUser(query));
+  return data;
+});
 
 const UserProfilePage = async ({ params }) => {
   const uId = extractRawUserIdFromSlug(params.uId);

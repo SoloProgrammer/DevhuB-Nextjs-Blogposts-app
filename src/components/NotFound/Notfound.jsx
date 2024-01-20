@@ -12,7 +12,7 @@ const Notfound = () => {
       </div>
       <small>
         THE PAGE YOU ARE LOOKING FOR MIGHT HAVE BEEN REEMOVED HAD ITS NAME
-        CHANGED OR IS TEMPORARLY UNAVAILABLE
+        CHANGED OR <br />IS TEMPORARLY UNAVAILABLE
       </small>
     </div>
   );

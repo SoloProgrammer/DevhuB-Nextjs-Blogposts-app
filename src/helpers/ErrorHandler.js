@@ -1,3 +1,4 @@
+import CustomError from "@/lib/exceptions";
 import { Response } from "@/utils/responses";
 
 // Error constants....
@@ -23,7 +24,8 @@ export const TryCatchWrapper = (fetcher) => {
     } catch (err) {
       let statusCode = err.response.status;
       if (statusCode === 404) {
-        throw new Error(NOT_FOUND);
+        err.statusCode = 404;
+        throw new CustomError(NOT_FOUND);
       } else throw new Error(INTERNAL_SERVER_ERROR);
     }
   };
