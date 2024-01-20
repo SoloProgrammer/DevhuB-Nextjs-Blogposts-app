@@ -37,14 +37,13 @@ const profile = createSlice({
       state.subscribers = null;
     },
     addPosts: (state, { payload }) => {
-      state.posts = state.posts
-        ? { ...state.posts, [payload.page]: payload.posts }
-        : { [payload.page]: payload.posts };
+      state.posts = { ...state?.posts, [payload.page]: payload.posts };
     },
     addSavedPosts: (state, { payload }) => {
-      state.savedPosts = state.savedPosts
-        ? { ...state.savedPosts, [payload.page]: payload.savedPosts }
-        : { [payload.page]: payload.savedPosts };
+      state.savedPosts = {
+        ...state?.savedPosts,
+        [payload.page]: payload.savedPosts,
+      };
     },
     addToSavedPostsSavedPostsInProfile: (state, { payload }) => {
       state.profile.savedPosts.push(payload.postId);

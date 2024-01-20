@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./postsList.module.css";
 import PostCard from "../PostCard/PostCard";
-import { api } from "@/services/api";
 import { showToast, toastStatus } from "@/utils/toast";
 import Loader from "@/components/Loader/Loader";
 import { Pagination, Typography } from "@mui/material";
@@ -11,6 +10,7 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { addPosts, addSavedPosts } from "@/redux/slices/profileUserSlice";
 import { ABORTERROR, ABORTERROR_MESSAGE } from "@/helpers/ErrorHandler";
+import { useLazyGetPostsQuery } from "@/redux/api/postsApi";
 
 var prevoiusPage;
 
@@ -22,22 +22,25 @@ const PostList = ({ saved }) => {
     profile: profileUser,
   } = useSelector((state) => state.profile);
 
+  const [currPage, setCurrPage] = useState(1);
+
+  const [getPosts, { isError, isFetching, error, data }] =
+    useLazyGetPostsQuery();
+
   const dispatch = useDispatch();
 
-  const [currPage, setCurrPage] = useState(1);
   // Retrieving stored posts of profile user from redux
   const initialPosts = saved ? savedPosts : allPosts;
 
-  // Component (posts + loading) local states
+  // posts - local component state to store fetched posts o profile user!
   const [posts, setPosts] = useState(
     initialPosts ? initialPosts[currPage] : initialPosts
   );
-  const [loading, setLoading] = useState(false);
 
-  // Pagination states + logic
-  const [postsCount, setPostsCount] = useState(
-    saved ? profileUser?.savedPosts.length : profileUser?.postCount
-  );
+  let postsCount = saved
+    ? profileUser?.savedPosts.length
+    : profileUser?.postCount;
+
   const POSTS_PER_PAGE = 4;
   let pages = Math.ceil(postsCount / POSTS_PER_PAGE);
 
@@ -45,35 +48,25 @@ const PostList = ({ saved }) => {
     if (initialPosts && Object.keys(initialPosts).includes(String(currPage))) {
       return setPosts(initialPosts[currPage]);
     }
-    try {
-      const query = `?uId=${profileUser?.id}&page=${currPage}&${
-        saved ? `saved=true` : ""
-      }`;
-      setLoading(true);
-      const res = await fetch(
-        api.getPosts(query),
-        { signal },
-        { cache: "no-store" }
-      );
-      if (!res.ok) {
-        throw new Error("Internal server error");
-      }
-      const json = await res.json();
-      setPostsCount(json.postsCount);
-      setPosts(json.posts);
+    const query = `uId=${profileUser?.id}&page=${currPage}&${
+      saved ? `saved=true` : ""
+    }`;
+    getPosts(query);
+  };
+
+  useEffect(() => {
+    if (isError) {
+      showToast(error?.data?.message, toastStatus.ERROR);
+    } else if (data?.posts) {
+      setPosts(data.posts);
+      postsCount = data.postCount;
       dispatch(
         saved
-          ? addSavedPosts({ savedPosts: json.posts, page: currPage })
-          : addPosts({ posts: json.posts, page: currPage })
+          ? addSavedPosts({ savedPosts: data.posts, page: currPage })
+          : addPosts({ posts: data.posts, page: currPage })
       );
-    } catch (error) {
-      if (error.name === ABORTERROR) {
-        showToast(ABORTERROR_MESSAGE, toastStatus.ERROR);
-      } else showToast(error.message, toastStatus.ERROR);
-    } finally {
-      setLoading(false);
     }
-  };
+  }, [data, error, isError]);
 
   useEffect(() => {
     // useEffect to update the page no to the -1 of current page
@@ -142,15 +135,15 @@ const PostList = ({ saved }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.postsContainer}>
-        {loading && <Loader />}
-        {!loading &&
+        {isFetching && <Loader />}
+        {!isFetching &&
           posts?.map((post) => {
             return (
               <PostCard key={post.id} post={post} profileUser={profileUser} />
             );
           })}
       </div>
-      {posts?.length > 0 && !loading && (
+      {posts?.length > 0 && !isFetching && (
         <Pagination
           sx={{ display: "flex", justifyContent: "center" }}
           page={currPage}
@@ -159,7 +152,7 @@ const PostList = ({ saved }) => {
           color="primary"
         />
       )}
-      {posts && posts?.length < 1 && !loading && (
+      {posts && posts?.length < 1 && !isFetching && (
         <div
           style={{
             display: "flex",
@@ -178,6 +171,12 @@ const PostList = ({ saved }) => {
               src="https://cdni.iconscout.com/illustration/premium/thumb/not-found-4064375-3363936.png"
             />
           </div>
+        </div>
+      )}
+      {isError && (
+        <div className={styles.errorBox}>
+          <h2>Unable to get posts at the moment!</h2>
+          <button onClick={getPostsOfUser}>Try again</button>
         </div>
       )}
     </div>
