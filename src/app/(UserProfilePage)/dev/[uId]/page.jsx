@@ -1,7 +1,6 @@
 import { extractRawUserIdFromSlug } from "@/app/posts/[slug]/page";
 import { api } from "@/services/api";
 import React, { Suspense } from "react";
-import CustomError from "@/lib/exceptions";
 import { notFound } from "next/navigation";
 import styles from "./page.module.css";
 import PostTabs from "@/components/UserProfileComponents/PostTabs/PostTabs";
@@ -10,17 +9,14 @@ import { Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import UserProfileLoadingSkeleton from "./loading";
 import UserActionComponent from "@/components/UserProfileComponents/UserActionComponent/UserActionComponent";
-import { INTERNAL_SERVER_ERROR, NOT_FOUND } from "@/helpers/ErrorHandler";
+import { TryCatchWrapper } from "@/helpers/ErrorHandler";
+import axiosClient from "@/services/axiosClient";
 
-const getUser = async (id) => {
+const getUser = TryCatchWrapper(async (id) => {
   const query = `?id=${id}`;
-  const res = await fetch(api.getUser(query), { cache: "no-store" });
-  if (!res.ok) {
-    if (res.status === 404) throw new Error(NOT_FOUND);
-    throw new CustomError(INTERNAL_SERVER_ERROR, 404);
-  }
-  return res.json();
-};
+  const { data } = await axiosClient.get(api.getUser(query));
+  return data;
+});
 
 const UserProfilePage = async ({ params }) => {
   const uId = extractRawUserIdFromSlug(params.uId);

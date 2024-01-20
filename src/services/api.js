@@ -47,7 +47,7 @@ export const api = {
     return `${server.URL}/api/comments${query}`;
   },
   getUser: (query = "") => {
-    return `${server.URL}/api/user${query}`;
+    return `/user${query}`;
   },
   getAudiencesOfAuthor: (query) => {
     return `${server.URL}/api/user/audiences${query}`;

@@ -5,15 +5,13 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, setLoading } from "@/redux/slices/authSlice";
 import useSWR from "swr";
+import axiosClient from "@/services/axiosClient";
+import { TryCatchWrapper } from "@/helpers/ErrorHandler";
 
-const fetcher = async (url) => {
-  const res = await fetch(url, { cache: "no-store" });
-  const data = await res.json();
-  if (!res.ok) {
-    return new Error(data.error);
-  }
+const fetcher = TryCatchWrapper(async (url) => {
+  const { data } = await axiosClient.get(url);
   return data;
-};
+});
 
 const AuthUser = () => {
   const { user } = useSelector((state) => state.auth);

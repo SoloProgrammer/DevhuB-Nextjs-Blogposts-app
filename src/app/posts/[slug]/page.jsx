@@ -11,20 +11,13 @@ import SinglePostLoadingSkeleton from "./loading";
 import Link from "next/link";
 import FollowUserBtn from "@/components/UserProfileComponents/FollowUserBtn/FollowUserBtn";
 import FormattedDate from "@/components/FormattedDate/FormattedDate";
-import axioxClient from "@/services/axiosClient";
-import { INTERNAL_SERVER_ERROR, NOT_FOUND } from "@/helpers/ErrorHandler";
+import axiosClient from "@/services/axiosClient";
+import { TryCatchWrapper } from "@/helpers/ErrorHandler";
 
-const getSinglePost = async (slug) => {
-  try {
-    const { data } = await axioxClient.get(api.getSinglePost(slug));
-    return data;
-  } catch (error) {
-    let statusCode = error.response.status;
-    if (statusCode === 404) {
-      throw new Error(NOT_FOUND);
-    } else throw new Error(INTERNAL_SERVER_ERROR);
-  }
-};
+const getSinglePost = TryCatchWrapper(async (slug) => {
+  const { data } = await axiosClient.get(api.getSinglePost(slug));
+  return data;
+});
 
 export const getUserSlug = (user) => {
   return `${user.name.split(" ").join("_")}_${user.id}`;
@@ -40,62 +33,62 @@ const SingleBlogPage = async ({ params }) => {
 
   return (
     <Suspense fallback={<SinglePostLoadingSkeleton />}>
-        <div className={styles.container}>
-          <div className={styles.infoContainer}>
-            <h1 className={styles.title}>{post.title}</h1>
-            <div className={styles.top}>
-              <div className={styles.user}>
-                <Link href={`/dev/${getUserSlug(post.user)}`}>
-                  <div className={styles.userImg}>
-                    <Image
-                      src={post?.user?.image}
-                      priority={false}
-                      fill
-                      alt="post_Img"
-                    />
-                  </div>
-                </Link>
-                <div className={styles.userText}>
-                  <div>
-                    <span className={styles.userName}>{post?.user?.name}</span>
-                    <span style={{ marginLeft: "10px" }}>
-                      <FollowUserBtn author={post.user} />
-                    </span>
-                  </div>
-                  <span className={styles.date}>
-                    <FormattedDate date={post?.createdAt} showTime={true} />
+      <div className={styles.container}>
+        <div className={styles.infoContainer}>
+          <h1 className={styles.title}>{post.title}</h1>
+          <div className={styles.top}>
+            <div className={styles.user}>
+              <Link href={`/dev/${getUserSlug(post.user)}`}>
+                <div className={styles.userImg}>
+                  <Image
+                    src={post?.user?.image}
+                    priority={false}
+                    fill
+                    alt="post_Img"
+                  />
+                </div>
+              </Link>
+              <div className={styles.userText}>
+                <div>
+                  <span className={styles.userName}>{post?.user?.name}</span>
+                  <span style={{ marginLeft: "10px" }}>
+                    <FollowUserBtn author={post.user} />
                   </span>
                 </div>
+                <span className={styles.date}>
+                  <FormattedDate date={post?.createdAt} showTime={true} />
+                </span>
               </div>
-              <SavePostIcon slug={slug} postId={post.id} />
             </div>
-            <ExtraActions
-              commentsCount={post?.commentsCount}
-              slug={post.slug}
-              postTitle={post.title}
-              postImg={post.img}
-              postAuthor={post.user}
-            />
-            <div className={styles.imgContainer}>
-              <Image src={post.img} priority={false} fill alt="post_Img" />
-            </div>
-            <div className={styles.textContainer}>
-              <div
-                className={styles.desc}
-                dangerouslySetInnerHTML={{ __html: post.desc }}
-              />
-            </div>
-            <div id="comments">
-              <Comments
-                postSlug={post.slug}
-                commentsCount={post?.commentsCount}
-              />
-            </div>
+            <SavePostIcon slug={slug} postId={post.id} />
           </div>
-          <div className={styles.Menu}>
-            <Menu />
+          <ExtraActions
+            commentsCount={post?.commentsCount}
+            slug={post.slug}
+            postTitle={post.title}
+            postImg={post.img}
+            postAuthor={post.user}
+          />
+          <div className={styles.imgContainer}>
+            <Image src={post.img} priority={false} fill alt="post_Img" />
+          </div>
+          <div className={styles.textContainer}>
+            <div
+              className={styles.desc}
+              dangerouslySetInnerHTML={{ __html: post.desc }}
+            />
+          </div>
+          <div id="comments">
+            <Comments
+              postSlug={post.slug}
+              commentsCount={post?.commentsCount}
+            />
           </div>
         </div>
+        <div className={styles.Menu}>
+          <Menu />
+        </div>
+      </div>
     </Suspense>
   );
 };
