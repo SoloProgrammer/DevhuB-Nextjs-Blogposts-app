@@ -5,6 +5,7 @@ import Notfound from "@/components/NotFound/Notfound";
 import { NOT_FOUND } from "@/helpers/ErrorHandler";
 
 const ErrorPage = ({ error, reset }) => {
+  console.log(error.message === NOT_FOUND, NOT_FOUND, "--------");
   if (error.message === NOT_FOUND) {
     return (
       <>
