@@ -5,7 +5,7 @@ import Notfound from "@/components/NotFound/Notfound";
 import { NOT_FOUND } from "@/helpers/ErrorHandler";
 
 const ErrorPage = ({ error, reset }) => {
-  if (error.message === "Not Found") {
+  if (error.message === NOT_FOUND) {
     return (
       <>
         <Notfound />
@@ -14,7 +14,7 @@ const ErrorPage = ({ error, reset }) => {
   } else
     return (
       <>
-        <div>Something went wrong, Please try again!</div>;
+        <div>Something went wrong, Please try again later!</div>;
         <button onClick={reset}>Try again</button>
       </>
     );
