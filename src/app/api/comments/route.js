@@ -34,8 +34,7 @@ export const GET = async (req) => {
 const createCommentHandler = async (req) => {
   // Authenticate user sessions on server side
 
-
-  const { session } = req
+  const { session } = req;
   try {
     const body = await req.json();
     let comment = await prisma.Comment.create({
@@ -55,7 +54,7 @@ const createCommentHandler = async (req) => {
   } catch (error) {
     return Response("Something went wrong!", 500, false, error);
   }
-}
+};
 export const POST = authenticate(createCommentHandler);
 
 // DELETE A COMMENT
@@ -80,7 +79,7 @@ const deleteCommentHandler = async (req) => {
   } catch (error) {
     return Response("Something went wrong!", 500, false, error);
   }
-}
+};
 export const DELETE = authenticate(deleteCommentHandler);
 
 // UPDATE A COMMENT
@@ -100,5 +99,5 @@ const updateCommentHandler = async (req) => {
   } catch (error) {
     return Response("Something went wrong!", 500, false, error);
   }
-}
+};
 export const PUT = authenticate(updateCommentHandler);

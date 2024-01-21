@@ -12,11 +12,11 @@ export const INTERNAL_SERVER_ERROR = "Internal server error";
 export const TryCatch = (handler) => {
   return (req, ...args) =>
     Promise.resolve(handler(req, ...args)).catch((err) =>
-      Response("Internal server error!", err.statusCode || 500, false, err)
+      Response("Something went wrong!", err.statusCode || 500, false, err)
     );
 };
 
-// Trycatch for client side api calling...
+// Trycatch for server side componenet data fetching....
 export const TryCatchWrapper = (fetcher) => {
   return async (...args) => {
     try {

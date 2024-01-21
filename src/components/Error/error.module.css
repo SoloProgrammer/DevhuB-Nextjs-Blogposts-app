@@ -1,0 +1,19 @@
+.errorBox{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+}
+.errorBox button {
+    padding: 6px 15px;
+    border: 1px solid var(--successTextColor);
+    background-color: var(--successBgColor);
+    color: var(--textColor);
+    cursor: pointer;
+    width: fit-content;
+    border-radius: .3rem;
+}

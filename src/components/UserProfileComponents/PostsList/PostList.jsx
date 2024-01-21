@@ -9,8 +9,8 @@ import { Pagination, Typography } from "@mui/material";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { addPosts, addSavedPosts } from "@/redux/slices/profileUserSlice";
-import { ABORTERROR, ABORTERROR_MESSAGE } from "@/helpers/ErrorHandler";
 import { useLazyGetPostsQuery } from "@/redux/api/postsApi";
+import { ErrorBlock } from "@/components/Error/Error";
 
 var prevoiusPage;
 
@@ -44,7 +44,7 @@ const PostList = ({ saved }) => {
   const POSTS_PER_PAGE = 4;
   let pages = Math.ceil(postsCount / POSTS_PER_PAGE);
 
-  const getPostsOfUser = async (currPage, signal) => {
+  const getPostsOfUser = async (currPage) => {
     if (initialPosts && Object.keys(initialPosts).includes(String(currPage))) {
       return setPosts(initialPosts[currPage]);
     }
@@ -90,8 +90,12 @@ const PostList = ({ saved }) => {
   }, [profileUser?.savedPosts.length]);
 
   useEffect(() => {
-    if (saved && profileUser?.savedPosts.length < 1) return setPosts([]);
-    else if (!saved && profileUser?.postCount < 1) return setPosts([]);
+    if (
+      (saved && profileUser?.savedPosts.length < 1) ||
+      (!saved && profileUser?.postCount < 1)
+    ) {
+      return setPosts([]);
+    }
 
     const controller = new AbortController();
     const signal = controller.signal;
@@ -173,12 +177,7 @@ const PostList = ({ saved }) => {
           </div>
         </div>
       )}
-      {isError && (
-        <div className={styles.errorBox}>
-          <h2>Unable to get posts at the moment!</h2>
-          <button onClick={getPostsOfUser}>Try again</button>
-        </div>
-      )}
+      {isError && <ErrorBlock soure={"posts"} refetch={getPostsOfUser} />}
     </div>
   );
 };
