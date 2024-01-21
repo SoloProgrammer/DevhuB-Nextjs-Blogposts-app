@@ -5,11 +5,16 @@ import styles from "./comments.module.css";
 import SingleComment, { getTrimmedValue } from "./SingleComment/SingleComment";
 import Commonbtn from "../Commonbtn/Commonbtn";
 import { useSession } from "next-auth/react";
-import { api } from "@/services/api";
 import Loader from "../Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewComment, updateComments } from "@/redux/slices/commentsSlice";
 import { useRouter } from "next/navigation";
+import {
+  useLazyGetCommentsQuery,
+  useNewCommentMutation,
+} from "@/redux/api/commentsApi";
+import { showToast } from "@/utils/toast";
+import { ErrorBlock } from "../Error/Error";
 
 var isIntersected;
 
@@ -17,27 +22,45 @@ const Comments = ({ postSlug, commentsCount }) => {
   const { status } = useSession();
   const { comments } = useSelector((state) => state.comments);
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
 
-  const router = useRouter()
+  const router = useRouter();
+
+  const [getPostComments, { data, isFetching, isError, error }] =
+    useLazyGetCommentsQuery();
+
+  const [
+    createNewComment,
+    {
+      data: newCommentData,
+      isLoading: isAddingNewComment,
+      error: errorAddingNewComment,
+    },
+  ] = useNewCommentMutation();
 
   const fetchComments = async () => {
-    try {
-      setIsLoading(true);
-      const query = `?postSlug=${postSlug}`;
-      const res = await fetch(api.getPostComments(query), {
-        cache: "no-store",
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.message);
-      }
-      dispatch(updateComments(data?.comments));
-    } catch (error) {
-      throw new Error(error.message);
-    }
-    setIsLoading(false);
+    const query = `postSlug=${postSlug}`;
+    getPostComments(query);
   };
+
+  useEffect(() => {
+    if (data) {
+      console.log(data, isFetching, isError, error);
+      dispatch(updateComments(data.comments));
+    } else if (!isFetching && error) {
+      console.log(error);
+      showToast(error.data, "error");
+    }
+  }, [isError, error, data, isFetching]);
+
+  useEffect(() => {
+    if (newCommentData) {
+      dispatch(addNewComment(newCommentData.comment));
+      router.refresh();
+    } else if (!isAddingNewComment && errorAddingNewComment) {
+      console.log(errorAddingNewComment);
+      showToast(errorAddingNewComment.data, "error");
+    }
+  }, [errorAddingNewComment, newCommentData, isFetching]);
 
   const postCommentIcon = (
     <span style={{ fontSize: ".85rem" }} className="material-symbols-outlined">
@@ -46,23 +69,11 @@ const Comments = ({ postSlug, commentsCount }) => {
   );
 
   const [desc, setDesc] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
     if (!desc) return;
-    setLoading(true);
     setDesc("");
-    const options = {
-      method: "POST",
-      body: JSON.stringify({ desc, postSlug }),
-    };
-    const res = await fetch(api.createNewComment(), options);
-    if (res.ok) {
-      let data = await res.json();
-      dispatch(addNewComment(data.comment));
-    }
-    router.refresh()
-    setLoading(false);
+    createNewComment({ desc, postSlug });
   };
 
   // Intersection observer effect/logic for activating comments fetching...
@@ -113,20 +124,23 @@ const Comments = ({ postSlug, commentsCount }) => {
         />
         {status !== "unauthenticated" && (
           <Commonbtn
-            disabled={loading || !getTrimmedValue(desc)}
+            disabled={isAddingNewComment || !getTrimmedValue(desc)}
             handleFunc={handleSubmit}
             text={"Post"}
             size="small"
-            icon={!loading ? postCommentIcon : <Loader size="tooMini" />}
+            icon={
+              !isAddingNewComment ? postCommentIcon : <Loader size="tooMini" />
+            }
           />
         )}
       </div>
-      {!isLoading && !comments?.length && (
+      {isError && <ErrorBlock soure={"comments"} refetch={fetchComments} />}
+      {!isError && !isFetching && !comments?.length && (
         <p style={{ marginTop: "2rem" }}>
           No comments yet! be the first one to comment ☝️!
         </p>
       )}
-      {isLoading && (
+      {isFetching && (
         <div
           style={{
             display: "flex",
@@ -151,7 +165,7 @@ const Comments = ({ postSlug, commentsCount }) => {
             );
           })}
       </div>
-      {comments?.length > 4 && (
+      {!isError && comments?.length > 4 && (
         <span className={styles.viewMore}>View more comments..</span>
       )}
     </div>
