@@ -4,6 +4,7 @@ import commentsReducer from "@/redux/slices/commentsSlice";
 import categoriesReducer from "@/redux/slices/categoriesSlice";
 import profileUserReducer from "./slices/profileUserSlice";
 import { postsApi } from "./api/postsApi";
+import { commentsApi } from "./api/commentsApi";
 
 const store = configureStore({
   reducer: {
@@ -12,7 +13,9 @@ const store = configureStore({
     categories: categoriesReducer,
     profile: profileUserReducer,
     [postsApi.reducerPath]: postsApi.reducer,
+    [commentsApi.reducerPath]: commentsApi.reducer,
   },
-  middleware: (mid) => mid().concat(postsApi.middleware),
+  middleware: (mid) =>
+    mid().concat(postsApi.middleware, commentsApi.middleware),
 });
 export default store;

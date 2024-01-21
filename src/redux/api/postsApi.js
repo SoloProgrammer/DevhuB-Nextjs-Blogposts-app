@@ -1,16 +1,23 @@
 import { server } from "@/services/api";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { axiosBaseQuery } from "@/services/axiosClient";
+import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const postsApi = createApi({
-  reducerPath: "posts",
-  baseQuery: fetchBaseQuery({
-    baseUrl: server.URL + "/",
+  reducerPath: "postsApi",
+  baseQuery: axiosBaseQuery({
+    baseURL: server.URL + "/api",
   }),
   endpoints: (builder) => ({
     getPosts: builder.query({
-      query: (queryParams) => `api/posts?${queryParams}`,
+      query: (queryParams) => ({ url: `/posts?${queryParams}` }),
+    }),
+    getPost: builder.query({
+      query: (slug) => ({ url: `/posts/${slug}` }),
     }),
   }),
 });
 
-export const { useGetPostsQuery, useLazyGetPostsQuery } = postsApi;
+
+
+export const { useGetPostsQuery, useLazyGetPostsQuery, useGetPostQuery } =
+  postsApi;
