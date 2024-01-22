@@ -4,10 +4,7 @@ import React, { Suspense, useCallback, useMemo, useRef, useState } from "react";
 import styles from "./writePage.module.css";
 import "react-quill/dist/quill.bubble.css";
 import { useTheme } from "@/context/ThemeContext";
-import {
-  ImageIcon,
-  XMarkIcon,
-} from "@/GoogleIcons/Icons";
+import { ImageIcon, XMarkIcon } from "@/GoogleIcons/Icons";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Modal from "@/components/Modal/Modal";
 import ImageDropZone from "@/components/ImageDropZone/ImageDropZone";
@@ -37,19 +34,19 @@ const Writepage = () => {
   const { categories } = useSelector((state) => state.categories);
 
   const { theme } = useTheme();
-  // hljs.configure({
-  //   // optionally configure hljs
-  //   languages: [
-  //     "javascript",
-  //     "python",
-  //     "c",
-  //     "c++",
-  //     "java",
-  //     "HTML",
-  //     "css",
-  //     "matlab",
-  //   ],
-  // });
+  hljs.configure({
+    // optionally configure hljs
+    languages: [
+      "javascript",
+      "python",
+      "c",
+      "c++",
+      "java",
+      "HTML",
+      "css",
+      "matlab",
+    ],
+  });
   const { status } = useSession();
 
   const dispatch = useDispatch();
@@ -83,16 +80,15 @@ const Writepage = () => {
   };
   const modules = useMemo(
     () => ({
-      // syntax: {
-      //   highlight: function (text) {
-      //     return hljs.highlightAuto(text).value;
-      //   },
-      // },
+      syntax: {
+        highlight: function (text) {
+          return hljs.highlightAuto(text).value;
+        },
+      },
       toolbar: {
         container: [
           [{ header: [2, 3, 4, false] }],
           ["bold", "italic", "underline", "blockquote", { color: [] }],
-          // [{ color: [] }],
           [
             { list: "ordered" },
             { list: "bullet" },
@@ -270,15 +266,17 @@ const Writepage = () => {
             </div>
           )}
           <div className={styles.editor}>
-            <ReactQuill
-              ref={quillRef}
-              className={styles.quillEditor}
-              theme="snow"
-              value={body}
-              formats={formats}
-              modules={modules}
-              onChange={handleValueChange}
-            />
+            {typeof window !== "undefined" && (
+              <ReactQuill
+                ref={quillRef}
+                className={styles.quillEditor}
+                theme="snow"
+                value={body}
+                formats={formats}
+                modules={modules}
+                onChange={handleValueChange}
+              />
+            )}
           </div>
         </div>
         {showImgDropZone && (
