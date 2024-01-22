@@ -52,7 +52,6 @@ const Comments = ({ postSlug, commentsCount }) => {
       dispatch(addNewComment(newCommentData.comment));
       router.refresh();
     } else if (!isAddingNewComment && errorAddingNewComment) {
-      console.log(errorAddingNewComment);
       showToast(errorAddingNewComment.data, "error");
     }
   }, [errorAddingNewComment, newCommentData, isFetching]);
@@ -149,7 +148,8 @@ const Comments = ({ postSlug, commentsCount }) => {
         </div>
       )}
       <div className={styles.commentsList}>
-        {comments?.length > 0 &&
+        {!isFetching &&
+          comments?.length > 0 &&
           comments?.map((comment) => {
             return (
               <SingleComment
@@ -160,7 +160,7 @@ const Comments = ({ postSlug, commentsCount }) => {
             );
           })}
       </div>
-      {!isError && comments?.length > 4 && (
+      {!isError && !isFetching && comments?.length > 4 && (
         <span className={styles.viewMore}>View more comments..</span>
       )}
     </div>

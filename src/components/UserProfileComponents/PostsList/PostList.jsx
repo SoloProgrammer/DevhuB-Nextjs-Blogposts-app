@@ -56,7 +56,7 @@ const PostList = ({ saved }) => {
 
   useEffect(() => {
     if (isError) {
-      showToast(error?.data?.message, toastStatus.ERROR);
+      showToast(error?.data, toastStatus.ERROR);
     } else if (data?.posts) {
       setPosts(data.posts);
       postsCount = data.postCount;
