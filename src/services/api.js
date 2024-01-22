@@ -48,17 +48,5 @@ export const api = {
   },
   followAuthor: (query) => {
     return `${server.URL}/api/user/follow${query}`;
-  },
-  addReply: (commentId) => {
-    return `${server.URL}/api/comments/${commentId}/reply`;
-  },
-  getReplies: (commentId) => {
-    return `${server.URL}/api/comments/${commentId}/reply`;
-  },
-  updateReply: (commentId, query) => {
-    return `${server.URL}/api/comments/${commentId}/reply${query}`;
-  },
-  deleteReply: (commentId, query) => {
-    return `${server.URL}/api/comments/${commentId}/reply${query}`;
-  },
+  }
 };

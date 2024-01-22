@@ -41,6 +41,6 @@ export const ThemeContextprovider = ({ children }) => {
   );
 };
 
-export const ThemeStates = () => {
+export const useTheme = () => {
   return useContext(ThemeContext);
 };

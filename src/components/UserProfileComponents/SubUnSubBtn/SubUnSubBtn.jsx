@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import styles from "./subUnSubBtn.module.css";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import { ThemeStates } from "@/context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 import { api } from "@/services/api";
 import { showToast } from "@/utils/toast";
 import Loader from "../../Loader/Loader";
@@ -14,7 +14,7 @@ const SubUnSubBtn = ({ author, subscriber, tooltipPlacement = "top" }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const { tooltipTheme } = ThemeStates();
+  const { tooltipTheme } = useTheme();
 
   const dispatch = useDispatch();
 

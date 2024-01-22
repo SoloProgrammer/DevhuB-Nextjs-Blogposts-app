@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import styles1 from "./categoryPage.module.css"; // css for getting diffrent color according to categories
 import { MenuPostLoading } from "../[slug]/loading";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { ThemeStates } from "@/context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 
 const Loading = ({ category }) => {
   return (
@@ -24,7 +24,7 @@ export const PostsListLoadingSkeleton = () => {
   useEffect(() => {
     window?.scrollTo(0, 0);
   }, []);
-  const { skeletonTheme } = ThemeStates();
+  const { skeletonTheme } = useTheme();
 
   return (
     <SkeletonTheme

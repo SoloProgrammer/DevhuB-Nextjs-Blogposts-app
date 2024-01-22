@@ -1,11 +1,11 @@
 "use client";
 
-import { ThemeStates } from "@/context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 import React from "react";
 import { Toaster } from "react-hot-toast";
 
 const ToastProvider = ({ children }) => {
-  const { theme } = ThemeStates();
+  const { theme } = useTheme();
   return (
     <>
       {children}

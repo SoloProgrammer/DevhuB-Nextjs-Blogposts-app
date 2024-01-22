@@ -1,6 +1,6 @@
 "use client";
 
-import { ThemeStates } from "@/context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 import React, { useEffect, useState } from "react";
 import {
   ThemeProvider as MUIThemeProvider,
@@ -10,7 +10,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { SkeletonTheme } from "react-loading-skeleton";
 
 const ThemeProvider = ({ children }) => {
-  const { theme, skeletonTheme } = ThemeStates();
+  const { theme, skeletonTheme } = useTheme();
 
   const Theme = createTheme({
     palette: {

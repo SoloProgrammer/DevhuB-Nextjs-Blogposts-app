@@ -2,11 +2,11 @@
 import React from "react";
 import styles from "./themeToggle.module.css";
 import Image from "next/image";
-import { ThemeStates } from "@/context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 import { moonIcon, sunIcon } from "@/Icons/Icons";
 
 const ThemeToggle = () => {
-  const { theme, toggle } = ThemeStates();
+  const { theme, toggle } = useTheme();
 
   return (
     <div

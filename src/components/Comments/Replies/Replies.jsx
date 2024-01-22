@@ -85,7 +85,10 @@ const SingleReply = ({ reply, commentId }) => {
     });
   };
 
-  const handleCancel = () => setEdit(false);
+  const handleCancel = () => {
+    setEdit(false);
+    setValue(reply.desc);
+  };
 
   const [showDelModal, , openDelModal, handleCloseConfirmDelModal] = useModal();
 

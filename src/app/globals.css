@@ -111,7 +111,8 @@ a {
 }
 
 .wrapper {
-  max-width: 80%;
+  width: 80%;
+  max-width: 1400px !important;
   margin: 0 auto;
   padding: 0 50px;
   display: flex;
@@ -123,30 +124,56 @@ a {
   flex-grow: 1;
 }
 
-.ql-container {
-  font-size: 28px !important;
-  /* max-height: 500px !important; */
-  max-height: auto !important;
-  overflow: auto !important;
-}
-
-.quill>.ql-container .ql-editor.ql-blank::before {
-  color: #b3b3b1 !important;
-}
-
-.ql-container .ql-editor.ql-blank {
-  min-height: 300px !important;
-  transition: .2s all;
-}
-
-.ql-container .ql-editor.ql-blank:focus {
-  border-radius: .3rem;
-  background: var(--bg-lighter);
-}
-
 .MuiFormControl-root {
   margin: 0 !important;
+}
 
+.ql-container {
+  font-size: 28px !important;
+}
+
+.quill {
+  display: flex;
+  flex-direction: column;
+}
+
+.quill,
+.ql-container.ql-snow {
+  width: 100% !important;
+  min-height: 450px !important;
+}
+
+.ql-snow .ql-stroke {
+  stroke: var(--softTextColor) !important;
+}
+
+.ql-snow .ql-fill {
+  fill: var(--softTextColor) !important;
+}
+
+.ql-picker-label {
+  color: var(--softTextColor) !important;
+}
+
+.ql-toolbar.ql-snow .ql-picker-options {
+  color: var(--softTextColor);
+  background: var(--bg);
+}
+
+.ql-toolbar.ql-snow {
+  padding: 20px !important;
+}
+
+.ql-snow .ql-tooltip {
+  font-size: 1rem !important;
+  background: var(--bg) !important;
+  color: var(--softTextColor) !important;
+  box-shadow: var(--shadow-light) !important;
+}
+
+.ql-snow .ql-tooltip input[type=text] {
+  background: var(--bg-light) !important;
+  color: var(--textColor) !important;
 }
 
 .MuiMenuItem-root {
@@ -158,7 +185,7 @@ a {
 @media screen and (max-width:1280px) {
 
   .wrapper {
-    max-width: 85%;
+    width: 85%;
     padding: 0 10px;
   }
 }
@@ -174,17 +201,22 @@ a {
 @media screen and (max-width:768px) {
 
   .wrapper {
-    max-width: 90%;
+    width: 90%;
+  }
+
+  .ql-toolbar.ql-snow {
+    padding: 10px !important;
+  }
+
+  .ql-container {
+    font-size: 20px !important;
   }
 }
 
 @media screen and (max-width:640px) {
 
   .wrapper {
-    max-width: 95%;
+    width: 95%;
   }
 
-  .ql-container {
-    font-size: 20px !important;
-  }
 }

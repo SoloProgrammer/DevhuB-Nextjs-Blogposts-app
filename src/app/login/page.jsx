@@ -4,14 +4,14 @@ import React, { Suspense } from "react";
 import styles from "./loginPage.module.css";
 import Image from "next/image";
 import Commonbtn from "@/components/Commonbtn/Commonbtn";
-import { ThemeStates } from "@/context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 import { signIn, useSession } from "next-auth/react";
 import Loader from "@/components/Loader/Loader";
 import { useRouter } from "next/navigation";
 import HomePageLoading from "@/app/(HomePage)/loading";
 
 const LoginPage = () => {
-  const { theme } = ThemeStates();
+  const { theme } = useTheme();
   const { status } = useSession();
   const router = useRouter();
 

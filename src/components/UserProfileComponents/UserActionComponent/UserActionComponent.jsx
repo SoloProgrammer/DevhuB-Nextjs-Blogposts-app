@@ -5,7 +5,7 @@ import styles from "./userActionComponent.module.css";
 import SubUnSubBtn from "@/components/UserProfileComponents/SubUnSubBtn/SubUnSubBtn";
 import { useSelector } from "react-redux";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { ThemeStates } from "@/context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 import FollowUserBtn from "../FollowUserBtn/FollowUserBtn";
 import { Backdrop, Button, Divider, Modal, Typography } from "@mui/material";
 import useModal from "@/Hooks/useModal";
@@ -120,7 +120,7 @@ const UserActionComponent = ({ profileUser }) => {
 };
 
 const Loading = () => {
-  const { skeletonTheme } = ThemeStates();
+  const { skeletonTheme } = useTheme();
   return (
     <SkeletonTheme
       baseColor={skeletonTheme.color}

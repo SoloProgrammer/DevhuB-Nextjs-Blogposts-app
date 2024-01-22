@@ -76,7 +76,7 @@ const SingleComment = ({ comment }) => {
 
   function handleCancel() {
     let trimedValue = getTrimmedValue(value);
-    setValue(trimedValue);
+    setValue(comment.desc);
     setEdit(false);
     setReply(false);
   }

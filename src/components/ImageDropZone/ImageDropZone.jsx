@@ -4,19 +4,18 @@ import React, { useCallback, useRef, useState } from "react";
 import styles from "./imageDropZone.module.css";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
-import { ThemeStates } from "@/context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 import { handleFileUpload } from "@/utils/upload";
 import Loader from "../Loader/Loader";
 import Commonbtn from "../Commonbtn/Commonbtn";
 import { defaultFunc } from "@/GoogleIcons/Icons";
 
 const ImageDropZone = ({ handleSetImg, hideImgDropZone = defaultFunc }) => {
-  const { theme } = ThemeStates();
+  const { theme } = useTheme();
   const [loading, setLoading] = useState(false);
   const [img, setImg] = useState(null);
 
   const onDrop = useCallback(async (acceptedFiles) => {
-    // Do something with the files
     let e = {
       target: {
         files: [acceptedFiles[0]],

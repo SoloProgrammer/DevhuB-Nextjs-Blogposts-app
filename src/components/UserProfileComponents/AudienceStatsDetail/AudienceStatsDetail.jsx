@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "./audienceStatsDetail.module.css";
-import { ThemeStates } from "@/context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 import {
   Avatar,
   Box,
@@ -31,7 +31,7 @@ const AudienceStatsDetail = ({ profileUser, audienceType }) => {
     [audiences.FOLLOWING]: "2",
     [audiences.SUBSCRIBERS]: "3",
   };
-  const { theme } = ThemeStates();
+  const { theme } = useTheme();
   const [value, setValue] = useState(selectedTabValue[audienceType]);
   const handleChange = (_, newValue) => {
     setValue(newValue);
@@ -105,7 +105,7 @@ const AudienceList = ({ audienceType, author }) => {
 
   const dispatch = useDispatch();
 
-  const { theme } = ThemeStates();
+  const { theme } = useTheme();
   const [audiences, setAudiences] = useState(initialAudiences || []);
   const [loading, setLoading] = useState(false);
 

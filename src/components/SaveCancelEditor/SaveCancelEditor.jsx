@@ -25,7 +25,9 @@ const SaveCancelEditor = ({
         onChange={onChangeHandler}
       />
       <div className={`${styles.editActions}`}>
-        <SaveIcon classes={["icon saveIcon"]} handleFunc={handleSave} />
+        {value.length > 0 && (
+          <SaveIcon classes={["icon saveIcon"]} handleFunc={handleSave} />
+        )}
         <XMarkIcon classes={["icon cancelIcon"]} handleFunc={handleCancel} />
       </div>
     </>

@@ -4,10 +4,10 @@ import React, { useEffect } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import styles from "./loading.module.css";
 import "react-loading-skeleton/dist/skeleton.css";
-import { ThemeStates } from "@/context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 
 const Loading = () => {
-  const { skeletonTheme } = ThemeStates();
+  const { skeletonTheme } = useTheme();
   useEffect(() => {
     window?.scrollTo(0, 0);
   }, []);

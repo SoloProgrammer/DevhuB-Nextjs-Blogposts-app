@@ -1,9 +1,9 @@
 "use client";
 
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useCallback, useMemo, useRef, useState } from "react";
 import styles from "./writePage.module.css";
 import "react-quill/dist/quill.bubble.css";
-import { ThemeStates } from "@/context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 import {
   ImageIcon,
   UploadIcon,
@@ -16,14 +16,18 @@ import ImageDropZone from "@/components/ImageDropZone/ImageDropZone";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader/Loader";
-import dynamic from "next/dynamic";
 import { updateCategories } from "@/redux/slices/categoriesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "@/utils/services";
 import axios from "axios";
 import { api } from "@/services/api";
 import HomePageLoading from "../(HomePage)/loading";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import ReactQuill from "react-quill";
+import hljs from "highlight.js";
+import "react-quill/dist/quill.snow.css";
+import Image from "next/image";
+import { showToast, toastStatus } from "@/utils/toast";
+import { handleFileUpload } from "@/utils/upload";
 
 const Writepage = () => {
   const [body, setBody] = useState("");
@@ -36,8 +40,20 @@ const Writepage = () => {
 
   const { categories } = useSelector((state) => state.categories);
 
-  const { theme } = ThemeStates();
-
+  const { theme } = useTheme();
+  hljs.configure({
+    // optionally configure hljs
+    languages: [
+      "javascript",
+      "python",
+      "c",
+      "c++",
+      "java",
+      "HTML",
+      "css",
+      "matlab",
+    ],
+  });
   const { status } = useSession();
 
   const dispatch = useDispatch();
@@ -51,9 +67,6 @@ const Writepage = () => {
   const router = useRouter();
 
   const emptyData = "<p><br></p>";
-  const handleValueChange = (e) => {
-    e !== emptyData ? setBody(e) : setBody(null);
-  };
 
   const openImageDropZone = () => {
     setShowImgDropZone(true);
@@ -67,17 +80,85 @@ const Writepage = () => {
     setShowImgDropZone(false);
   };
 
-  if (status === "loading") {
-    return (
-      <div className="LoadingContainer">
-        <Loader size="medium" />
-      </div>
-    );
-  }
+  const quillRef = useRef();
 
-  if (status === "unauthenticated") {
-    return router.push("/");
-  }
+  const handleValueChange = (e) => {
+    e !== emptyData ? setBody(e) : setBody(null);
+  };
+
+  const imageHandler = () => {
+    // Create an input element of type 'file'
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+
+    console.log("---------", quillRef);
+    // When a file is selected
+    input.onchange = () => {
+      const file = input.files[0];
+      const reader = new FileReader();
+
+      // Read the selected file as a data URL
+      reader.onload = () => {
+        const imageUrl = reader.result;
+        const quillEditor = quillRef.current.getEditor();
+
+        // Get the current selection range and insert the image at that index
+        const range = quillEditor.getSelection(true);
+        quillEditor.insertEmbed(range.index, "image", imageUrl, "user");
+      };
+
+      reader.readAsDataURL(file);
+    };
+  };
+
+  const modules = useMemo(
+    () => ({
+      syntax: {
+        highlight: function (text) {
+          return hljs.highlightAuto(text).value;
+        },
+      },
+      toolbar: {
+        container: [
+          [{ header: [2, 3, 4, false] }],
+          ["bold", "italic", "underline", "blockquote", { color: [] }],
+          // [{ color: [] }],
+          [
+            { list: "ordered" },
+            { list: "bullet" },
+            { indent: "-1" },
+            { indent: "+1" },
+          ],
+          ["link", "image", "code-block"],
+        ],
+        handlers: {
+          image: imageHandler,
+        },
+      },
+      clipboard: {
+        matchVisual: true,
+      },
+    }),
+    []
+  );
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "code-block",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "color",
+  ];
 
   const slugify = (str) =>
     str
@@ -108,8 +189,32 @@ const Writepage = () => {
     router.push(`/posts/${slugify(title)}`);
   };
 
+  const [uploading, setUploading] = useState(false);
+  const handleImgChange = async (e) => {
+    try {
+      const imageUrl = await handleFileUpload(e, setUploading);
+      imageUrl
+        ? setImg({ url: imageUrl, name: e.target?.files[0]?.name })
+        : setUploading(false);
+    } catch (error) {
+      showToast(error.message, toastStatus.ERROR);
+    }
+  };
+
+  if (status === "loading") {
+    return (
+      <div className="LoadingContainer">
+        <Loader size="medium" />
+      </div>
+    );
+  }
+
+  if (status === "unauthenticated") {
+    return router.push("/");
+  }
+
   return (
-    <Suspense fallback={<HomePageLoading/>}>
+    <Suspense fallback={<HomePageLoading />}>
       <div className={styles.container}>
         <div className={styles.wrapper}>
           <input
@@ -120,23 +225,30 @@ const Writepage = () => {
             className={styles.titleInput}
           />
           <div className={styles.actions}>
-            <div className={styles.tools}>
-              <span
-                onClick={() => setOpen(!open)}
-                className={`material-symbols-outlined ${styles.plus_icon} ${
-                  open && styles.active
-                }`}
-              >
-                add_circle
-              </span>
-              <div className={`${styles.extraTools} ${open && styles.active}`}>
-                <ImageIcon
-                  handleFunc={openImageDropZone}
-                  classes={[styles.tool_icon]}
-                />
-                <UploadIcon classes={[styles.tool_icon]} />
-                <VideoIcon classes={[styles.tool_icon]} />
-              </div>
+            <div style={{ flexGrow: "1" }}>
+              {img?.url ? (
+                <div className={styles.imgContainer}>
+                  <Image fill alt="blog_img" src={img.url} />
+                </div>
+              ) : (
+                <label htmlFor="blogImg" className={styles.imageUploader}>
+                  {uploading ? (
+                    <Loader size="mini" />
+                  ) : (
+                    <>
+                      <p>Choose Image</p>
+                      <ImageIcon classes={[styles.tool_icon]} />
+                    </>
+                  )}
+                </label>
+              )}
+              <input
+                style={{ display: "none" }}
+                type="file"
+                name="blogImg"
+                id="blogImg"
+                onChange={handleImgChange}
+              />
             </div>
             <div className={styles.right}>
               {categories && (
@@ -191,11 +303,13 @@ const Writepage = () => {
           )}
           <div className={styles.editor}>
             <ReactQuill
-              className={styles.quillTextArea}
-              theme="bubble"
+              ref={quillRef}
+              className={styles.quillEditor}
+              theme="snow"
               value={body}
+              formats={formats}
+              modules={modules}
               onChange={handleValueChange}
-              placeholder="Tell your story"
             />
           </div>
         </div>

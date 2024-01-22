@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import SavePostIcon from "@/components/SavePostIcon/SavePostIcon";
 import { CardActionArea } from "@mui/material";
 import styles from "./postCard.module.css";
-import { ThemeStates } from "@/context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 import { getTrimmedString } from "@/helpers/string";
 import { useRouter } from "next/navigation";
 import { getFormattedPostDate } from "@/utils/date";
@@ -19,7 +19,7 @@ import { getUserSlug } from "@/app/posts/[slug]/page";
 import moment from "moment";
 
 export default function PostCard({ post, profileUser }) {
-  const { theme } = ThemeStates();
+  const { theme } = useTheme();
 
   return window.innerWidth > 1020 ? (
     <LandscapeCard post={post} theme={theme} profileUser={profileUser} />
