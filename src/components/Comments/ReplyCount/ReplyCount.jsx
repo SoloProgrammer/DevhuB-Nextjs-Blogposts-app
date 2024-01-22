@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./replyCount.module.css";
 import Loader from "@/components/Loader/Loader";
-import { api } from "@/services/api";
 import { addReplies } from "@/redux/slices/commentsSlice";
 import { useDispatch } from "react-redux";
+import { useLazyGetRepliesQuery } from "@/redux/api/repliesApi";
+import { showToast, toastStatus } from "@/utils/toast";
 
 const ReplyCount = ({
   count,
@@ -14,22 +15,26 @@ const ReplyCount = ({
   showreplies,
 }) => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+
+  const [getReplies, { isFetching, isError, error, data }] =
+    useLazyGetRepliesQuery("");
+
+  useEffect(() => {
+    if (!isFetching && data) {
+      dispatch(addReplies({ replies: data.replies, commentId: comment.id }));
+      setShowReplies(true);
+    } else if (isError && error) {
+      showToast(error.data, toastStatus.ERROR);
+    }
+  }, [isError, data, error, isFetching]);
 
   const fetchReplies = async () => {
     // toggling replies-container if replies is already fetched from the server
     setReply(false);
     if (comment.replies) return setShowReplies(!showreplies);
-
-    setLoading(true);
-    let res = await fetch(api.getReplies(comment.id));
-    if (res.ok) {
-      let data = await res.json();
-      dispatch(addReplies({ replies: data.replies, commentId: comment.id }));
-      setShowReplies(true)
-    }
-    setLoading(false);
+    getReplies(comment.id);
   };
+  
   return (
     <div
       className={`${styles.replyCount} ${showreplies && styles.open}`}
@@ -40,7 +45,7 @@ const ReplyCount = ({
       <span style={{ marginRight: "5px" }}>
         {count > 1 ? " Replies" : " Reply"}
       </span>
-      {loading && <Loader size="tooMini" />}
+      {isFetching && <Loader size="tooMini" />}
     </div>
   );
 };

@@ -1,20 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./replies.module.css";
 import Image from "next/image";
 import { getFormattedPostDate } from "@/utils/date";
 import DelEditActions from "@/components/Actions/DelEditActions";
 import { useDispatch, useSelector } from "react-redux";
-import { api } from "@/services/api";
 import { deleteReply, updateReply } from "@/redux/slices/commentsSlice";
 import SaveCancelEditor from "@/components/SaveCancelEditor/SaveCancelEditor";
 import { getTrimmedValue } from "../SingleComment/SingleComment";
 import ConfirmDeleteModal from "@/components/Modal/Modal";
 import CrfmDelAlertBox from "@/components/CrfmDelAlertBox/CrfmDelAlertBox";
 import useModal from "@/Hooks/useModal";
-import { showToast } from "@/utils/toast";
+import { showToast, toastStatus } from "@/utils/toast";
 import Link from "next/link";
 import { getUserSlug } from "@/app/posts/[slug]/page";
+import {
+  useLazyDeleteReplyQuery,
+  useUpdateReplyMutation,
+} from "@/redux/api/repliesApi";
 
 const Replies = ({ commentId, replies }) => {
   return (
@@ -31,26 +34,26 @@ export default Replies;
 const SingleReply = ({ reply, commentId }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+
+  const [deleteReplyOnServer, { isLoading, isError, error, data }] =
+    useLazyDeleteReplyQuery("");
+
+  const [updateReplyOnServer] = useUpdateReplyMutation();
 
   const handleDelete = async () => {
-    setLoading(true);
-    // Deleting reply from server side
-    const query = `?replyId=${reply.id}`;
-    let options = {
-      method: "DELETE",
-    };
-    let res = await fetch(api.deleteReply(commentId, query), options);
-    if (!res.ok) {
-      throw Error("Some Error Occured!");
-    }
-
-    // deleting reply from redux store
-
-    dispatch(deleteReply({ commentId, replyId: reply.id }));
-    showToast("Reply deleted!");
-    setLoading(false);
+    deleteReplyOnServer({ commentId, replyId: reply.id });
   };
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (data) {
+        dispatch(deleteReply({ commentId, replyId: reply.id }));
+        showToast("Reply deleted!");
+      } else if (isError && error) {
+        showToast(error.data, toastStatus.ERROR);
+      }
+    }
+  }, [isLoading, isError, error, data]);
 
   const [edit, setEdit] = useState(false);
   const [value, setValue] = useState(reply.desc);
@@ -62,7 +65,7 @@ const SingleReply = ({ reply, commentId }) => {
   const handleEdit = () => {
     setEdit(true);
   };
-  
+
   const handleSave = async () => {
     setEdit(false);
     let trimmedValue = getTrimmedValue(value);
@@ -75,12 +78,11 @@ const SingleReply = ({ reply, commentId }) => {
     );
 
     // updating reply on server side
-    const options = {
-      method: "PUT",
-      body: JSON.stringify({ desc: trimmedValue }),
-    };
-    const query = `?replyId=${reply.id}`;
-    await fetch(api.updateReply(commentId, query), options);
+    updateReplyOnServer({
+      commentId,
+      replyId: reply.id,
+      updatedReply: { desc: trimmedValue },
+    });
   };
 
   const handleCancel = () => setEdit(false);
@@ -108,7 +110,6 @@ const SingleReply = ({ reply, commentId }) => {
           {user?.id === reply?.user?.id && (
             <div className={styles.actions}>
               <DelEditActions
-                loading={loading}
                 handleDelete={openDelModal}
                 handleEdit={handleEdit}
               />
@@ -133,7 +134,7 @@ const SingleReply = ({ reply, commentId }) => {
       {showDelModal && (
         <ConfirmDeleteModal
           handleHide={handleCloseConfirmDelModal}
-          isCloseable={!loading}
+          isCloseable={!isLoading}
         >
           <CrfmDelAlertBox
             title={"Delete reply!"}
@@ -141,7 +142,7 @@ const SingleReply = ({ reply, commentId }) => {
             btnText={"Delete"}
             handleCancel={handleCloseConfirmDelModal}
             handleSubmit={handleDelete}
-            loading={loading}
+            loading={isLoading}
           />
         </ConfirmDeleteModal>
       )}

@@ -3,17 +3,34 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./addreplyTextarea.module.css";
 import TextareaAutosize from "react-textarea-autosize";
 import Loader from "@/components/Loader/Loader";
-import { api } from "@/services/api";
 import { useDispatch } from "react-redux";
-import { incrementRepliesCount, removeReplies } from "@/redux/slices/commentsSlice";
+import {
+  incrementRepliesCount,
+  removeReplies,
+} from "@/redux/slices/commentsSlice";
 import { XMarkIcon } from "@/GoogleIcons/Icons";
 import { getTrimmedValue } from "../SingleComment/SingleComment";
+import { useNewReplyMutation } from "@/redux/api/repliesApi";
+import { showToast, toastStatus } from "@/utils/toast";
 
 const AddreplyTextarea = ({ handleCancel, commentId }) => {
   const [desc, setDesc] = useState("");
-  const [loading, setLoading] = useState(false);
   let replyBoxTextContainerRef = useRef();
   const dispatch = useDispatch();
+
+  const [addReply, { isLoading, isError, error, data }] = useNewReplyMutation();
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (data) {
+        dispatch(incrementRepliesCount({ commentId }));
+        dispatch(removeReplies({ commentId }));
+        handleCancel();
+      } else if (isError && error) {
+        showToast(error.data, toastStatus.ERROR);
+      }
+    }
+  }, [isLoading, isError, error, data]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -22,18 +39,7 @@ const AddreplyTextarea = ({ handleCancel, commentId }) => {
   }, []);
 
   const handleSaveReply = async () => {
-    setLoading(true);
-    let options = {
-      method: "POST",
-      body: JSON.stringify({ desc }),
-    };
-    let res = await fetch(api.addReply(commentId), options);
-    if (res.ok) {
-      dispatch(incrementRepliesCount({ commentId }));
-      dispatch(removeReplies({ commentId }));
-    }
-    setLoading(false);
-    handleCancel();
+    addReply({ commentId, newReply: { desc } });
   };
 
   return (
@@ -54,12 +60,12 @@ const AddreplyTextarea = ({ handleCancel, commentId }) => {
         <div className={`${styles.replyActions}`}>
           <button
             onClick={handleSaveReply}
-            disabled={!getTrimmedValue(desc) || loading}
+            disabled={!getTrimmedValue(desc) || isLoading}
             className={styles.saveReplyBtn}
           >
-            Save {loading && <Loader size="tooMini" />}
+            Save {isLoading && <Loader size="tooMini" />}
           </button>
-          <XMarkIcon classes={['icon cancelIcon']} handleFunc={handleCancel}/>
+          <XMarkIcon classes={["icon cancelIcon"]} handleFunc={handleCancel} />
         </div>
       </div>
     </div>
