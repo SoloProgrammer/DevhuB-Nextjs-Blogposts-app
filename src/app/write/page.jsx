@@ -17,11 +17,12 @@ import { getCategories } from "@/utils/services";
 import axios from "axios";
 import { api } from "@/services/api";
 import HomePageLoading from "../(HomePage)/loading";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Image from "next/image";
 import { showToast, toastStatus } from "@/utils/toast";
 import { handleFileUpload } from "@/utils/upload";
+import hljs from "highlight.js";
+const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
 
 const Writepage = () => {
   const [body, setBody] = useState("");
