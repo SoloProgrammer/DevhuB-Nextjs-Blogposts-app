@@ -37,17 +37,12 @@ const Comments = ({ postSlug, commentsCount }) => {
     },
   ] = useNewCommentMutation();
 
-  const fetchComments = async () => {
-    const query = `postSlug=${postSlug}`;
-    getPostComments(query);
-  };
+  const fetchComments = () => getPostComments(postSlug);
 
   useEffect(() => {
     if (data) {
-      console.log(data, isFetching, isError, error);
       dispatch(updateComments(data.comments));
     } else if (!isFetching && error) {
-      console.log(error);
       showToast(error.data, "error");
     }
   }, [isError, error, data, isFetching]);

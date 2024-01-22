@@ -21,7 +21,7 @@ const Featured = async () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
-        <b>Your one stop platform,</b>
+        <b>One stop&nbsp;platform,</b>
         <br />
         <p>To discover stories and creative ideas for developers!</p>
       </h1>

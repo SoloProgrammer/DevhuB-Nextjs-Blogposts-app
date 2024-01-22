@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./singleComment.module.css";
 import Image from "next/image";
 import { getFormattedPostDate } from "@/utils/date";
-import { api } from "@/services/api";
 import { useDispatch, useSelector } from "react-redux";
 import AddreplyTextarea from "../AddreplyTextarea/AddreplyTextarea";
 import { useRouter } from "next/navigation";
@@ -20,36 +19,44 @@ import useModal from "@/Hooks/useModal";
 import { showToast } from "@/utils/toast";
 import Link from "next/link";
 import { getUserSlug } from "@/app/posts/[slug]/page";
+import {
+  useLazyDeleteCommentQuery,
+  useUpdateCommentMutation,
+} from "@/redux/api/commentsApi";
 
 export const getTrimmedValue = (value) => value.replaceAll(/\s+/g, " ").trim();
 
 const SingleComment = ({ comment }) => {
   const { comments } = useSelector((state) => state.comments);
   const { user } = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
   const [value, setValue] = useState(comment.desc);
   const [edit, setEdit] = useState(false);
+  const [showDelModal, , openDelModal, handleCloseConfirmDelModal, hideModal] =
+    useModal();
 
   const router = useRouter();
 
-  const handleDelete = async () => {
-    setLoading(true);
-    const query = `?id=${comment.id}`;
-    await fetch(api.deleteComment(query), {
-      method: "DELETE",
-    });
-    let updatedComments = comments.filter((c) => c.id !== comment.id);
-    dispatch(updateComments(updatedComments));
-    setLoading(false);
-    showToast("Comment deleted!");
-    router.refresh();
-  };
+  const [deleteComment, { isLoading, isError, error, data }] =
+    useLazyDeleteCommentQuery();
 
-  const handleEdit = () => {
-    setEdit(true);
-  };
+  const [updateCommentOnServer] = useUpdateCommentMutation();
+
+  useEffect(() => {
+    if (data) {
+      let updatedComments = comments.filter((c) => c.id !== comment.id);
+      dispatch(updateComments(updatedComments));
+      router.refresh();
+      showToast(data?.message);
+    } else if (isError && error && !isLoading) {
+      showToast(error.data, "error");
+      hideModal();
+    }
+  }, [isError, error, isLoading, data]);
+
+  const handleDelete = () => deleteComment(comment.id);
+
+  const handleEdit = () => setEdit(true);
 
   const handleSave = async () => {
     let trimedValue = getTrimmedValue(value);
@@ -58,14 +65,11 @@ const SingleComment = ({ comment }) => {
       // updating comments in redux store
       dispatch(updateComment({ commentId: comment.id, desc: value }));
       setEdit(false);
-
       // updating commnet on server
-      let options = {
-        method: "PUT",
-        body: JSON.stringify({ desc: trimedValue }),
-      };
-      let query = `?id=${comment.id}`;
-      await fetch(api.updateComment(query), options);
+      updateCommentOnServer({
+        commentId: comment.id,
+        updatedData: { desc: trimedValue },
+      });
     }
     setEdit(false);
   };
@@ -99,7 +103,6 @@ const SingleComment = ({ comment }) => {
   function onChangeHandler(e) {
     setValue(e.target.value);
   }
-  const [showDelModal, , openDelModal, handleCloseConfirmDelModal] = useModal();
 
   return (
     <>
@@ -127,7 +130,7 @@ const SingleComment = ({ comment }) => {
           {user && comment.user.id === user?.id ? (
             <div className={styles.actions}>
               <DelEditActions
-                loading={loading}
+                loading={isLoading}
                 handleDelete={openDelModal}
                 handleEdit={handleEdit}
               />
@@ -179,7 +182,7 @@ const SingleComment = ({ comment }) => {
       {showDelModal && (
         <ConfirmDeleteModal
           handleHide={handleCloseConfirmDelModal}
-          isCloseable={!loading}
+          isCloseable={!isLoading}
         >
           <CrfmDelAlertBox
             title={"Delete comment!"}
@@ -187,7 +190,7 @@ const SingleComment = ({ comment }) => {
             btnText={"Delete"}
             handleCancel={handleCloseConfirmDelModal}
             handleSubmit={handleDelete}
-            loading={loading}
+            loading={isLoading}
           />
         </ConfirmDeleteModal>
       )}

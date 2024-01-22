@@ -34,18 +34,6 @@ export const api = {
   savePost: (slug) => {
     return `${server.URL}/api/posts/${slug}/save`;
   },
-  getPostComments: (query) => {
-    return `${server.URL}/api/comments${query}`;
-  },
-  createNewComment: () => {
-    return `${server.URL}/api/comments`;
-  },
-  deleteComment: (query) => {
-    return `${server.URL}/api/comments${query}`;
-  },
-  updateComment: (query) => {
-    return `${server.URL}/api/comments${query}`;
-  },
   getUser: (query = "") => {
     return `/user${query}`;
   },

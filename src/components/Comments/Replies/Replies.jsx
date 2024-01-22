@@ -62,6 +62,7 @@ const SingleReply = ({ reply, commentId }) => {
   const handleEdit = () => {
     setEdit(true);
   };
+  
   const handleSave = async () => {
     setEdit(false);
     let trimmedValue = getTrimmedValue(value);

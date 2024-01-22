@@ -3,12 +3,15 @@
 }
 
 .title {
-    font-size: 3vmax;
+    font-size: 4vmax;
     margin: 20px 0;
     font-weight: 300 !important;
 }
 .title p{
     font-size: 2.2rem;
+}
+.title b{
+    /* font-size: 2.6rem; */
 }
 .featuredText{
     display: flex;
@@ -99,6 +102,9 @@
     }
     .imgContainer{
         height: auto;
+    }
+    .title{
+        font-size: 2.5rem;
     }
     .title p{
         font-size: 1.6rem;
