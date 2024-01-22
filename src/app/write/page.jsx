@@ -85,34 +85,6 @@ const Writepage = () => {
   const handleValueChange = (e) => {
     e !== emptyData ? setBody(e) : setBody(null);
   };
-
-  // const imageHandler = () => {
-  //   // Create an input element of type 'file'
-  //   const input = document.createElement("input");
-  //   input.setAttribute("type", "file");
-  //   input.setAttribute("accept", "image/*");
-  //   input.click();
-
-  //   console.log("---------", quillRef);
-  //   // When a file is selected
-  //   input.onchange = () => {
-  //     const file = input.files[0];
-  //     const reader = new FileReader();
-
-  //     // Read the selected file as a data URL
-  //     reader.onload = () => {
-  //       const imageUrl = reader.result;
-  //       const quillEditor = quillRef.current.getEditor();
-
-  //       // Get the current selection range and insert the image at that index
-  //       const range = quillEditor.getSelection(true);
-  //       quillEditor.insertEmbed(range.index, "image", imageUrl, "user");
-  //     };
-
-  //     reader.readAsDataURL(file);
-  //   };
-  // };
-
   const modules = useMemo(
     () => ({
       syntax: {
