@@ -6,8 +6,6 @@ import "react-quill/dist/quill.bubble.css";
 import { useTheme } from "@/context/ThemeContext";
 import {
   ImageIcon,
-  UploadIcon,
-  VideoIcon,
   XMarkIcon,
 } from "@/GoogleIcons/Icons";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
@@ -23,7 +21,6 @@ import axios from "axios";
 import { api } from "@/services/api";
 import HomePageLoading from "../(HomePage)/loading";
 import ReactQuill from "react-quill";
-import hljs from "highlight.js";
 import "react-quill/dist/quill.snow.css";
 import Image from "next/image";
 import { showToast, toastStatus } from "@/utils/toast";
@@ -32,7 +29,6 @@ import { handleFileUpload } from "@/utils/upload";
 const Writepage = () => {
   const [body, setBody] = useState("");
   const [title, setTile] = useState("");
-  const [open, setOpen] = useState(false);
   const [showImgDropZone, setShowImgDropZone] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [img, setImg] = useState("");
@@ -41,19 +37,19 @@ const Writepage = () => {
   const { categories } = useSelector((state) => state.categories);
 
   const { theme } = useTheme();
-  hljs.configure({
-    // optionally configure hljs
-    languages: [
-      "javascript",
-      "python",
-      "c",
-      "c++",
-      "java",
-      "HTML",
-      "css",
-      "matlab",
-    ],
-  });
+  // hljs.configure({
+  //   // optionally configure hljs
+  //   languages: [
+  //     "javascript",
+  //     "python",
+  //     "c",
+  //     "c++",
+  //     "java",
+  //     "HTML",
+  //     "css",
+  //     "matlab",
+  //   ],
+  // });
   const { status } = useSession();
 
   const dispatch = useDispatch();
@@ -87,11 +83,11 @@ const Writepage = () => {
   };
   const modules = useMemo(
     () => ({
-      syntax: {
-        highlight: function (text) {
-          return hljs.highlightAuto(text).value;
-        },
-      },
+      // syntax: {
+      //   highlight: function (text) {
+      //     return hljs.highlightAuto(text).value;
+      //   },
+      // },
       toolbar: {
         container: [
           [{ header: [2, 3, 4, false] }],
