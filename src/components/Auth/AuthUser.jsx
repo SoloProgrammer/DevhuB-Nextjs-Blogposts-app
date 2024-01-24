@@ -7,6 +7,7 @@ import { addUser, setLoading } from "@/redux/slices/authSlice";
 import useSWR from "swr";
 import axiosClient from "@/services/axiosClient";
 import { TryCatchWrapper } from "@/helpers/ErrorHandler";
+import { showToast, toastStatus } from "@/utils/toast";
 
 const fetcher = TryCatchWrapper(async (url) => {
   const { data } = await axiosClient.get(url);
@@ -16,13 +17,20 @@ const fetcher = TryCatchWrapper(async (url) => {
 const AuthUser = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const { data, isLoading } = useSWR(!user ? api.getUser() : null, fetcher);
-  useEffect(() => {
-    dispatch(setLoading(isLoading));
-  }, [isLoading, dispatch]);
-  if (data) {
-    dispatch(addUser(data.user));
-  }
+
+  const getUser = async () => {
+    try {
+      dispatch(setLoading(true));
+      let { data } = await axiosClient.get(api.getUser());
+      console.log(data);
+      dispatch(addUser(data.user));
+    } catch (error) {
+      showToast("You are not logged in!", "", "🧑‍💻");
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+  useEffect(() => getUser(), []);
   return <></>;
 };
 

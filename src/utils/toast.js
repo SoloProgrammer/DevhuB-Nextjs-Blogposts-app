@@ -7,10 +7,11 @@ const status = {
 };
 export const toastStatus = Object.freeze(status);
 
-export const showToast = (msg, type, duration = 3000) => {
+export const showToast = (msg, type, icon, duration = 3000) => {
   const toastId = toast(msg, {
     type,
     duration,
+    icon,
   });
   return toastId;
 };
