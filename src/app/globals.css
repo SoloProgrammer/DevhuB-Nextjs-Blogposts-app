@@ -132,7 +132,6 @@ a {
 }
 
 .ql-editor {
-  max-height: 500px !important;
   overflow: auto !important;
 }
 
@@ -148,12 +147,18 @@ a {
   padding: 5px 10px !important;
   background: var(--softBg);
   border-radius: .3rem;
+  font-size: 1rem !important;
 }
 
 .quill,
 .ql-container.ql-snow {
   width: 100% !important;
   min-height: 450px !important;
+}
+
+.ql-snow .ql-editor pre.ql-syntax {
+  font-size: 1rem !important;
+  background: var(--softBg) !important;
 }
 
 .ql-snow .ql-stroke {
@@ -175,6 +180,10 @@ a {
 
 .ql-toolbar.ql-snow {
   padding: 20px !important;
+  position: sticky !important;
+  top: 69px !important;
+  z-index: 99 !important;
+  background: var(--bg) !important;
 }
 
 .ql-snow .ql-tooltip {

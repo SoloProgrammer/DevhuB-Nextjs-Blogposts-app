@@ -21,7 +21,7 @@ const getSinglePost = TryCatchWrapper(async (slug) => {
 });
 
 export const getUserSlug = (user) => {
-  return `${user.name.split(" ").join("_")}_${user.id}`;
+  return `${user?.name.split(" ").join("_")}_${user?.id}`;
 };
 export const extractRawUserIdFromSlug = (userSlugId) => {
   return userSlugId.split("_").at(-1);
