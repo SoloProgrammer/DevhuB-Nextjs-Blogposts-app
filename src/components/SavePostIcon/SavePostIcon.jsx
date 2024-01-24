@@ -111,7 +111,7 @@ const SavePostIcon = ({ slug, postId, profileUser }) => {
       )}
       {!user && !loading && !profileUser && (
         <Link href={"/login"}>
-          <small>Login to save this post!</small>
+          <small className={Styles.loginText}>Login to save this post!</small>
         </Link>
       )}
     </div>

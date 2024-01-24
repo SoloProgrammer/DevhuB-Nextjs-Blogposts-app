@@ -141,7 +141,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                                         color: transparent;
                                       "
                                     >
-                                      <Dev>.huB
+                                      &lt;Dev&gt;.huB
                                     </p>
                                   </a>
                                 </td>
