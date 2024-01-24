@@ -9,8 +9,17 @@ const createPostHandler = async (req) => {
   const body = await req.json();
   if (!body) return Response("Body not send with the req", 400);
 
+  let { tags, ...remainingBody } = body;
+
+  // converting tag object from {slug:react} to {tagSlug:react}
+  tags = tags.map((tag) => ({ tagSlug: tag.slug }));
+
   const post = await prisma.Post.create({
-    data: { ...body, userEmail: session.user.email },
+    data: {
+      ...remainingBody, // remainingBodyData - title, desc, slug, img
+      tags: { create: tags },
+      userEmail: session.user.email,
+    },
     include: { user: true },
   });
 

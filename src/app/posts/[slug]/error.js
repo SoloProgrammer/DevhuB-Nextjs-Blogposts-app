@@ -1,5 +1,4 @@
 "use client"
-import ErrorPage from "@/components/Error/Error";
 import Notfound from "@/components/NotFound/Notfound";
 import React from "react";
 

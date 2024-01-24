@@ -35,7 +35,7 @@ export const GET = TryCatch(async (req) => {
 
   // 3. if saved is passed in the params so it is manditory to pass the uId in the params so that we can fetch all the posts of the user of that uId that saved the particular posts or the postid is present in the savedposts array of that user
 
-  // The below id the logic for all three of valid points listed/explained above
+  // The below is the logic for all three of valid points listed/explained above
 
   // ...(category && !saved && { catSlug: category }),
   // ...(uId && !saved && { userEmail: user.email }),
@@ -59,9 +59,23 @@ export const GET = TryCatch(async (req) => {
     take: POSTS_PER_PAGE,
     skip: POSTS_PER_PAGE * (page - 1),
     where: whereQuery, // main logic goes here
-    include: { user: true },
+    include: {
+      user: true,
+      tags: {
+        include: {
+          tag: {
+            select: {
+              id: true,
+              slug: true,
+              icon: true,
+              clr: true,
+            },
+          },
+        },
+      },
+    },
     orderBy: {
-      createdAt: "desc",
+      createdAt: "desc", // desc - descending
     },
   };
 

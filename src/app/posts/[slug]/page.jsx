@@ -74,7 +74,7 @@ const SingleBlogPage = async ({ params }) => {
             <Image src={post.img} priority={false} fill alt="post_Img" />
           </div>
           <div className={styles.textContainer}>
-            <TextViewer classNames={[styles.desc]} content={post.desc}/>
+            <TextViewer classNames={[styles.desc]} content={post.desc} />
           </div>
           <div id="comments">
             <Comments

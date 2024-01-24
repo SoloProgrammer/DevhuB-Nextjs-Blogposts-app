@@ -17,7 +17,5 @@ export const postsApi = createApi({
   }),
 });
 
-
-
 export const { useGetPostsQuery, useLazyGetPostsQuery, useGetPostQuery } =
   postsApi;
