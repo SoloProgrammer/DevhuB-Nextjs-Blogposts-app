@@ -13,6 +13,7 @@ import FollowUserBtn from "@/components/UserProfileComponents/FollowUserBtn/Foll
 import FormattedDate from "@/components/FormattedDate/FormattedDate";
 import axiosClient from "@/services/axiosClient";
 import { TryCatchWrapper } from "@/helpers/ErrorHandler";
+import TextViewer from "@/components/TextViewer/TextViewer";
 
 const getSinglePost = TryCatchWrapper(async (slug) => {
   const { data } = await axiosClient.get(api.getSinglePost(slug));
@@ -73,10 +74,7 @@ const SingleBlogPage = async ({ params }) => {
             <Image src={post.img} priority={false} fill alt="post_Img" />
           </div>
           <div className={styles.textContainer}>
-            <div
-              className={styles.desc}
-              dangerouslySetInnerHTML={{ __html: post.desc }}
-            />
+            <TextViewer classNames={[styles.desc]} content={post.desc}/>
           </div>
           <div id="comments">
             <Comments

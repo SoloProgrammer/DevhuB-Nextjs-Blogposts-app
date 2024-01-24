@@ -1,6 +1,12 @@
 "use client";
 
-import React, { Suspense, useCallback, useMemo, useRef, useState } from "react";
+import React, {
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import styles from "./writePage.module.css";
 import "react-quill/dist/quill.bubble.css";
 import { useTheme } from "@/context/ThemeContext";
@@ -22,7 +28,8 @@ import Image from "next/image";
 import { showToast, toastStatus } from "@/utils/toast";
 import { handleFileUpload } from "@/utils/upload";
 import hljs from "highlight.js";
-const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
+const ReactQuill =
+  typeof window === "object" ? require("react-quill") : () => false;
 
 const Writepage = () => {
   const [body, setBody] = useState("");
@@ -35,6 +42,9 @@ const Writepage = () => {
   const { categories } = useSelector((state) => state.categories);
 
   const { theme } = useTheme();
+  useEffect(() => {
+    hljs.initHighlighting();
+  }, []);
   hljs.configure({
     // optionally configure hljs
     languages: [
@@ -62,9 +72,6 @@ const Writepage = () => {
 
   const emptyData = "<p><br></p>";
 
-  const openImageDropZone = () => {
-    setShowImgDropZone(true);
-  };
   const handleSetImg = (imgObj) => {
     setImg(imgObj);
   };

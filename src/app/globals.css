@@ -33,7 +33,7 @@ hr {
   --bg: white;
   --textColor: rgb(14, 14, 14);
   --lightTextColor: rgba(0, 0, 0, 0.4);
-  --softBg: #f0f0f0;
+  --softBg: whitesmoke;
   --shadow-light: 0 0 5px rgba(0, 0, 0, .2);
   --bg-light: rgba(0, 0, 0, .05);
   --bg-lighter: rgba(0, 0, 0, .025);
@@ -44,7 +44,6 @@ hr {
 }
 
 .react-tooltip {
-  /* background: var(); */
   font-size: .7rem;
   border-radius: 2rem;
 }
@@ -132,9 +131,23 @@ a {
   font-size: 28px !important;
 }
 
+.ql-editor {
+  max-height: 500px !important;
+  overflow: auto !important;
+}
+
 .quill {
   display: flex;
   flex-direction: column;
+}
+
+.ql-syntax {
+  white-space: pre-wrap !important;
+  margin-bottom: 5px !important;
+  margin-top: 5px !important;
+  padding: 5px 10px !important;
+  background: var(--softBg);
+  border-radius: .3rem;
 }
 
 .quill,
