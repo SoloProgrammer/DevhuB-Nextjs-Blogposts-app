@@ -159,6 +159,7 @@ a {
 .ql-snow .ql-editor pre.ql-syntax {
   font-size: 1rem !important;
   background: var(--softBg) !important;
+  color: var(--textColor) !important;
 }
 
 .ql-snow .ql-stroke {
@@ -182,7 +183,7 @@ a {
   padding: 20px !important;
   position: sticky !important;
   top: 69px !important;
-  z-index: 99 !important;
+  z-index: 1 !important;
   background: var(--bg) !important;
 }
 
@@ -201,6 +202,41 @@ a {
 .MuiMenuItem-root {
   min-height: 35px !important;
 }
+
+
+/* React select custom css classes overrides styles......... */
+.css-b62m3t-container .css-1nmdiq5-menu {
+  z-index: 5 !important;
+}
+
+.css-v68sna-control {
+  background: var(--bg) !important;
+  border-color: var(--main-color) !important;
+}
+
+.css-1xc3v61-indicatorContainer {
+  background: var(--bg) !important;
+}
+
+.css-pl3ts1-control {
+  border-color: var(--main-color) !important;
+}
+
+.css-1xc3v61-indicatorContainer {
+  border-radius: 4px !important;
+}
+
+.css-3w2yfm-ValueContainer {
+  display: flex !important;
+  background: var(--lightBG) !important;
+  border-radius: 4px !important;
+}
+
+.css-1n6sfyn-MenuList {
+  background: var(--lightBG) !important;
+}
+
+/* React select custom css classes overrides styles......... */
 
 @media screen and (max-width:1536px) {}
 

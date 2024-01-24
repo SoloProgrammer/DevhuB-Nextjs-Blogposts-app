@@ -157,6 +157,9 @@
     padding: 10px;
     /* border: 1px solid var(--softTextColor); */
 }
+.tagsSelect{
+    margin: 0px 0 20px;
+}
 
 .imgName {
     display: flex;

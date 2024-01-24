@@ -1,17 +1,10 @@
 "use client";
 
-import React, {
-  Suspense,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./writePage.module.css";
 import "react-quill/dist/quill.bubble.css";
 import { useTheme } from "@/context/ThemeContext";
 import { ImageIcon, XMarkIcon } from "@/GoogleIcons/Icons";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Modal from "@/components/Modal/Modal";
 import ImageDropZone from "@/components/ImageDropZone/ImageDropZone";
 import { useSession } from "next-auth/react";
@@ -28,6 +21,10 @@ import Image from "next/image";
 import { showToast, toastStatus } from "@/utils/toast";
 import { handleFileUpload } from "@/utils/upload";
 import hljs from "highlight.js";
+import TagsSelect from "react-select";
+import makeAnimated from "react-select/animated";
+import axiosClient from "@/services/axiosClient";
+import chroma from "chroma-js";
 const ReactQuill =
   typeof window === "object" ? require("react-quill") : () => false;
 
@@ -35,7 +32,6 @@ const Writepage = () => {
   const [body, setBody] = useState("");
   const [title, setTile] = useState("");
   const [showImgDropZone, setShowImgDropZone] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("");
   const [img, setImg] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -56,6 +52,7 @@ const Writepage = () => {
       "HTML",
       "css",
       "matlab",
+      "prisma"
     ],
   });
   const { status } = useSession();
@@ -148,7 +145,7 @@ const Writepage = () => {
     const reqbody = {
       title,
       desc: body,
-      catSlug: selectedCategory,
+      tags: selectedTags,
       slug: slugify(title),
       img: img.url,
     };
@@ -173,6 +170,81 @@ const Writepage = () => {
     }
   };
 
+  const [tags, setTags] = useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const ALLOWED_TAGS_COUNT = 4;
+  const colourStyles = {
+    control: (styles) => ({ ...styles, backgroundColor: "transperent" }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: isDisabled
+          ? undefined
+          : isSelected
+          ? data.color
+          : isFocused
+          ? color.alpha(0.1).css()
+          : undefined,
+        color: isDisabled
+          ? "#ccc"
+          : isSelected
+          ? chroma.contrast(color, "white") > 2
+            ? "white"
+            : "black"
+          : data.color,
+        cursor: isDisabled ? "not-allowed" : "default",
+
+        ":active": {
+          ...styles[":active"],
+          backgroundColor: !isDisabled
+            ? isSelected
+              ? data.color
+              : color.alpha(0.3).css()
+            : undefined,
+        },
+      };
+    },
+    multiValue: (styles, { data }) => {
+      const color = chroma(data.color);
+      return {
+        ...styles,
+        backgroundColor: color.alpha(0.1).css(),
+      };
+    },
+    multiValueLabel: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+    }),
+    multiValueRemove: (styles, { data }) => ({
+      ...styles,
+      color: data.color,
+      ":hover": {
+        backgroundColor: data.color,
+        color: "white",
+      },
+    }),
+  };
+
+  useEffect(() => {
+    const getTags = async () => {
+      try {
+        const { data } = await axiosClient.get(
+          "http://localhost:3000/api/tags"
+        );
+        setTags(data.tags);
+      } catch (error) {
+        showToast(
+          `error while fetching tags ${error.message}`,
+          toastStatus.ERROR
+        );
+      }
+    };
+    getTags();
+  }, []);
+
+  const animatedComponents = makeAnimated();
+
   if (status === "loading") {
     return (
       <div className="LoadingContainer">
@@ -185,6 +257,7 @@ const Writepage = () => {
     return router.push("/");
   }
 
+  console.log(selectedTags);
   return (
     <Suspense fallback={<HomePageLoading />}>
       <div className={styles.container}>
@@ -223,39 +296,9 @@ const Writepage = () => {
               />
             </div>
             <div className={styles.right}>
-              {categories && (
-                <FormControl
-                  error={title && body && !selectedCategory}
-                  sx={{ m: 1, minWidth: 120 }}
-                  size="small"
-                >
-                  <InputLabel
-                    error={title && body && !selectedCategory}
-                    id="demo-simple-select-label"
-                  >
-                    Category
-                  </InputLabel>
-                  <Select
-                    error={title && body && !selectedCategory}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={selectedCategory || ""}
-                    label="Category"
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                  >
-                    {categories?.map((cat) => {
-                      return (
-                        <MenuItem value={cat.title} key={cat.id}>
-                          {cat.title}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
-              )}
               <button
                 onClick={handlePublish}
-                disabled={!body || !title || !selectedCategory || loading}
+                disabled={!body || !title || !selectedTags.length || loading}
                 className={`${styles.publish_btn} ${
                   theme === "dark" ? styles.dark : styles.light
                 }`}
@@ -273,6 +316,43 @@ const Writepage = () => {
               <XMarkIcon classes={[styles.xmark]} handleFunc={removeImg} />
             </div>
           )}
+          <div className={styles.tagsSelect}>
+            {tags && (
+              <>
+                <TagsSelect
+                  closeMenuOnSelect={false}
+                  components={animatedComponents}
+                  onChange={(optTags) => {
+                    setSelectedTags(
+                      optTags.map((tag) => {
+                        return { slug: tag.value, id: tag.id };
+                      })
+                    );
+                  }}
+                  isMulti
+                  styles={colourStyles}
+                  options={
+                    selectedTags?.length < ALLOWED_TAGS_COUNT
+                      ? tags.map((tag) => {
+                          return {
+                            value: tag.slug,
+                            label: "#" + tag.title,
+                            color: tag.clr,
+                            id: tag.id,
+                          };
+                        })
+                      : []
+                  }
+                  noOptionsMessage={() => {
+                    return selectedTags.length === 4
+                      ? `Only ${ALLOWED_TAGS_COUNT} tags are allowed!`
+                      : "No options📎";
+                  }}
+                />
+                <small>Select maximum 4 tags!</small>
+              </>
+            )}
+          </div>
           <div className={styles.editor}>
             {typeof window !== "undefined" && (
               <ReactQuill
