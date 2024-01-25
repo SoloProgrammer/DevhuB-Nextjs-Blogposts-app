@@ -1,0 +1,21 @@
+.tagsWrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.tag {
+    box-sizing: border-box;
+    padding: 2px 10px;
+    padding-bottom: 3px;
+    border-radius: .3rem;
+    font-size: var(--size);
+    color: var(--color);
+    background: var(--background);
+    border: 1px solid var(--color);
+}
+
+.tag:hover {
+    background: var(--hover);
+}

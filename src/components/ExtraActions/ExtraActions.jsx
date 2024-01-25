@@ -42,13 +42,16 @@ const ExtraActions = ({
       setDeleteLoading(true);
       const res = await fetch(baseUrl, options);
       const json = await res.json();
+      if (!res.ok) {
+        throw new Error(json.error);
+      }
       router.push("/");
       router.refresh();
       setTimeout(() => {
         showToast(json.message, toastStatus.SUCCESS);
       }, 100);
     } catch (error) {
-      showToast("Something went wrong!", toastStatus.ERROR);
+      showToast("Something went wrong, pleae try again later!", toastStatus.ERROR);
     } finally {
       setDeleteLoading(false);
       hideDelModal();

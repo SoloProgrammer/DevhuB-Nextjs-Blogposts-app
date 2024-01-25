@@ -10,7 +10,21 @@ export const GET = async (req, { params }) => {
   try {
     const post = await prisma.post.findUnique({
       where: { slug },
-      include: { user: true },
+      include: {
+        user: true,
+        tags: {
+          include: {
+            tag: {
+              select: {
+                id: true,
+                slug: true,
+                icon: true,
+                clr: true,
+              },
+            },
+          },
+        },
+      },
     });
     if (!post) return Response("Post not found!", 404, false);
 
@@ -30,6 +44,11 @@ export const GET = async (req, { params }) => {
 
 export const DELETE = TryCatch(async (req, { params }) => {
   const { slug } = params;
+
+  // deleting PostTag first to delete the post!
+  await prisma.PostTag.deleteMany({
+    where: { postSlug: slug },
+  });
   const [post] = await prisma.$transaction([
     prisma.Post.findUnique({ where: { slug } }),
     prisma.Post.delete({ where: { slug } }),
