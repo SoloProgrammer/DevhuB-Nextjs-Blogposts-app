@@ -10,7 +10,7 @@ const TagsList = ({ tags, size = "small", isColored = true }) => {
       {tags.map((tag) => {
         const color = chroma(tag.clr);
         return (
-          <Link href={`/tags?tag=${tag.slug}`}>
+          <Link key={tag.id} href={`/tags?tag=${tag.slug}`}>
             <TagChip
               tag={tag}
               color={color}
