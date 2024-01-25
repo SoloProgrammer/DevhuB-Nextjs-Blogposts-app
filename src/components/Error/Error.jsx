@@ -1,24 +1,27 @@
 "use client";
 
 import React from "react";
-import Notfound from "@/components/NotFound/Notfound";
-import { NOT_FOUND } from "@/helpers/ErrorHandler";
 import styles from "./error.module.css";
 
-const ErrorPage = ({ error, reset }) => {
-  if (error.message === NOT_FOUND) {
-    return (
-      <>
-        <Notfound />
-      </>
-    );
-  } else
-    return (
-      <>
-        <div>Something went wrong, Please try again later!</div>;
-        <button onClick={reset}>Try again</button>
-      </>
-    );
+const ErrorPage = () => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        alignItems: "center",
+        gap: "20px",
+      }}
+    >
+      <img
+        src="https://cdni.iconscout.com/illustration/premium/thumb/cat-unplugged-cable-from-server-6904749-5673626.png"
+        alt="error"
+        width={260}
+      />
+      <ErrorBlock soure={"posts"} refetch={() => window.location.reload()} />
+    </div>
+  );
 };
 
 export default ErrorPage;

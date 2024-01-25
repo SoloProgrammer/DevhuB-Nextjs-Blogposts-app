@@ -5,13 +5,24 @@ import { MenuPostLoading } from "../[slug]/loading";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useTheme } from "@/context/ThemeContext";
 import styles from "./postsByTagPageLoading.module.css";
+import Loader from "@/components/Loader/Loader";
 
-const Loading = () => {
+const LoadingSkeleton = () => {
   return (
     <div>
       <div className={styles.text}>
-        <h2 className={styles.loadingTagHeader}>{"#loading tag..."}</h2>
-        <p>loading...</p>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "15px",
+          }}
+        >
+          <Loader size="small" />
+          <Skeleton height={40} width={150} />
+        </div>
+        <Skeleton width={"100%"} height={15} />
+        <Skeleton width={"50%"} height={15} />
       </div>
       <PostsListLoadingSkeleton />
     </div>
@@ -70,4 +81,4 @@ export const PostsListLoadingSkeleton = () => {
   );
 };
 
-export default Loading;
+export default LoadingSkeleton;

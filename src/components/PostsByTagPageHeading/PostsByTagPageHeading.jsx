@@ -3,10 +3,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styles from "./postsByTagPageHeading.module.css";
 
-const CategoryHeading = ({ tagSlug }) => {
+const TagHeading = ({ tagSlug }) => {
   const { tags } = useSelector((state) => state.tags);
   let tag = tags.filter((tag) => tag.slug === tagSlug)[0];
-  console.log(tags, tag);
   if (tags) {
     if (!tag) return <></>;
   }
@@ -26,4 +25,4 @@ const CategoryHeading = ({ tagSlug }) => {
   );
 };
 
-export default CategoryHeading;
+export default TagHeading;
