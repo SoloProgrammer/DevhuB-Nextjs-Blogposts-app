@@ -18,10 +18,10 @@
     max-height: 250px;
 }
 
-.cat {
-    color: rgb(193, 26, 26);
+.postAuthor{
+    text-decoration: underline;
+    font-size: .8rem;
     font-weight: 500;
-    text-transform: uppercase;
 }
 
 .seperator {
@@ -47,18 +47,20 @@
 .postTextContent {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
     align-items: flex-start;
     width: 100%;
 }
 
 .postTitle {
     font-size: 1.2rem;
+    margin-bottom: 5px !important;
 }
 
 .postDesc {
     color: var(--softTextColor);
     flex-grow: 1;
+    font-size: .9rem;
 }
 
 .post button {
@@ -69,6 +71,7 @@
     .post {
         flex-direction: column;
         align-items: flex-start;
+        gap: 5px;
     }
 
     .imgContainer {

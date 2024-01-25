@@ -31,6 +31,13 @@
     align-items: center;
 }
 
+.tagsLoading {
+    display: flex;
+    gap: 5px;
+    margin: 45px 0 10px;
+    align-items: center;
+}
+
 .userImg {
     width: 55px;
     height: 55px;

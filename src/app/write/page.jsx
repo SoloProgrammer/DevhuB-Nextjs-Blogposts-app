@@ -10,9 +10,7 @@ import ImageDropZone from "@/components/ImageDropZone/ImageDropZone";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader/Loader";
-import { updateCategories } from "@/redux/slices/categoriesSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "@/utils/services";
 import axios from "axios";
 import { api } from "@/services/api";
 import HomePageLoading from "../(HomePage)/loading";
@@ -23,8 +21,9 @@ import { handleFileUpload } from "@/utils/upload";
 import hljs from "highlight.js";
 import TagsSelect from "react-select";
 import makeAnimated from "react-select/animated";
-import axiosClient from "@/services/axiosClient";
 import chroma from "chroma-js";
+import { useLazyGetTagsQuery } from "@/redux/api/tagsApi";
+import { setTags } from "@/redux/slices/tagsSlice";
 const ReactQuill =
   typeof window === "object" ? require("react-quill") : () => false;
 
@@ -34,8 +33,6 @@ const Writepage = () => {
   const [showImgDropZone, setShowImgDropZone] = useState(false);
   const [img, setImg] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const { categories } = useSelector((state) => state.categories);
 
   const { theme } = useTheme();
   useEffect(() => {
@@ -52,18 +49,12 @@ const Writepage = () => {
       "HTML",
       "css",
       "matlab",
-      "prisma"
+      "prisma",
     ],
   });
   const { status } = useSession();
 
   const dispatch = useDispatch();
-
-  if (!categories) {
-    getCategories()
-      .then((data) => dispatch(updateCategories(data)))
-      .catch(console.log);
-  }
 
   const router = useRouter();
 
@@ -170,7 +161,7 @@ const Writepage = () => {
     }
   };
 
-  const [tags, setTags] = useState(null);
+  // const [tags, setTags] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const ALLOWED_TAGS_COUNT = 4;
   const colourStyles = {
@@ -226,22 +217,17 @@ const Writepage = () => {
     }),
   };
 
+  const { tags } = useSelector((state) => state.tags);
+  const [getTags, { isFetching, isError, error, data }] = useLazyGetTagsQuery();
+
   useEffect(() => {
-    const getTags = async () => {
-      try {
-        const { data } = await axiosClient.get(
-          "http://localhost:3000/api/tags"
-        );
-        setTags(data.tags);
-      } catch (error) {
-        showToast(
-          `error while fetching tags ${error.message}`,
-          toastStatus.ERROR
-        );
-      }
-    };
-    getTags();
-  }, []);
+    !data && getTags();
+    if (data?.tags) {
+      dispatch(setTags({ tags: data.tags }));
+    } else if (isError && error) {
+      showToast(error.message, toastStatus.ERROR);
+    }
+  }, [data, isFetching, isError, error]);
 
   const animatedComponents = makeAnimated();
 
@@ -257,7 +243,6 @@ const Writepage = () => {
     return router.push("/");
   }
 
-  console.log(selectedTags);
   return (
     <Suspense fallback={<HomePageLoading />}>
       <div className={styles.container}>

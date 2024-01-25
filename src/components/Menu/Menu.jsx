@@ -10,8 +10,8 @@ const Menu = () => {
       <h1 className={styles.headTitle}>Most Popular</h1>
       <MenuPosts withImg={true} />
       <br />
-      <h2 className={styles.subTitle}>Discover by topics</h2>
-      <h1 className={styles.headTitle}>Categories</h1>
+      <h2 className={styles.subTitle}>Discover by #Tags</h2>
+      <h1 className={styles.headTitle}>#Popular</h1>
       <MenuCategories/>
       <br />
       <h2 className={styles.subTitle}>Choosed by the editor</h2>

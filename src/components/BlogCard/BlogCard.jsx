@@ -6,6 +6,8 @@ import Link from "next/link";
 import SavePostIcon from "../SavePostIcon/SavePostIcon";
 import { getTrimmedString } from "@/helpers/string";
 import moment from "moment";
+import TagsList from "../TagsList/TagsList";
+import { getUserSlug } from "@/app/posts/[slug]/page";
 
 const BlogCard = ({ post, showBtn = true }) => {
   const icon = (
@@ -25,9 +27,15 @@ const BlogCard = ({ post, showBtn = true }) => {
         <div className={styles.seperator}>
           <div className={styles.details}>
             <span className={styles.date}>
-              {moment(post.createdAt).fromNow()}{" - "}
+              {moment(post.createdAt).fromNow()}
+              {" - "}&nbsp;
             </span>
-            <span className={styles.cat}>&nbsp;{post.catSlug}</span>
+            <Link
+              href={`/dev/${getUserSlug(post.user)}`}
+              className={styles.postAuthor}
+            >
+              {post.user.name}
+            </Link>
           </div>
           <SavePostIcon slug={post.slug} postId={post.id} />
         </div>
@@ -36,8 +44,9 @@ const BlogCard = ({ post, showBtn = true }) => {
           style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
         >
           <h3 style={{ marginBottom: "1rem" }} className={styles.postTitle}>
-            {getTrimmedString(post.title, 60)}
+            {getTrimmedString(post.title, 38)}
           </h3>
+          <TagsList tags={post.tags.map((tag) => tag.tag)} />
           <p className={styles.postDesc}>
             {getTrimmedString(post.desc, 150).replace(/<[^>]*>/g, "")}
           </p>

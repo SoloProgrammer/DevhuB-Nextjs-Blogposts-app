@@ -22,6 +22,12 @@ const Loading = () => {
           <h1 className={styles.h1}>
             <Skeleton width={"100%"} height={"100%"} />
           </h1>
+          <div className={styles.tagsLoading}>
+            <Skeleton width={80} height={23} borderRadius={".3rem"} />
+            <Skeleton width={80} height={23} borderRadius={".3rem"} />
+            <Skeleton width={80} height={23} borderRadius={".3rem"} />
+            <Skeleton width={80} height={23} borderRadius={".3rem"} />
+          </div>
           <div className={styles.userLoadingBox}>
             <div className={styles.user}>
               <div className={styles.userImg}>
