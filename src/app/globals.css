@@ -32,6 +32,7 @@ hr {
 .light {
   --bg: white;
   --textColor: rgb(14, 14, 14);
+  --lightBG: hsl(0, 0%, 100%);
   --lightTextColor: rgba(0, 0, 0, 0.4);
   --softBg: whitesmoke;
   --shadow-light: 0 0 5px rgba(0, 0, 0, .2);
@@ -236,8 +237,12 @@ a {
   background: var(--lightBG) !important;
 }
 
-.css-1nmdiq5-menu{
+.css-1nmdiq5-menu {
   background: var(--lightBG) !important;
+}
+
+.css-qbdosj-Input input {
+  color: var(--textColor) !important;
 }
 
 /* React select custom css classes overrides styles......... */
