@@ -1,25 +1,23 @@
 "use client";
 
 import React, { useEffect } from "react";
-import styles1 from "./categoryPage.module.css"; // css for getting diffrent color according to categories
 import { MenuPostLoading } from "../[slug]/loading";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useTheme } from "@/context/ThemeContext";
+import styles from "./postsByTagPageLoading.module.css";
 
-const Loading = ({ category }) => {
+const Loading = () => {
   return (
     <div>
-      <h1
-        className={`${styles1.title} ${styles1.category} ${styles1[category]}`}
-      >
-        Blog/{category || "Loading..."}
-      </h1>
+      <div className={styles.text}>
+        <h2 className={styles.loadingTagHeader}>{"#loading tag..."}</h2>
+        <p>loading...</p>
+      </div>
       <PostsListLoadingSkeleton />
     </div>
   );
 };
 
-import styles from "./categoryPageLoading.module.css";
 export const PostsListLoadingSkeleton = () => {
   useEffect(() => {
     window?.scrollTo(0, 0);

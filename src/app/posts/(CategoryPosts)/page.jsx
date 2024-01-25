@@ -1,23 +1,23 @@
 import BlogList from "@/components/BlogList/BlogList";
 import Menu from "@/components/Menu/Menu";
 import React, { Suspense } from "react";
-import styles from "./categoryPage.module.css";
+import styles from "./postsByTagPage.module.css";
 import Loading from "./loading";
-import CategoryHeading from "@/components/CategoryPageHeading/CategoryHeading";
+import CategoryHeading from "@/components/PostsByTagPageHeading/PostsByTagPageHeading";
 
-const CategoryPage = ({ searchParams }) => {
-  const category = searchParams.category;
+const PostsByTagPage = ({ searchParams }) => {
+  const tag = searchParams.tag;
   const page = searchParams.page || 1;
 
   return (
-    <Suspense fallback={<Loading category={category} />}>
-      <div className={`${styles.container}`}>
-        <CategoryHeading category={category} styles={styles} />
+    <Suspense fallback={<Loading />}>
+      <div>
+        <CategoryHeading tagSlug={tag} />
         <div className={styles.content}>
           <BlogList
-            key={`${category}BlogList`}
+            key={`${tag}BlogList`}
             page={page}
-            category={category}
+            tag={tag}
             showBtn={false}
           />
           <Menu />
@@ -27,4 +27,4 @@ const CategoryPage = ({ searchParams }) => {
   );
 };
 
-export default CategoryPage;
+export default PostsByTagPage;

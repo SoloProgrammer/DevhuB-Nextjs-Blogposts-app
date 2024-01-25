@@ -1,0 +1,17 @@
+.tagHeader{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: var(--softBg);
+    color: var(--textColor);
+    border-top: 10px solid var(--color);
+    padding: 10px;
+    border-radius: .2rem;
+}
+.tagInfo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+

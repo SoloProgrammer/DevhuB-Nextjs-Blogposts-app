@@ -7,7 +7,7 @@ export const GET = TryCatch(async (req) => {
   const { searchParams } = new URL(req.url);
 
   const page = searchParams.get("page");
-  const category = searchParams.get("category");
+  const tagSlug = searchParams.get("tag");
   const uId = searchParams.get("uId");
   const saved = JSON.parse(searchParams.get("saved"));
 
@@ -46,7 +46,16 @@ export const GET = TryCatch(async (req) => {
   // }),
 
   const whereQuery = {
-    ...(category && !saved && { catSlug: category }),
+    ...(tagSlug &&
+      !saved && {
+        tags: {
+          some: {
+            tag: {
+              slug: tagSlug,
+            },
+          },
+        },
+      }),
     ...(uId && !saved && { userEmail: user.email }),
     ...(saved && {
       id: {

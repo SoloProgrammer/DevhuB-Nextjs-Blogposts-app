@@ -7,8 +7,8 @@ import PageProvider from "@/providers/PageProvider";
 import Commonbtn from "../Commonbtn/Commonbtn";
 import Link from "next/link";
 
-const getPosts = async (page, category) => {
-  const query = `?page=${page}&category=${category}`;
+const getPosts = async (page, tag) => {
+  const query = `?page=${page}&tag=${tag}`;
   const res = await fetch(api.getPosts(query), { cache: "no-store" });
   if (!res.ok) {
     throw new Error("Fething Post Failed!");
@@ -16,8 +16,8 @@ const getPosts = async (page, category) => {
   return res.json();
 };
 
-const BlogList = async ({ page, category = "", showBtn = true }) => {
-  const { posts, postsCount } = await getPosts(page, category);
+const BlogList = async ({ page, tag = "", showBtn = true }) => {
+  const { posts, postsCount } = await getPosts(page, tag);
   const POSTS_PER_PAGE = 4;
   let maxPage = Math.ceil(postsCount / POSTS_PER_PAGE) || 1;
 
@@ -27,13 +27,13 @@ const BlogList = async ({ page, category = "", showBtn = true }) => {
   return (
     <PageProvider page={page} maxPage={maxPage}>
       <div className={styles.container}>
-        {category && !posts?.length ? (
+        {tag && !posts?.length ? (
           <div className={styles.noPostsContainer}>
             <h1>No posts yet!</h1>
             <Link href={"/write"}>
               <Commonbtn
                 size="small"
-                text={`Write the first ${category} - category post!`}
+                text={`Write first post on ${tag}`}
                 isAnimate={false}
               />
             </Link>

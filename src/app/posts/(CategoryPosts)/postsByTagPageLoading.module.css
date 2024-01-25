@@ -3,6 +3,13 @@
     display: flex;
     gap: 50px;
 }
+.text{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--softBg);
+    padding: 10px;
+}
 
 .postListsLoading {
     flex: 5;
