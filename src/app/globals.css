@@ -236,6 +236,10 @@ a {
   background: var(--lightBG) !important;
 }
 
+.css-1nmdiq5-menu{
+  background: var(--lightBG) !important;
+}
+
 /* React select custom css classes overrides styles......... */
 
 @media screen and (max-width:1536px) {}
