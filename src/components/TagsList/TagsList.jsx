@@ -26,9 +26,9 @@ const TagsList = ({ tags, size = "small", isColored = true }) => {
 
 export const TagChip = ({ tag, color, size, isColored }) => {
   const SIZES = {
-    small: "0.7rem",
-    medium: "0.8rem",
-    large: "1rem",
+    small: "12px",
+    medium: "14px",
+    large: "16px",
   };
   return (
     <span
