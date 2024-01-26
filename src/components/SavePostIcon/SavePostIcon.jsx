@@ -32,7 +32,7 @@ const SavePostIcon = ({ slug, postId, profileUser }) => {
   const [isSaving, setIsSaving] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
-  function toggleFill(target) {
+  function toggleSave(target) {
     target.innerText =
       target.innerText === "bookmark_add" ? "bookmark_added" : "bookmark_add";
     target.classList.toggle("fill");
@@ -52,14 +52,14 @@ const SavePostIcon = ({ slug, postId, profileUser }) => {
         throw new Error(json.error);
       }
       if (e.target.classList.contains("fill")) {
-        toggleFill(e.target);
+        toggleSave(e.target);
         dispatch(unSavePost({ postId }));
       } else {
-        toggleFill(e.target);
+        toggleSave(e.target);
         dispatch(savePost({ postId }));
       }
 
-      router.refresh()
+      router.refresh();
 
       if (profile) {
         profile.savedPosts.includes(postId)
@@ -69,7 +69,10 @@ const SavePostIcon = ({ slug, postId, profileUser }) => {
 
       dispatch(clearSavedPosts());
     } catch (error) {
-      showToast("Some error happens, please try again later!", toastStatus.ERROR);
+      showToast(
+        "Some error happens, please try again later!",
+        toastStatus.ERROR
+      );
     } finally {
       setIsSaving(false);
     }
@@ -95,6 +98,9 @@ const SavePostIcon = ({ slug, postId, profileUser }) => {
         <Loader size="mini" />
       ) : (
         <span
+          style={{
+            color: user?.savedPosts.includes(postId) ? "var(--main-color)" : "",
+          }}
           onClick={
             !profileUser || profileUser?.id === loggedInUser?.id
               ? hanldeSavePost

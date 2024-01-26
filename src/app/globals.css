@@ -22,6 +22,7 @@ hr {
   --bg-lighter: rgba(255, 255, 255, .025);
   --bg-light-transperent: rgba(0, 0, 0, .025);
   --lightTextColor: rgba(255, 255, 255, 0.5);
+  --side-box-shadow: 6px 0 4px -4px var(--bg-light), -6px 0 4px -4px var(--bg-light);
 }
 
 .light {
@@ -37,6 +38,7 @@ hr {
   --softTextColor: #626262;
   --successTextColor: #216E4E;
   --successBgColor: #DCFFF1;
+  --side-box-shadow: 6px 0 4px -4px rgba(0, 0, 0, 0.09), -6px 0 4px -4px rgba(0, 0, 0, 0.09);
 }
 
 .react-tooltip {
@@ -236,7 +238,8 @@ a {
   background: var(--lightBG) !important;
 }
 
-.css-166bipr-Input, .css-1cfo1cf{
+.css-166bipr-Input,
+.css-1cfo1cf {
   color: var(--textColor) !important;
 }
 

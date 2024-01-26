@@ -9,6 +9,8 @@
     display: flex;
     gap: 35px;
     flex-direction: column;
+    box-shadow: var(--side-box-shadow);
+    padding: 0px 10px 10px;
     flex: 5;
 }
 
@@ -95,6 +97,8 @@
 @media screen and (max-width:640px) {
     .infoContainer {
         gap: 30px;
+        box-shadow: none !important;
+        padding: 0px !important;
     }
 
     .imgContainer {

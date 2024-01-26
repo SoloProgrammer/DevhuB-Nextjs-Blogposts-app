@@ -216,6 +216,7 @@
     .actions {
         flex-direction: column;
         align-items: normal;
+        margin-bottom: 10px !important;
     }
 
 }
