@@ -49,7 +49,7 @@ const ReactionsMenu = ({ post }) => {
 
     dispatch(updateReactions(postReactions));
 
-    router.refresh()
+    router.refresh();
 
     // updating reaction on server side
     fetch(api.reaction(post.slug, reactionType), { method: "PUT" });
@@ -100,6 +100,7 @@ const ReactionsMenu = ({ post }) => {
               }}
               onClick={() => handleReaction(reactionType)}
               className={styles.reactionImgContainer}
+              key={reactionType}
             >
               <img src={reaction.src} alt={reactionType} />
             </div>
