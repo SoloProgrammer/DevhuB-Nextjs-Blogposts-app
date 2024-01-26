@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import { PRODUCTION_URL, api } from "@/services/api";
 import Loader from "../Loader/Loader";
 import { useRouter } from "next/navigation";
-import { useTheme } from "@/context/ThemeContext";
 import DelEditActions from "../Actions/DelEditActions";
 import CrfmDelAlertBox from "../CrfmDelAlertBox/CrfmDelAlertBox";
 import Modal from "../Modal/Modal";

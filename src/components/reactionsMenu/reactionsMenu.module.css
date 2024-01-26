@@ -1,0 +1,127 @@
+.container {
+    position: fixed;
+    background: transparent;
+    backdrop-filter: blur(56px);
+    border: 1px solid var(--bg-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 3rem;
+    bottom: 10px;
+    left: 50%;
+    padding: 5px;
+    transform: translate(-50%);
+    background: var(--lightBG);
+    box-shadow: var(--shadow-light);
+    min-width: 210px;
+}
+
+.container span {
+    color: var(--softTextColor);
+    transition: .2s all;
+}
+
+.container svg {
+    cursor: pointer;
+    color: var(--softTextColor);
+    font-size: 1.35rem;
+}
+
+.container .icon:nth-child(1):hover span {
+    color: rgb(253, 32, 32);
+}
+
+.container .icon:nth-child(3):hover span {
+    color: var(--main-color) !important;
+}
+
+.container .icon {
+    display: flex;
+    min-width: 30px;
+    min-height: 30px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid var(--bg-light);
+}
+
+.container .icon:nth-child(2) {
+    padding: 12px !important;
+}
+
+.container .saveIcon:hover {
+    color: var(--main-color) !important;
+    min-width: 26px;
+    display: inline-block;
+}
+
+.container .icon:hover svg {
+    color: rgb(135, 211, 22);
+}
+
+.container .icon:hover {
+    background: var(--bg-light);
+}
+
+.reactionsContainer {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 3rem;
+    position: absolute;
+    background: var(--lightBG);
+    box-shadow: var(--shadow-light);
+    top: -55px;
+    gap: 5px;
+    padding: 5px;
+    cursor: pointer;
+    left: -100px;
+    transition: .2s scale cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    scale: 0;
+    transition-delay: .2s;
+    transform-origin: bottom center;
+}
+
+.reactionsContainer.show{
+    scale: 1;
+}
+
+.reactionImgContainer {
+    transition: .2s background;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.reactionsContainer .reactionImgContainer:hover {
+    background: var(--bg-light);
+}
+
+.reactionsContainer span img {
+    width: 25px;
+}
+
+@media screen and (max-width:600px) {
+    .container .icon:nth-child(1) span {
+        font-size: 20px !important;
+    }
+
+    .container .icon:nth-child(2) span {
+        font-size: 22px !important;
+    }
+
+    .container .icon:nth-child(3) span {
+        font-size: 22px !important;
+    }
+
+    .reactionsContainer span {
+        width: 40px;
+        height: 40px;
+    }
+
+}

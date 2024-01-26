@@ -15,6 +15,7 @@ import axiosClient from "@/services/axiosClient";
 import { TryCatchWrapper } from "@/helpers/ErrorHandler";
 import TextViewer from "@/components/TextViewer/TextViewer";
 import TagsList from "@/components/TagsList/TagsList";
+import ReactionsMenu from "@/components/reactionsMenu/ReactionsMenu";
 
 const getSinglePost = TryCatchWrapper(async (slug) => {
   const { data } = await axiosClient.get(api.getSinglePost(slug));
@@ -89,6 +90,7 @@ const SingleBlogPage = async ({ params }) => {
         <div className={styles.Menu}>
           <Menu />
         </div>
+        <ReactionsMenu slug={slug} postId={post.id}/>
       </div>
     </Suspense>
   );

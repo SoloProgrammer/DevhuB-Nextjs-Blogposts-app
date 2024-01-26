@@ -5,7 +5,7 @@ import styles from "./loader.module.css";
 const Loader = ({ size = "large" }) => {
   let sizes = {
     tooMini: "15px",
-    mini: "20px",
+    mini: "22px",
     small: "30px",
     medium: "40px",
     large: "48px",
