@@ -15,7 +15,8 @@ import axiosClient from "@/services/axiosClient";
 import { TryCatchWrapper } from "@/helpers/ErrorHandler";
 import TextViewer from "@/components/TextViewer/TextViewer";
 import TagsList from "@/components/TagsList/TagsList";
-import ReactionsMenu from "@/components/reactionsMenu/ReactionsMenu";
+import ReactionsMenu from "@/components/PostReactions/reactionsMenu/ReactionsMenu";
+import ReactionsCount from "@/components/PostReactions/ReactionsCount/ReactionsCount";
 
 const getSinglePost = TryCatchWrapper(async (slug) => {
   const { data } = await axiosClient.get(api.getSinglePost(slug));
@@ -38,6 +39,7 @@ const SingleBlogPage = async ({ params }) => {
       <div className={styles.container}>
         <div className={styles.infoContainer}>
           <h1 className={styles.title}>{post.title}</h1>
+          <ReactionsCount/>
           {post.tags.length > 0 && (
             <TagsList tags={post.tags.map((tag) => tag.tag)} size="medium" />
           )}
@@ -90,7 +92,7 @@ const SingleBlogPage = async ({ params }) => {
         <div className={styles.Menu}>
           <Menu />
         </div>
-        <ReactionsMenu slug={slug} postId={post.id}/>
+        <ReactionsMenu post={post}/>
       </div>
     </Suspense>
   );

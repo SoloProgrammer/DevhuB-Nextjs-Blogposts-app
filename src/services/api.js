@@ -14,6 +14,9 @@ export const api = {
   getPosts: (query) => {
     return `${server.URL}/api/posts${query}`;
   },
+  reaction: (slug, reactionType) => {
+    return `${server.URL}/api/posts/${slug}/reaction?type=${reactionType}`;
+  },
   createPost: () => {
     return `${server.URL}/api/posts/create`;
   },
@@ -48,5 +51,5 @@ export const api = {
   },
   followAuthor: (query) => {
     return `${server.URL}/api/user/follow${query}`;
-  }
+  },
 };

@@ -3,6 +3,7 @@ import authReducer from "@/redux/slices/authSlice";
 import commentsReducer from "@/redux/slices/commentsSlice";
 import categoriesReducer from "@/redux/slices/categoriesSlice";
 import tagsReducer from "@/redux/slices/tagsSlice";
+import postReducer from "@/redux/slices/postSlice";
 import profileUserReducer from "./slices/profileUserSlice";
 import { postsApi } from "./api/postsApi";
 import { commentsApi } from "./api/commentsApi";
@@ -16,6 +17,7 @@ const store = configureStore({
     categories: categoriesReducer,
     tags: tagsReducer,
     profile: profileUserReducer,
+    post: postReducer,
     [postsApi.reducerPath]: postsApi.reducer,
     [commentsApi.reducerPath]: commentsApi.reducer,
     [repliesApi.reducerPath]: repliesApi.reducer,

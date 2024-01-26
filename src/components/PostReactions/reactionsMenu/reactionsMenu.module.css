@@ -13,7 +13,8 @@
     transform: translate(-50%);
     background: var(--lightBG);
     box-shadow: var(--shadow-light);
-    min-width: 210px;
+    min-width: 250px;
+    --liked-color: rgb(253, 32, 32);
 }
 
 .container span {
@@ -28,7 +29,7 @@
 }
 
 .container .icon:nth-child(1):hover span {
-    color: rgb(253, 32, 32);
+    color: --liked-color;
 }
 
 .container .icon:nth-child(3):hover span {
@@ -81,14 +82,15 @@
     scale: 0;
     transition-delay: .2s;
     transform-origin: bottom center;
+    border: 1px solid var(--main-color);
 }
 
-.reactionsContainer.show{
+.reactionsContainer.show {
     scale: 1;
 }
 
 .reactionImgContainer {
-    transition: .2s background;
+    transition: .2s background, .2s scale;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,7 +104,12 @@
     background: var(--bg-light);
 }
 
-.reactionsContainer span img {
+.reactionsContainer .reactionImgContainer:active {
+    scale: .8;
+    background: var(--main-color) !important;
+}
+
+.reactionsContainer .reactionImgContainer img {
     width: 25px;
 }
 
@@ -119,9 +126,36 @@
         font-size: 22px !important;
     }
 
+    .container {
+        bottom: 0;
+        width: 100%;
+        border-radius: inherit;
+        padding: 10px;
+    }
+
     .reactionsContainer span {
         width: 40px;
         height: 40px;
     }
+
+    .reactionsContainer {
+        top: -50px;
+        left: 3px;
+        transform-origin: bottom left;
+    }
+
+    .reactionImgContainer {
+        width: 40px;
+        height: 40px;
+    }
+
+    .reactionsContainer .reactionImgContainer:hover {
+        background: none;
+    }
+
+    .reactionsContainer .reactionImgContainer img {
+        width: 22px;
+    }
+
 
 }

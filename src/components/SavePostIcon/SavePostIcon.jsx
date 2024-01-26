@@ -15,7 +15,7 @@ import {
 } from "@/redux/slices/profileUserSlice";
 import { showToast, toastStatus } from "@/utils/toast";
 
-const SavePostIcon = ({ slug, postId, profileUser }) => {
+const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
   const { user: loggedInUser, loading } = useSelector((state) => state.auth);
 
   const { profile } = useSelector((state) => state.profile);
@@ -115,7 +115,7 @@ const SavePostIcon = ({ slug, postId, profileUser }) => {
             : "bookmark_add"}
         </span>
       )}
-      {!user && !loading && !profileUser && (
+      {!user && !loading && !profileUser && showMsg && (
         <Link href={"/login"}>
           <small className={Styles.loginText}>Login to save this post!</small>
         </Link>
