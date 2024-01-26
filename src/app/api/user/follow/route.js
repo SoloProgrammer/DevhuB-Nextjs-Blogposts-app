@@ -31,7 +31,7 @@ export const PUT = TryCatch(
         where: { id: authorId },
         data: {
           followers: {
-            set: author.followers.filter(
+            set: author.followers.filter( // set is used to update the array value
               (followerId) => followerId !== follower.id
             ),
           },

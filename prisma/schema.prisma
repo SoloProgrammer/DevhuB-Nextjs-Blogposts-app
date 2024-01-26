@@ -68,6 +68,7 @@ model Category {
   title String
   img   String?
 }
+
 model Post {
   id            String    @id @default(cuid()) @map("_id")
   slug          String    @unique
@@ -80,6 +81,7 @@ model Post {
   createdAt     DateTime  @default(now())
   userEmail     String
   user          User      @relation(fields: [userEmail], references: [email])
+  reactions     Json      @default("{}")
   comments      Comment[]
   tags          PostTag[]
 }
