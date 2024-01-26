@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { FaRegComment } from "react-icons/fa";
 import SavePostIcon from "../../SavePostIcon/SavePostIcon";
@@ -32,6 +33,7 @@ const ReactionsMenu = ({ post }) => {
   const handleReaction = (reactionType) => {
     let postReactions = structuredClone(storedPost.reactions);
 
+    // optimistically updates reactions into a post to show changes quickly to a user when he add or remove the reaction!
     if (postReactions.hasOwnProperty(reactionType)) {
       let reaction = postReactions[reactionType];
       if (reaction.includes(user.id)) {
@@ -51,6 +53,7 @@ const ReactionsMenu = ({ post }) => {
 
     // updating reaction on server side
     fetch(api.reaction(post.slug, reactionType), { method: "PUT" });
+    // Todo error handling!
   };
 
   return (
