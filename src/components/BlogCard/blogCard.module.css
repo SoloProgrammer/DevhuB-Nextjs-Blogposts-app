@@ -118,5 +118,8 @@
         max-height: none;
         max-height: 260px;
     }
+    .reaactionsGroup{
+        padding-left: 8px;
+    }
 
 }
