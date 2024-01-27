@@ -56,6 +56,13 @@ const ReactionsMenu = ({ post }) => {
     // Todo error handling!
   };
 
+  const handleCommentClick = () =>{
+    let textArea = document.querySelector('textarea');
+    setTimeout(() => {
+      textArea.focus()
+    }, 100);
+  }
+
   return (
     <div className={styles.container}>
       <span
@@ -75,7 +82,7 @@ const ReactionsMenu = ({ post }) => {
           heart_plus
         </span>
       </span>
-      <Link className={styles.icon} to="comments" smooth={true} duration={500}>
+      <Link onClick={handleCommentClick} className={styles.icon} to="comments" smooth={true} duration={500}>
         <FaRegComment />
       </Link>
       <span className={styles.icon}>
