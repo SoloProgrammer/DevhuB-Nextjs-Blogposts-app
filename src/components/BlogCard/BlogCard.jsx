@@ -19,10 +19,9 @@ const BlogCard = ({ post }) => {
     </span>
   );
 
-  const getTotalReactionsCount = () =>
-    useMemo(() => {
-      return Object.values(post?.reactions).flat(1).length;
-    }, [post?.reactions]);
+  const getTotalReactionsCount = useMemo(() => {
+    return Object.values(post?.reactions).flat(1).length;
+  }, [post?.reactions]);
 
   return (
     <div className={styles.post}>
