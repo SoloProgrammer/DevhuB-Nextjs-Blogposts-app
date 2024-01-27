@@ -13,13 +13,7 @@ import { reactions } from "../PostReactions/data";
 import { FaRegComment } from "react-icons/fa";
 
 const BlogCard = ({ post }) => {
-  const icon = (
-    <span style={{ fontSize: ".9rem" }} className="material-symbols-outlined">
-      arrow_forward
-    </span>
-  );
-
-  const getTotalReactionsCount = useMemo(() => {
+  const totalReactionsCount = useMemo(() => {
     return Object.values(post?.reactions).flat(1).length;
   }, [post?.reactions]);
 
@@ -73,11 +67,11 @@ const BlogCard = ({ post }) => {
                   );
                 })}
               </AvatarGroup>
-              {getTotalReactionsCount() > 0 && (
+              {totalReactionsCount > 0 && (
                 <span className={styles.reactionsCount}>
-                  {getTotalReactionsCount()}
+                  {totalReactionsCount}
                   &nbsp;
-                  {getTotalReactionsCount() > 1 ? `Reactions` : "Reaction"}
+                  {totalReactionsCount > 1 ? `Reactions` : "Reaction"}
                 </span>
               )}
             </div>

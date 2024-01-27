@@ -1,14 +1,9 @@
 "use client";
-import { ErrorBlock } from "@/components/Error/Error";
+import ErrorPage from "@/components/Error/Error";
 import React from "react";
 
 const Error = () => {
-  return (
-    <div>
-      Somthing went wrong, Try again
-      <ErrorBlock soure={"posts"} />
-    </div>
-  );
+  return <ErrorPage key={new Date().getTime()} />;
 };
 
 export default Error;
