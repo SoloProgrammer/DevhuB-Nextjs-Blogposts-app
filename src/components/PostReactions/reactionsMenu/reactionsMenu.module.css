@@ -115,7 +115,7 @@
 
 @media screen and (max-width:600px) {
     .container .icon:nth-child(1) span {
-        font-size: 20px !important;
+        font-size: 22px !important;
     }
 
     .container .icon:nth-child(2) span {
@@ -123,7 +123,7 @@
     }
 
     .container .icon:nth-child(3) span {
-        font-size: 22px !important;
+        font-size: 23px !important;
     }
 
     .container {
