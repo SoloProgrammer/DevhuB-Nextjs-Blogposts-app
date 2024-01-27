@@ -118,7 +118,7 @@ a {
   margin: 0 !important;
 }
 
-.MuiAvatar-root {
+.MuiAvatarGroup-root .MuiAvatar-root {
   border: 2px solid var(--main-color-light) !important;
   box-sizing: content-box !important;
   margin-left: -9px !important;

@@ -52,6 +52,7 @@ const reactionHandler = async (req, { params }) => {
 
   return Response(message, 200, true, false, {
     reactionType,
+    reactions,
   });
 };
 
