@@ -73,8 +73,10 @@ const ReactionsMenu = ({ post }) => {
     // Todo error handling while reacting!
   };
 
-  const handleCommentClick = () =>
-    router.push(`/posts/${post.slug}?add-comment=true`);
+  const handleCommentClick = () =>{
+    // router.push(`/posts/${post.slug}?add-comment=true`);
+    focusTextArea()
+  }
 
   return (
     <div className={styles.container}>
