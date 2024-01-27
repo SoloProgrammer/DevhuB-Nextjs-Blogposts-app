@@ -78,15 +78,16 @@
     padding: 5px;
     cursor: pointer;
     left: -100px;
-    transition: .2s scale cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: .2s scale cubic-bezier(0.175, 0.885, 0.32, 1.275), .2s opacity;
     scale: 0;
-    transition-delay: .2s;
     transform-origin: bottom center;
     border: 1px solid var(--main-color);
+    opacity: 0;
 }
 
 .reactionsContainer.show {
     scale: 1;
+    opacity: 1;
 }
 
 .reactionImgContainer {
@@ -140,8 +141,8 @@
 
     .reactionsContainer {
         top: -50px;
-        left: 3px;
-        transform-origin: bottom left;
+        left: 7px;
+        transform-origin: left bottom;
     }
 
     .reactionImgContainer {

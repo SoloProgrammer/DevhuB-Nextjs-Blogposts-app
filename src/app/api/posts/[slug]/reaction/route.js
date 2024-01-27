@@ -18,10 +18,11 @@ const reactionHandler = async (req, { params }) => {
   });
 
   if (!user)
-    return Response("User malfunctioned!", 400, false, "User malfunctioned!");
+    return Response("User malfunctioned!", 400, false, {
+      message: "User malfunctioned!",
+    });
 
   const userId = user.id;
-  //   const userId = "clpdpiepe00008tum08dj0rqx";
 
   let post = await prisma.Post.findUnique({
     where: { slug },
@@ -51,7 +52,6 @@ const reactionHandler = async (req, { params }) => {
 
   return Response(message, 200, true, false, {
     reactionType,
-    reactions: post.reactions,
   });
 };
 

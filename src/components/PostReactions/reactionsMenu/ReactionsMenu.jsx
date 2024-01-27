@@ -26,15 +26,19 @@ const ReactionsMenu = ({ post }) => {
   };
 
   useEffect(() => {
+    // setting current post data in a store
     dispatch(setPost(post));
+
+    // focusing on comment textarea when params has add-comment=true
     if (params.get("add-comment")) focusTextArea();
 
+    // hiding the reactions container on clicking anywhere in the screen/window
     const documentClickHandler = () => setShow(false);
     window.addEventListener("click", documentClickHandler);
-    return () => {
-      window.removeEventListener("click", documentClickHandler);
-    };
-  }, []);
+
+    // destroying the click EventListener when component unmounts
+    return () => window.removeEventListener("click", documentClickHandler);
+  }, [params]);
 
   const [show, setShow] = useState(false);
 
@@ -47,7 +51,7 @@ const ReactionsMenu = ({ post }) => {
   const handleReaction = async (reactionType) => {
     let postReactions = structuredClone(storedPost.reactions);
 
-    // optimistically updates reactions into a post to show changes quickly to a user when he add or remove the reaction!
+    // optimistically updates reactions into a post that is stored in a store/redux to show changes quickly to user when he adds or removes the reaction!
     if (postReactions.hasOwnProperty(reactionType)) {
       let reaction = postReactions[reactionType];
       if (reaction.includes(user.id)) {
@@ -60,20 +64,17 @@ const ReactionsMenu = ({ post }) => {
     } else {
       postReactions[reactionType] = [user.id];
     }
-
+    // updating reactions of post in redux store
     dispatch(updateReactions(postReactions));
 
     // updating reaction on server side
     await fetch(api.reaction(post.slug, reactionType), { method: "PUT" });
     router.refresh();
-    // Todo error handling!
+    // Todo error handling while reacting!
   };
 
-  const handleCommentClick = () => {
-    setTimeout(() => {
-      focusTextArea();
-    }, 100);
-  };
+  const handleCommentClick = () =>
+    router.push(`/posts/${post.slug}?add-comment=true`);
 
   return (
     <div className={styles.container}>
