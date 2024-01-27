@@ -43,9 +43,7 @@ const BlogList = async ({ page, tag = "", showBtn = true }) => {
             <h1 className={styles.title}>Recent Posts</h1>
             <div className={styles.posts}>
               {posts?.map((post) => {
-                return (
-                  <BlogCard post={post} key={post._id} showBtn={showBtn} />
-                );
+                return <BlogCard post={post} key={post._id} />;
               })}
             </div>
             <Pagination page={page} hasPrev={hasPrev} hasNext={hasNext} />

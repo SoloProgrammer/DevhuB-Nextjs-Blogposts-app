@@ -55,13 +55,6 @@ ul {
   margin-left: 1.2rem !important;
 }
 
-.MuiMenu-list {
-  margin-left: 0 !important;
-}
-
-.MuiTabPanel-root {
-  padding: 24px 0 !important;
-}
 
 .react-loading-skeleton {
   transition: all .2s !important;
@@ -123,6 +116,25 @@ a {
 
 .MuiFormControl-root {
   margin: 0 !important;
+}
+
+.MuiAvatar-root {
+  border: 2px solid var(--main-color-light) !important;
+  box-sizing: content-box !important;
+  margin-left: -8px !important;
+  padding: 2px !important;
+  background: var(--bg) !important;
+}
+.MuiAvatar-root  img{
+  border-radius: 50% !important;
+}
+
+.MuiMenu-list {
+  margin-left: 0 !important;
+}
+
+.MuiTabPanel-root {
+  padding: 24px 0 !important;
 }
 
 .ql-container {

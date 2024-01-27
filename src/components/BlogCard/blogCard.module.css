@@ -67,6 +67,40 @@
     margin-top: 10px !important;
 }
 
+.reaactionsGroup{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.reactionsSection{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.reactionsSection .reactionsCount{
+    font-size: .8rem;
+}
+
+.commmnetsSection{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: .85rem;
+    color: var(--softTextColor);
+    padding: 0px 5px;
+    border-radius: 5px;
+    transition: .2s background, .2s box-shadow;
+}
+.commmnetsSection:hover{
+    box-shadow: 0 0 0 1px var(--main-color);
+    background: var(--bg-light);
+}
+
+.commmnetsSection span{
+    padding-top: 5px;
+}
+
 @media screen and (max-width:1100px) {
     .post {
         flex-direction: column;

@@ -7,7 +7,7 @@ import styles from "./reactionsMenu.module.css";
 import { Link } from "react-scroll";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost, updateReactions } from "@/redux/slices/postSlice";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { reactions } from "../data";
 import { api } from "@/services/api";
 
@@ -15,14 +15,28 @@ const ReactionsMenu = ({ post }) => {
   const { post: storedPost } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.auth);
 
+  const router = useRouter();
+
+  const params = useSearchParams();
   const dispatch = useDispatch();
+
+  const focusTextArea = () => {
+    let textArea = document.querySelector("textarea");
+    textArea.focus();
+  };
+
   useEffect(() => {
     dispatch(setPost(post));
+    if (params.get("add-comment")) focusTextArea();
+
+    const documentClickHandler = () => setShow(false);
+    window.addEventListener("click", documentClickHandler);
+    return () => {
+      window.removeEventListener("click", documentClickHandler);
+    };
   }, []);
 
   const [show, setShow] = useState(false);
-
-  const router = useRouter();
 
   const isReactedToPost = () => {
     if (!storedPost) return false;
@@ -30,7 +44,7 @@ const ReactionsMenu = ({ post }) => {
     return combinedReactionsUserIds.includes(user?.id);
   };
 
-  const handleReaction = (reactionType) => {
+  const handleReaction = async (reactionType) => {
     let postReactions = structuredClone(storedPost.reactions);
 
     // optimistically updates reactions into a post to show changes quickly to a user when he add or remove the reaction!
@@ -49,28 +63,27 @@ const ReactionsMenu = ({ post }) => {
 
     dispatch(updateReactions(postReactions));
 
-    router.refresh();
-
     // updating reaction on server side
-    fetch(api.reaction(post.slug, reactionType), { method: "PUT" });
+    await fetch(api.reaction(post.slug, reactionType), { method: "PUT" });
+    router.refresh();
     // Todo error handling!
   };
 
-  const handleCommentClick = () =>{
-    let textArea = document.querySelector('textarea');
+  const handleCommentClick = () => {
     setTimeout(() => {
-      textArea.focus()
+      focusTextArea();
     }, 100);
-  }
+  };
 
   return (
     <div className={styles.container}>
       <span
         className={styles.icon}
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           if (!user) {
             router.push("/login");
-          } else setShow(!show);
+          } else setShow(true);
         }}
       >
         <span
@@ -82,7 +95,13 @@ const ReactionsMenu = ({ post }) => {
           heart_plus
         </span>
       </span>
-      <Link onClick={handleCommentClick} className={styles.icon} to="comments" smooth={true} duration={500}>
+      <Link
+        onClick={handleCommentClick}
+        className={styles.icon}
+        to="comments"
+        smooth={true}
+        duration={500}
+      >
         <FaRegComment />
       </Link>
       <span className={styles.icon}>
@@ -94,26 +113,36 @@ const ReactionsMenu = ({ post }) => {
         />
       </span>
       <div className={`${styles.reactionsContainer} ${show && styles.show}`}>
-        {reactions.map((reaction) => {
-          const reactionType = reaction.type;
-          return (
-            <div
-              style={{
-                background: storedPost?.reactions[reactionType]?.includes(
-                  user?.id
-                )
-                  ? "var(--bg-light)"
-                  : "",
-              }}
-              onClick={() => handleReaction(reactionType)}
-              className={styles.reactionImgContainer}
-              key={reactionType}
-            >
-              <img src={reaction.src} alt={reactionType} />
-            </div>
-          );
-        })}
+        {reactions.map((reaction) => (
+          <ReactionsContainer
+            key={reaction.type}
+            reaction={reaction}
+            user={user}
+            handleReaction={handleReaction}
+            storedPost={storedPost}
+          />
+        ))}
       </div>
+    </div>
+  );
+};
+
+const ReactionsContainer = ({ reaction, user, handleReaction, storedPost }) => {
+  const reactionType = reaction.type;
+  return (
+    <div
+      style={{
+        background: storedPost?.reactions[reactionType]?.includes(user?.id)
+          ? "var(--bg-light)"
+          : "",
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        handleReaction(reactionType);
+      }}
+      className={styles.reactionImgContainer}
+    >
+      <img src={reaction.src} alt={reactionType} />
     </div>
   );
 };

@@ -26,7 +26,10 @@ const ErrorPage = () => {
 
 export default ErrorPage;
 
-export const ErrorBlock = ({ soure, refetch }) => {
+export const ErrorBlock = ({
+  soure,
+  refetch = () => window.location.reload(),
+}) => {
   return (
     <div className={styles.errorBox}>
       <h2>Unable to get {soure} at the moment!</h2>

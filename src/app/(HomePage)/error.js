@@ -1,13 +1,14 @@
-"use client"
-import React from 'react'
+"use client";
+import { ErrorBlock } from "@/components/Error/Error";
+import React from "react";
 
-const Error = ({error, reset}) => {
+const Error = () => {
   return (
     <div>
-      {error.message || 'Somthing went wrong, Try again'}
-      <button onClick={window.location.reload()}>Try again</button>
+      Somthing went wrong, Try again
+      <ErrorBlock soure={"posts"} />
     </div>
-  )
-}
+  );
+};
 
-export default Error
+export default Error;
