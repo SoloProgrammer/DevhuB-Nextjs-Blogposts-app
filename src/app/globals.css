@@ -121,7 +121,7 @@ a {
 .MuiAvatar-root {
   border: 2px solid var(--main-color-light) !important;
   box-sizing: content-box !important;
-  margin-left: -8px !important;
+  margin-left: -9px !important;
   padding: 2px !important;
   background: var(--bg) !important;
 }
