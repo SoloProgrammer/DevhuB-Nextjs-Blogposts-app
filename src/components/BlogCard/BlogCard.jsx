@@ -10,7 +10,7 @@ import { getUserSlug } from "@/app/posts/[slug]/page";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import { reactions } from "../PostReactions/data";
-import { FaRegComment } from "react-icons/fa";
+import CommentsCount from "./CommentCount/CommentCount";
 
 const BlogCard = ({ post }) => {
   const totalReactionsCount = useMemo(() => {
@@ -38,7 +38,7 @@ const BlogCard = ({ post }) => {
               {post?.user.name}
             </Link>
           </div>
-          <SavePostIcon slug={post?.slug} postId={post?.id} />
+          <SavePostIcon slug={post?.slug} postId={post?.id} showMsg={false} />
         </div>
         <Link
           href={`/posts/${post?.slug}`}
@@ -75,22 +75,7 @@ const BlogCard = ({ post }) => {
                 </span>
               )}
             </div>
-            <Link
-              href={`/posts/${post?.slug}?add-comment=true`}
-              className={styles.commmnetsSection}
-            >
-              <span>
-                <FaRegComment />
-              </span>
-              {post?.commentsCount > 0 ? (
-                <>
-                  {post?.commentsCount}
-                  {post?.commentsCount > 1 ? " Comments" : " Comment"}
-                </>
-              ) : (
-                <>Add comment</>
-              )}
-            </Link>
+            <CommentsCount post={post} />
           </div>
         </Link>
       </div>

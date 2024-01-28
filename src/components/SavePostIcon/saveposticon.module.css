@@ -2,6 +2,26 @@
     color: var(--softTextColor);
 }
 
+.iconWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: .2s background;
+}
+
+.wrapperHover {
+    padding: 3px 2px;
+}
+
+.wrapperHover:hover {
+    background: var(--bg-light);
+    box-shadow: 0 0 0 1px var(--main-color);
+}
+
 @media screen and (max-width:600px) {
     .loginText {
         display: none !important;

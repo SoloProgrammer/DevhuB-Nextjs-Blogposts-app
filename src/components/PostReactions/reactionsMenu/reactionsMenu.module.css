@@ -29,7 +29,7 @@
 }
 
 .container .icon:nth-child(1):hover span {
-    color: --liked-color;
+    color: var(--liked-color);
 }
 
 .container .icon:nth-child(3):hover span {

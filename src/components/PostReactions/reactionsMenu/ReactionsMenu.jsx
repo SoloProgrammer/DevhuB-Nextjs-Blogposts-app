@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { FaRegComment } from "react-icons/fa";
 import SavePostIcon from "../../SavePostIcon/SavePostIcon";
 import styles from "./reactionsMenu.module.css";
-import { Link } from "react-scroll";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost, updateReactions } from "@/redux/slices/postSlice";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -73,10 +72,10 @@ const ReactionsMenu = ({ post }) => {
     // Todo error handling while reacting!
   };
 
-  const handleCommentClick = () =>{
-    // router.push(`/posts/${post.slug}?add-comment=true`);
-    focusTextArea()
-  }
+  const handleCommentClick = () => {
+    if (!user) router.push("/login");
+    else focusTextArea();
+  };
 
   return (
     <div className={styles.container}>
@@ -98,15 +97,9 @@ const ReactionsMenu = ({ post }) => {
           heart_plus
         </span>
       </span>
-      <Link
-        onClick={handleCommentClick}
-        className={styles.icon}
-        to="comments"
-        smooth={true}
-        duration={500}
-      >
+      <span onClick={handleCommentClick} className={styles.icon}>
         <FaRegComment />
-      </Link>
+      </span>
       <span className={styles.icon}>
         <SavePostIcon
           slug={post.slug}

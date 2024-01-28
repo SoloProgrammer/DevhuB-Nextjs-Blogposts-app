@@ -4,7 +4,7 @@ import { savePost, unSavePost } from "@/redux/slices/authSlice";
 import { api } from "@/services/api";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Styles from "./saveposticon.module.css";
+import styles from "./saveposticon.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Loader from "../Loader/Loader";
@@ -81,13 +81,9 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
 
   return (
     <div
+      className={`${styles.iconWrapper}`}
       onClick={(e) => e.stopPropagation()}
       style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "2px",
         cursor:
           !profileUser || profileUser?.id === loggedInUser?.id
             ? "pointer"
@@ -106,7 +102,7 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
               ? hanldeSavePost
               : () => {}
           }
-          className={`${Styles.saveIcon} material-symbols-outlined ${
+          className={`${styles.saveIcon} material-symbols-outlined ${
             user?.savedPosts.includes(postId) ? "fill" : ""
           }`}
         >
@@ -117,7 +113,7 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
       )}
       {!user && !loading && !profileUser && showMsg && (
         <Link href={"/login"}>
-          <small className={Styles.loginText}>Login to save this post!</small>
+          <small className={styles.loginText}>Login to save this post!</small>
         </Link>
       )}
     </div>
