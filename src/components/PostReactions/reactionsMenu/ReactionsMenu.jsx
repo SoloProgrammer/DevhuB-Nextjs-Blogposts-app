@@ -30,13 +30,6 @@ const ReactionsMenu = ({ post }) => {
 
     // focusing on comment textarea when params has add-comment=true
     if (params.get("add-comment")) focusTextArea();
-
-    // hiding the reactions container on clicking anywhere in the screen/window
-    const documentClickHandler = () => setShow(false);
-    window.addEventListener("click", documentClickHandler);
-
-    // destroying the click EventListener when component unmounts
-    return () => window.removeEventListener("click", documentClickHandler);
   }, [params]);
 
   const [show, setShow] = useState(false);
@@ -78,14 +71,18 @@ const ReactionsMenu = ({ post }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div
+      tabIndex={0}
+      onBlur={() => setShow(false)}
+      className={styles.container}
+    >
       <span
         className={styles.icon}
         onClick={(e) => {
           e.stopPropagation();
           if (!user) {
             router.push("/login");
-          } else setShow(true);
+          } else setShow(prev => !prev);
         }}
       >
         <span
