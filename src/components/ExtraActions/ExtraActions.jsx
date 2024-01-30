@@ -1,7 +1,5 @@
 "use client";
 
-import { Tooltip as ReactTooltip } from "react-tooltip";
-
 import React, { useState } from "react";
 import styles from "./extraActions.module.css";
 import { FaRegComment } from "react-icons/fa";

@@ -15,6 +15,7 @@
     box-shadow: var(--shadow-light);
     min-width: 250px;
     --liked-color: rgb(253, 32, 32);
+    z-index:9;
 }
 
 .container span {
