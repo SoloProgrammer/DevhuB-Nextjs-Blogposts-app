@@ -9,7 +9,7 @@ import moment from "moment";
 
 const getPosts = async (URL) => {
   try {
-    const res = await fetch(URL);
+    const res = await fetch(URL, { next: { revalidate: 60 } });
     if (!res.ok) {
       throw new Error("Some error occured");
     }

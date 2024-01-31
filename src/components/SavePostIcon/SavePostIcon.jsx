@@ -1,8 +1,7 @@
 "use client";
 
 import { savePost, unSavePost } from "@/redux/slices/authSlice";
-import { api } from "@/services/api";
-import React, { useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./saveposticon.module.css";
 import Link from "next/link";
@@ -14,6 +13,7 @@ import {
   removeFromSavedPostsInProfile,
 } from "@/redux/slices/profileUserSlice";
 import { showToast, toastStatus } from "@/utils/toast";
+import { useSavePostMutation } from "@/redux/api/postsApi";
 
 const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
   const { user: loggedInUser, loading } = useSelector((state) => state.auth);
@@ -29,7 +29,6 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
       ? loggedInUser
       : profileUser || loggedInUser;
 
-  const [isSaving, setIsSaving] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
   function toggleSave(target) {
@@ -37,25 +36,25 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
       target.innerText === "bookmark_add" ? "bookmark_added" : "bookmark_add";
     target.classList.toggle("fill");
   }
+
+  const [savePostOnServer, { isLoading, isError, error, isSuccess }] =
+    useSavePostMutation();
+
   const hanldeSavePost = async (e) => {
     e.stopPropagation();
-
     if (!user) return router.push("/login");
-    try {
-      const options = {
-        method: "PUT",
-      };
-      setIsSaving(true);
-      const res = await fetch(api.savePost(slug), options);
-      const json = await res.json();
-      if (!res.ok) {
-        throw new Error(json.error);
-      }
-      if (e.target.classList.contains("fill")) {
-        toggleSave(e.target);
+    savePostOnServer(slug);
+  };
+
+  const saveIconRef = useRef(null);
+
+  useEffect(() => {
+    if (isSuccess) {
+      if (saveIconRef?.current?.classList.contains("fill")) {
+        toggleSave(saveIconRef?.current);
         dispatch(unSavePost({ postId }));
       } else {
-        toggleSave(e.target);
+        toggleSave(saveIconRef?.current);
         dispatch(savePost({ postId }));
       }
 
@@ -68,15 +67,14 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
       }
 
       dispatch(clearSavedPosts());
-    } catch (error) {
+    } else if (isError && error) {
       showToast(
         "Some error happens, please try again later!",
         toastStatus.ERROR
       );
-    } finally {
-      setIsSaving(false);
     }
-  };
+  }, [isError, error, isSuccess]);
+
   if (loading) return <></>;
 
   return (
@@ -90,10 +88,11 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
             : "not-allowed",
       }}
     >
-      {isSaving ? (
+      {isLoading ? (
         <Loader size="mini" />
       ) : (
         <span
+          ref={saveIconRef}
           style={{
             color: user?.savedPosts.includes(postId) ? "var(--main-color)" : "",
           }}

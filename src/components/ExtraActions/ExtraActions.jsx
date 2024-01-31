@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./extraActions.module.css";
 import { FaRegComment } from "react-icons/fa";
 import { Link } from "react-scroll";
 import { useSelector } from "react-redux";
-import { PRODUCTION_URL, api } from "@/services/api";
+import { PRODUCTION_URL } from "@/services/api";
 import Loader from "../Loader/Loader";
 import { useRouter } from "next/navigation";
 import DelEditActions from "../Actions/DelEditActions";
@@ -16,6 +16,7 @@ import { showToast, toastStatus } from "@/utils/toast";
 import ShareIconsModal from "../Modal/ShareIconsModal/ShareIconsModal";
 import { XMarkIcon } from "@/GoogleIcons/Icons";
 import SubUnSubBtn from "../UserProfileComponents/SubUnSubBtn/SubUnSubBtn";
+import { useLazyDeletePostQuery } from "@/redux/api/postsApi";
 
 const ExtraActions = ({
   postAuthor,
@@ -29,31 +30,28 @@ const ExtraActions = ({
 
   const [showDelModal, , openDelModal, hideDelModal] = useModal();
 
-  let [deleteLoading, setDeleteLoading] = useState(false);
+  const [
+    deletePost,
+    { isSuccess, isError, error, isLoading: deleteLoading, data },
+  ] = useLazyDeletePostQuery();
 
-  const handleDeletePost = async () => {
-    // Api call to delete the post
-    const baseUrl = api.deletePost(slug);
-    const options = { method: "DELETE" };
-    try {
-      setDeleteLoading(true);
-      const res = await fetch(baseUrl, options);
-      const json = await res.json();
-      if (!res.ok) {
-        throw new Error(json.error);
-      }
+  useEffect(() => {
+    if (isSuccess) {
       router.push("/");
       router.refresh();
       setTimeout(() => {
-        showToast(json.message, toastStatus.SUCCESS);
+        showToast(data.message, toastStatus.SUCCESS);
       }, 100);
-    } catch (error) {
-      showToast("Something went wrong, pleae try again later!", toastStatus.ERROR);
-    } finally {
-      setDeleteLoading(false);
+    } else if (isError && error) {
+      showToast(
+        "Something went wrong, pleae try again later!",
+        toastStatus.ERROR
+      );
       hideDelModal();
     }
-  };
+  }, [isSuccess, isError, error]);
+
+  const handleDeletePost = () => deletePost(slug);
 
   const [showShareModal, , , hideShareModal, toggleModal] = useModal();
 
