@@ -17,7 +17,7 @@ const createPostHandler = async (req) => {
   const post = await prisma.Post.create({
     data: {
       ...remainingBody, // remainingBodyData - title, desc, slug, img
-      tags: { create: tags },
+      tags: { create: tags }, // creating postTags
       userEmail: session.user.email,
     },
     include: { user: true },

@@ -47,12 +47,11 @@ const reactionHandler = async (req, { params }) => {
 
   post = await prisma.Post.update({
     where: { slug },
-    data: { reactions }, // set will not used here because set is used to update the array value not the object!
+    data: { reactions }, // set will not used here because set is used to update the array values not the object!
   });
 
   return Response(message, 200, true, false, {
     reactionType,
-    reactions,
   });
 };
 
