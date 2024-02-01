@@ -30,13 +30,6 @@ export const api = {
     // Http method - GET
     return `/posts/${slug}`;
   },
-  deletePost: (slug) => {
-    // Http method - DELETE
-    return `${server.URL}/api/posts/${slug}`;
-  },
-  savePost: (slug) => {
-    return `${server.URL}/api/posts/${slug}/save`;
-  },
   getUser: (query = "") => {
     return `/user${query}`;
   },

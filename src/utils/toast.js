@@ -11,7 +11,7 @@ export const showToast = (msg, type, icon, duration = 3000) => {
   const toastId = toast(msg, {
     type,
     duration,
-    icon,
+    ...(icon && { icon }),
   });
   return toastId;
 };

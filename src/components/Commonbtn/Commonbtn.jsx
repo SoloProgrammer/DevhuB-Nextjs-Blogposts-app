@@ -6,6 +6,7 @@ import { defaultFunc } from "@/GoogleIcons/Icons";
 
 const Commonbtn = ({
   text,
+  type = "button",
   size = "medium",
   isAnimate = true,
   icon,
@@ -19,6 +20,7 @@ const Commonbtn = ({
   };
   return (
     <button
+      type={type}
       disabled={disabled}
       onClick={handleFunc}
       style={{ fontSize: sizes[size] }}

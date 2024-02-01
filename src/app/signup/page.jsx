@@ -10,18 +10,17 @@ import toast from "react-hot-toast";
 import { showToast } from "@/utils/toast";
 
 var toastId;
-const LoginPage = () => {
+const SignUpPage = () => {
   const router = useRouter();
   const { status } = useSession();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSignIn = async (credentials) => {
-    const { email, password } = credentials;
-    if (!email || !password) return;
+  const onSignUp = async (credentials) => {
+    // Todo react hook form validation
     setIsSubmitting(true);
-    const res = await signIn("custom-login", {
-      email,
-      password,
+    const res = await signIn("custom-signup", {
+      ...credentials,
       redirect: false,
     });
     toast.dismiss(toastId);
@@ -41,15 +40,16 @@ const LoginPage = () => {
   if (status === "authenticated") {
     return router.push("/");
   }
+
   return (
     <Suspense fallback={<HomePageLoading />}>
       <AuthFrom
-        isSignIn={true}
+        isSignIn={false}
         isSubmitting={isSubmitting}
-        handleSubmit={onSignIn}
+        handleSubmit={onSignUp}
       />
     </Suspense>
   );
 };
 
-export default LoginPage;
+export default SignUpPage;

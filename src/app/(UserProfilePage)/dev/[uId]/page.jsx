@@ -28,7 +28,14 @@ const UserProfilePage = async ({ params }) => {
         <div className={styles.container}>
           <div className={styles.left}>
             <div className={styles.userImg}>
-              <Image src={user.image.split("=")[0].concat("=s300-c")} fill />
+              <Image
+                src={
+                  user.image.includes("cloudinary")
+                    ? user.image
+                    : user.image.split("=")[0].concat("=s300-c")
+                }
+                fill
+              />
             </div>
             <div className={styles.details}>
               <Typography textAlign={"center"} variant="h4">

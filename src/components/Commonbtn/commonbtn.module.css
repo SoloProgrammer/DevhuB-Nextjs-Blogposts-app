@@ -15,15 +15,13 @@
     background: var(--bg);
     gap: 5px;
 }
-.btn:disabled{
+
+.btn:disabled {
     cursor: not-allowed;
     color: var(--textColor);
 }
 
-.btn:disabled::before {
-    background: var(--softBg);
-}
-.btn.animateBtn:disabled:hover::before{
+.btn.animateBtn:disabled:hover::before {
     transform: rotate(0);
 }
 
@@ -37,8 +35,12 @@
     width: 100%;
     height: 100%;
     z-index: -1;
-    background: linear-gradient(45deg, #3023AE 0%, #FF0099 100%);
+    background: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
 
+}
+
+.btn:disabled::before {
+    background: var(--softBg);
 }
 
 .btn.animateBtn:hover::before {

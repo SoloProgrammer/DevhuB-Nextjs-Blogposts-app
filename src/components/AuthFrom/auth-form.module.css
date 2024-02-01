@@ -34,22 +34,50 @@
     font-size: .9rem;
 }
 
-.inpt input {
+.inpt input,
+.inpt textarea {
     width: 100%;
-    font-size: 1rem;
+    font-size: .9rem;
     height: 45px;
     outline: none;
     border: none;
     color: var(--softTextColor);
     padding: 0 10px;
     background: transparent;
-    border: 1px solid rgb(101, 2, 172);
+    border: 2px solid var(--softBg);
     border-radius: .3rem;
+    color: var(--textColor);
     transition: all .2s;
 }
 
+.inpt input:hover,
+.inpt textarea:hover {
+    border-color: var(--main-color);
+}
+
+.inpt input:focus,
+.inpt input:valid,
+.inpt textarea:focus,
+.inpt textarea:valid {
+    border-color: var(--main-color);
+}
+
+.inpt textarea {
+    resize: none;
+    height: auto !important;
+    min-height: 60px;
+    padding-top: 10px;
+    max-height: 150px;
+}
+
+.inputBox .textareaInpt label {
+    top: 24%;
+}
+
 .inpt input:focus~label,
-.inpt input:valid~label {
+.inpt input:valid~label,
+.inpt textarea:focus~label,
+.inpt textarea:valid~label {
     top: 0;
     padding: 0 5px;
     left: 5px;
@@ -60,6 +88,14 @@
 
 .inpt input:focus {
     background: transparent;
+}
+
+.subtext {
+    font-size: .7rem;
+    text-decoration: underline;
+    font-weight: 600;
+    color: var(--main-color);
+    padding-top: 20px;
 }
 
 .imgContainer {
@@ -91,9 +127,8 @@
 
 .socialLinks {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    flex-direction: column;
     width: 100%;
     gap: 20px;
     transition: background borderColor .2s;
@@ -110,16 +145,18 @@
     justify-content: center;
 }
 
-.socialLink:nth-child(3) .imgContainer {
-    margin-left: 22px;
-}
-
 .socialLink:hover {
     background: var(--bg-lighter);
 }
 
+.h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--lightTextColor);
+}
+
 .darkIcon .imgContainer img {
-    filter: invert(1);
+    filter: invert(1) !important;
 }
 
 @media screen and (max-width:640px) {

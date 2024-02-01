@@ -128,11 +128,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                                     <p
                                       class="LogoText"
                                       style="
-                                        background: linear-gradient(
-                                          0deg,
-                                          #3359fa 0%,
-                                          #66c6db 100%
-                                        );
+                                        background: linear-gradient(144deg,#af40ff,#5b42f3 50%,#00ddeb);
                                         background-clip: text;
                                         display: inline-block;
                                         font-size: 32px;
