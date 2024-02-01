@@ -41,8 +41,10 @@ model User {
   id            String    @id @default(cuid()) @map("_id")
   name          String?
   email         String    @unique
-  emailVerified DateTime?
-  image         String?
+  password      String?
+  emailVerified Boolean?
+  image         String?  @default("https://res.cloudinary.com/dvzjzf36i/image/upload/v1679814483/wxrvucwq93ovrswfpsk3.png")
+  bio           String?
   accounts      Account[]
   sessions      Session[]
   subscribers   String[]

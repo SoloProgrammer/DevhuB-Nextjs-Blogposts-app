@@ -14,7 +14,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import ToastProvider from "@/providers/ToastProvider";
 
 export const metadata = {
-  title: "Next_Dev_Blog",
+  title: "<Dev>.huB",
   description: "Blog app created using nextjs",
 };
 
