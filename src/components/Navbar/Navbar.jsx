@@ -19,8 +19,6 @@ const Navbar = () => {
     setHide((prev) => !prev);
   }
 
-  console.log(data, status);
-
   const path = usePathname();
   useEffect(() => {
     if (window.innerWidth < 770) {

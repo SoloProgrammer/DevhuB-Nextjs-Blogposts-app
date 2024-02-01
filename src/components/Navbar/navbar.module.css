@@ -8,6 +8,7 @@
     background: var(--bg);
     z-index: 3;
     transition: .2s all;
+    z-index: 20;
 }
 
 .social {
