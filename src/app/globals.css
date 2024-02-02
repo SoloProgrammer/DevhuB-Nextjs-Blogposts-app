@@ -3,6 +3,7 @@
   --main-color: #4063ff;
   --main-color-dark: #2b52ff;
   --main-color-light: #587eed;
+  --error-color: rgb(244, 67, 54);
 }
 
 hr {
@@ -125,7 +126,8 @@ a {
   padding: 2px !important;
   background: var(--bg) !important;
 }
-.MuiAvatar-root  img{
+
+.MuiAvatar-root img {
   border-radius: 50% !important;
 }
 
