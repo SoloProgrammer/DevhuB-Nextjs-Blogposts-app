@@ -1,7 +1,7 @@
 import { TryCatch } from "@/helpers/ErrorHandler";
 import { authenticate } from "@/middlewares/getAuthSession";
 import { sendEmail } from "@/services/sendMail";
-import prisma from "@/utils/connect";
+import prisma from "@/lib/connect";
 import { Response } from "@/utils/responses";
 
 const createPostHandler = async (req) => {

@@ -1,6 +1,6 @@
 const { getAuthSession } = require("@/utils/auth");
 import { TryCatch } from "@/helpers/ErrorHandler";
-import prisma from "@/utils/connect";
+import prisma from "@/lib/connect";
 import { Response } from "@/utils/responses";
 
 // GET session/profile user data

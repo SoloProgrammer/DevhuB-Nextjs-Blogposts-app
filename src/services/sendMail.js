@@ -1,7 +1,7 @@
 import { getEmailTemplate } from "@/utils/EmailTemplate";
 import nodemailer from "nodemailer";
 import { PRODUCTION_URL } from "./api";
-import prisma from "@/utils/connect";
+import prisma from "@/lib/connect";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",

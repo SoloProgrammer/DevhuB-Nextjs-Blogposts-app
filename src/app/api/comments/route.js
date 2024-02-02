@@ -1,4 +1,4 @@
-import prisma from "@/utils/connect";
+import prisma from "@/lib/connect";
 import { Response } from "@/utils/responses";
 import { NextResponse } from "next/server";
 import { authenticate } from "@/middlewares/getAuthSession";

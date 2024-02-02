@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import prisma from "./connect";
+import prisma from "../lib/connect";
 import { getServerSession } from "next-auth";
 import axiosClient from "@/services/axiosClient";
 

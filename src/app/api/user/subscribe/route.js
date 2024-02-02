@@ -1,5 +1,5 @@
 import { Response } from "@/utils/responses";
-import prisma from "@/utils/connect";
+import prisma from "@/lib/connect";
 import { TryCatch } from "@/helpers/ErrorHandler";
 import { authenticate } from "@/middlewares/getAuthSession";
 

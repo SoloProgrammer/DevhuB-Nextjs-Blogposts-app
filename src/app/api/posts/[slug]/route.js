@@ -1,6 +1,6 @@
 import { cloudinaryDeleteImg } from "@/helpers/Cloudinary";
 import { TryCatch } from "@/helpers/ErrorHandler";
-import prisma from "@/utils/connect";
+import prisma from "@/lib/connect";
 import { Response } from "@/utils/responses";
 
 export const GET = TryCatch(async (req, { params }) => {
