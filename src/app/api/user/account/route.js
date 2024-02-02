@@ -21,7 +21,7 @@ export const PUT = TryCatch(async (req) => {
 
   if (accountProvider) {
     throw new Error(
-      `This account has been already signed in with ${accountProvider}, please contiue with ${accountProvider}`
+      `This account has been already signed in with ${accountProvider}, please continue with ${accountProvider}`
     );
   }
 

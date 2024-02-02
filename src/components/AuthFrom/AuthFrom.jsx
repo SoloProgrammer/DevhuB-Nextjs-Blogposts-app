@@ -1,94 +1,157 @@
 "use client";
 import styles from "./auth-form.module.css";
-import React, { useRef } from "react";
+import React from "react";
 import Commonbtn from "../Commonbtn/Commonbtn";
 import Loader from "../Loader/Loader";
 import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
 import { useTheme } from "@/context/ThemeContext";
 import Link from "next/link";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const AuthFrom = ({ isSignIn, handleSubmit, isSubmitting }) => {
+const AuthFrom = ({
+  isSignIn,
+  onSubmit,
+  isSubmitting,
+  zodValidationSchema,
+}) => {
+
   const { theme } = useTheme();
 
   const { status } = useSession();
 
-  const nameRef = useRef(null);
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-  const bioRef = useRef(null);
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(zodValidationSchema),
+  });
 
-  const handleCredentialsLogin = (e) => {
-    e.preventDefault();
-    const name = nameRef.current?.value;
-    const email = emailRef.current?.value;
-    const password = passwordRef.current?.value;
-    // const img = imgRef.current?.value;
-    const bio = bioRef.current?.value;
-
+  const handleCredentialsLogin = (data) => {
+    const { email, password, name, bio } = data;
     const payload = isSignIn
       ? { email, password }
       : { name, email, password, bio };
-    handleSubmit(payload);
+    onSubmit(payload);
   };
+
   return (
     <div className={`${styles.container}`}>
       <div className={styles.wrapper}>
-        <form className={styles.inputBox} onSubmit={handleCredentialsLogin}>
+        <form
+          className={styles.inputBox}
+          onSubmit={handleSubmit(handleCredentialsLogin)}
+        >
           {!isSignIn && (
-            <div className={styles.inpt}>
-              <input
-                autoComplete="off"
-                ref={nameRef}
-                type="text"
-                id="name"
-                required
-              />
-              <label htmlFor="name">Username</label>
-            </div>
-          )}
-          <div className={styles.inpt}>
-            <input
-              autoComplete="off"
-              ref={emailRef}
-              type="text"
-              id="email"
-              required
+            <Controller
+              control={control}
+              name="name"
+              defaultValue={""}
+              render={({ field }) => (
+                <InputBox type={"name"} value={field.value} errors={errors}>
+                  <input
+                    {...field}
+                    ref={register("name").ref}
+                    autoComplete="off"
+                    type="text"
+                    id="name"
+                  />
+                  <label htmlFor="name">Username</label>
+                </InputBox>
+              )}
             />
-            <label htmlFor="email">Email</label>
-          </div>
-          <div className={styles.inpt}>
-            <input
-              autoComplete="off"
-              ref={passwordRef}
-              type="password"
-              id="password"
-              required
-            />
-            <label htmlFor="password">Password</label>
-          </div>
+          )}
+          <Controller
+            control={control}
+            rules={{
+              required: "Email is required!",
+            }}
+            name="email"
+            render={({ field }) => (
+              <InputBox type={"email"} errors={errors} value={field.value}>
+                <input
+                  {...field}
+                  ref={register("email").ref}
+                  autoComplete="off"
+                  type="text"
+                  id="email"
+                />
+                <label htmlFor="email">Email</label>
+              </InputBox>
+            )}
+          />
+          <Controller
+            control={control}
+            rules={{
+              required: "Password is required",
+            }}
+            name="password"
+            render={({ field }) => (
+              <InputBox type={"password"} errors={errors} value={field.value}>
+                <input
+                  {...field}
+                  ref={register("password").ref}
+                  autoComplete="off"
+                  type="password"
+                  id="password"
+                  isValid
+                />
+                <label htmlFor="password">Password</label>
+              </InputBox>
+            )}
+          />
           {!isSignIn && (
-            <div className={styles.inpt}>
-              <input
-                autoComplete="off"
-                type="crnfpassword"
-                id="crnfpassword"
-                required
-              />
-              <label htmlFor="crnfpassword">Confirm password</label>
-            </div>
+            <Controller
+              name="crnfpassword"
+              control={control}
+              rules={{
+                required: "Confirm password is required",
+              }}
+              render={({ field }) => (
+                <InputBox
+                  type={"crnfpassword"}
+                  errors={errors}
+                  value={field.value}
+                >
+                  <input
+                    {...field}
+                    ref={register("crnfpassword").ref}
+                    autoComplete="off"
+                    type="crnfpassword"
+                    id="crnfpassword"
+                  />
+                  <label htmlFor="crnfpassword">Confirm password</label>
+                </InputBox>
+              )}
+            />
           )}
           {!isSignIn && (
-            <div className={`${styles.inpt} ${styles.textareaInpt}`}>
-              <textarea
-                ref={bioRef}
-                autoComplete="off"
-                type="bio"
-                id="bio"
-                required
-              />
-              <label htmlFor="bio">Bio</label>
-            </div>
+            <Controller
+              control={control}
+              name="bio"
+              rules={{
+                required: "Bio is required",
+              }}
+              render={({ field }) => (
+                <InputBox
+                  type={"bio"}
+                  errors={errors}
+                  value={field.value}
+                  classNames={[styles.textareaInpt]}
+                >
+                  <textarea
+                    {...register("bio", { required: "bio is required" })}
+                    autoComplete="off"
+                    type="bio"
+                    id="bio"
+                  />
+                  <label htmlFor="bio">Bio</label>
+                </InputBox>
+              )}
+            />
           )}
           <Commonbtn
             size="medium"
@@ -151,6 +214,19 @@ const AuthFrom = ({ isSignIn, handleSubmit, isSubmitting }) => {
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+const InputBox = ({ value, errors, type, classNames = [], children }) => {
+  return (
+    <div
+      className={`${classNames.join("")} ${styles.inpt} ${
+        value ? styles.valid : ""
+      } ${errors[type] ? styles.error : ""}`}
+    >
+      <>{children}</>
+      <small>{errors[type]?.message}</small>
     </div>
   );
 };

@@ -8,8 +8,15 @@ import HomePageLoading from "@/app/(HomePage)/loading";
 import AuthFrom from "@/components/AuthFrom/AuthFrom";
 import toast from "react-hot-toast";
 import { showToast } from "@/utils/toast";
+import { z } from "zod";
 
 var toastId;
+const schema = z.object({
+  email: z.string().min(1, { message: "Email cannot be empty!" }).email(),
+  password: z
+    .string()
+    .min(5, { message: "Password must be 5 characters long!" }),
+});
 const LoginPage = () => {
   const router = useRouter();
   const { status } = useSession();
@@ -46,7 +53,8 @@ const LoginPage = () => {
       <AuthFrom
         isSignIn={true}
         isSubmitting={isSubmitting}
-        handleSubmit={onSignIn}
+        onSubmit={onSignIn}
+        zodValidationSchema={schema}
       />
     </Suspense>
   );

@@ -34,6 +34,10 @@
     font-size: .9rem;
 }
 
+.inpt.error label {
+    top: 34%;
+}
+
 .inpt input,
 .inpt textarea {
     width: 100%;
@@ -56,10 +60,22 @@
 }
 
 .inpt input:focus,
-.inpt input:valid,
-.inpt textarea:focus,
-.inpt textarea:valid {
+.inpt.valid input,
+.inpt.valid textarea,
+.inpt textarea:focus {
     border-color: var(--main-color);
+}
+
+.inpt.error input {
+    border-color: red !important;
+}
+
+.inpt.error input~label {
+    color: red !important;
+}
+
+.textareaInpt.error textarea {
+    border-color: red !important;
 }
 
 .inpt textarea {
@@ -74,10 +90,14 @@
     top: 24%;
 }
 
+.textareaInpt.error label {
+    color: red !important;
+}
+
 .inpt input:focus~label,
-.inpt input:valid~label,
-.inpt textarea:focus~label,
-.inpt textarea:valid~label {
+.inpt.valid input~label,
+.inpt.valid textarea~label,
+.inpt textarea:focus~label {
     top: 0;
     padding: 0 5px;
     left: 5px;
