@@ -16,7 +16,6 @@ const AuthFrom = ({
   isSubmitting,
   zodValidationSchema,
 }) => {
-
   const { theme } = useTheme();
 
   const { status } = useSession();
@@ -226,7 +225,13 @@ const InputBox = ({ value, errors, type, classNames = [], children }) => {
       } ${errors[type] ? styles.error : ""}`}
     >
       <>{children}</>
-      <small>{errors[type]?.message}</small>
+      <small
+        style={{
+          fontSize: ".8rem",
+        }}
+      >
+        {errors[type]?.message}
+      </small>
     </div>
   );
 };

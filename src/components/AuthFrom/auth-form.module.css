@@ -35,7 +35,7 @@
 }
 
 .inpt.error label {
-    top: 34%;
+    top: 33%;
 }
 
 .inpt input,
@@ -48,36 +48,32 @@
     color: var(--softTextColor);
     padding: 0 10px;
     background: transparent;
-    /* border: 1px solid var(--softTextColor); */
     border: none;
     box-shadow: 0 0 0 .04rem var(--lightTextColor);
-    border-radius: .3rem;
+    border-radius: .2rem;
     color: var(--textColor);
-    /* transition: all .2s; */
 }
 
 .inpt input:hover,
 .inpt textarea:hover {
-    /* border-color: var(--main-color); */
     border: none;
     box-shadow: 0 0 0 1px var(--main-color);
 }
+
 .inpt input:focus,
 .inpt textarea:focus {
     border: none;
     box-shadow: 0 0 0 .1rem var(--main-color);
 }
 
-.inpt input:focus,
-.inpt.valid input,
-.inpt.valid textarea,
-.inpt textarea:focus {
-    border-color: var(--main-color);
+.inpt.error input:focus,
+.inpt.error textarea:focus {
+    border: none;
+    box-shadow: 0 0 0 .1rem var(--error-color);
 }
 
 .inpt.error input {
     box-shadow: 0 0 0 1px var(--error-color);
-
 }
 
 .inpt.error input~label {
@@ -98,6 +94,10 @@
 
 .inputBox .textareaInpt label {
     top: 24%;
+}
+
+.textareaInpt.error label {
+    top: 18%;
 }
 
 .textareaInpt.error label {

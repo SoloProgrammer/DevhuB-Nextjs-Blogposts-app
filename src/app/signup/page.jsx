@@ -13,7 +13,7 @@ import { z } from "zod";
 var toastId;
 const schema = z
   .object({
-    name: z.string().min(3, { message: "Usernmae must be 3 characters long!" }),
+    name: z.string().min(3, { message: "Username must be 3 characters long!" }),
     email: z.string().email(),
     password: z
       .string()
