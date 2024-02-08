@@ -17,10 +17,10 @@ export const TryCatch = (handler) => {
 };
 
 // Trycatch for server side componenet data fetching....
-export const TryCatchWrapper = (fetcher) => {
+export const TryCatchWrapper = (handler) => {
   return async (...args) => {
     try {
-      return await fetcher(...args);
+      return await handler(...args);
     } catch (err) {
       let statusCode = err.response.status;
       if (statusCode === 404) {
