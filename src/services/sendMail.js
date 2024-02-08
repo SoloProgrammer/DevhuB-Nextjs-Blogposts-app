@@ -31,7 +31,7 @@ export const sendEmail = async (sender, receiversArr, subject, post) => {
       };
 
       const info = await transporter.sendMail(options);
-      console.log("Email sent to: %s", receiver.email, info.messageId);
+      console.log("Email sent to: ", receiver.email, info.messageId);
     });
   } catch (error) {
     console.log("Error ----- while sending email", error);
