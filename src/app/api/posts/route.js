@@ -26,7 +26,7 @@ export const GET = TryCatch(async (req) => {
       });
   }
 
-  const POSTS_PER_PAGE = 4;
+  const POSTS_PER_PAGE = 5;
 
   // Query to fetch post based on different conditions as follows:
   // 1. if ctegory is send with the params we fetch all the posts of that category and if uId + category is passed in the param then we fetch all the posts od the user of that uId with the category!
@@ -94,5 +94,11 @@ export const GET = TryCatch(async (req) => {
       where: whereQuery,
     }),
   ]);
-  return Response("Posts fetched", 200, true, false, { posts, postsCount });
+  const totalPages = Math.ceil(postsCount / POSTS_PER_PAGE) || 1;
+  const metadata = {
+    totalPages,
+    hasNext: page < totalPages,
+    POSTS_PER_PAGE,
+  };
+  return Response("Posts fetched", 200, true, false, { posts, metadata });
 });

@@ -6,6 +6,7 @@ import { api } from "@/services/api";
 import PageProvider from "@/providers/PageProvider";
 import Commonbtn from "../Commonbtn/Commonbtn";
 import Link from "next/link";
+import router from 'next/navigation'
 
 const getPosts = async (page, tag) => {
   const query = `?page=${page}&tag=${tag}`;
@@ -16,16 +17,16 @@ const getPosts = async (page, tag) => {
   return res.json();
 };
 
-const BlogList = async ({ page, tag = "", showBtn = true }) => {
-  const { posts, postsCount } = await getPosts(page, tag);
-  const POSTS_PER_PAGE = 4;
-  let maxPage = Math.ceil(postsCount / POSTS_PER_PAGE) || 1;
+const BlogList = async ({ page, tag = "" }) => {
 
-  let hasPrev = page > 1 && page <= maxPage;
-  let hasNext = page * POSTS_PER_PAGE < postsCount;
+  if(page < 0) return router.push('/')
+
+  const { posts, metadata } = await getPosts(page, tag);
+  const { totalPages, hasNext } = metadata;
+  let hasPrev = page > 1;
 
   return (
-    <PageProvider page={page} maxPage={maxPage}>
+    <PageProvider page={page} maxPage={totalPages}>
       <div className={styles.container}>
         {tag && !posts?.length ? (
           <div className={styles.noPostsContainer}>

@@ -45,7 +45,6 @@ export const authOptions = {
     CredentialsProvider({
       id: "custom-signup",
       name: "custom-signup",
-      type: "credentials",
       credentials: {},
       async authorize(credentials, req) {
         const { email, password, bio, name } = credentials;

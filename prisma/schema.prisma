@@ -43,7 +43,7 @@ model User {
   email         String    @unique
   password      String?
   emailVerified Boolean?
-  image         String?  @default("https://res.cloudinary.com/dvzjzf36i/image/upload/v1679814483/wxrvucwq93ovrswfpsk3.png")
+  image         String?   @default("https://res.cloudinary.com/dvzjzf36i/image/upload/v1679814483/wxrvucwq93ovrswfpsk3.png")
   bio           String?
   accounts      Account[]
   sessions      Session[]
@@ -62,13 +62,6 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-model Category {
-  id    String  @id @default(cuid()) @map("_id")
-  slug  String  @unique
-  title String
-  img   String?
 }
 
 model Post {
