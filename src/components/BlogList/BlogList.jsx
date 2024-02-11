@@ -6,7 +6,6 @@ import { api } from "@/services/api";
 import PageProvider from "@/providers/PageProvider";
 import Commonbtn from "../Commonbtn/Commonbtn";
 import Link from "next/link";
-import router from 'next/navigation'
 
 const getPosts = async (page, tag) => {
   const query = `?page=${page}&tag=${tag}`;
@@ -18,8 +17,6 @@ const getPosts = async (page, tag) => {
 };
 
 const BlogList = async ({ page, tag = "" }) => {
-
-  if(page < 0) return router.push('/')
 
   const { posts, metadata } = await getPosts(page, tag);
   const { totalPages, hasNext } = metadata;
