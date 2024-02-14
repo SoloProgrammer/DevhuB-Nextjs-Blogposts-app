@@ -25,9 +25,9 @@ const createPostHandler = async (req) => {
 
   // Sending Emails to subscribers of post author!
   sendEmail(
-    `"Dev_Blog/@${post.user.name}" prathamshinde987@gmail.com`,
+    `"DevhuB/@${post.user.name}" prathamshinde987@gmail.com`,
     post.user.subscribers, // receivers email list
-    `Dev_Blog - New Post from ${post.user.name}`,
+    `DevhuB - New Post from ${post.user.name}`,
     post
   );
 

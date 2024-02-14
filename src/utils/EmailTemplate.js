@@ -2,6 +2,7 @@ import { getUserSlug } from "@/app/posts/[slug]/page";
 import { getTrimmedString } from "@/helpers/string";
 
 export const getEmailTemplate = (post, unsubscribeLink) => {
+  const DOMAIN = `https://dev-hub-nextjs-app.vercel.app`;
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
       <head>
@@ -123,7 +124,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                                 <td>
                                   <a
                                     target="_blank"
-                                    href="https://dev-blog-a-nextjs-app.vercel.app"
+                                    href=${DOMAIN}
                                   >
                                     <p
                                       class="LogoText"
@@ -146,7 +147,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                                 <td>
                                   <a
                                     target="_blank"
-                                    href="https://dev-blog-a-nextjs-app.vercel.app"
+                                    href=${DOMAIN}
                                   >
                                     <img
                                       src="https://iconape.com/wp-content/png_logo_vector/google-web-dev-logo.png"
@@ -170,7 +171,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                           <td style="padding: 10px 0 0">
                             <a
                               target="_blank"
-                              href="https://dev-blog-a-nextjs-app.vercel.app/"
+                              href=${DOMAIN}
                               style="font-size: 11px; color: #778899"
                               ;text-decoration:
                               underline;
@@ -211,7 +212,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                       </p>
                       <a
                         target="_blank"
-                        href="https://dev-blog-a-nextjs-app.vercel.app/"
+                        href=${DOMAIN}
                         style="
                           text-decoration: none;
                           background: #0c66ff;
@@ -245,9 +246,9 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                         </tr>
                         <tr style="display: inline-block; padding: 0 5px 0 10px">
                           <td>
-                            <a target="_blank" href='https://dev-blog-a-nextjs-app.vercel.app/dev/${getUserSlug(
-                              post.user
-                            )}'>
+                            <a target="_blank" href='${DOMAIN}/dev/${getUserSlug(
+    post.user
+  )}'>
                               <img
                                 style="border-radius: 50%"
                                 width="25"
@@ -260,9 +261,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                         <tr style="display: inline-block">
                           <td>
                             <a target="_blank" style="color: #ddd" 
-                            href='https://dev-blog-a-nextjs-app.vercel.app/dev/${getUserSlug(
-                              post.user
-                            )}'
+                            href='${DOMAIN}/dev/${getUserSlug(post.user)}'
                               >${post.user.name}</a
                             >
                           </td>
@@ -287,9 +286,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                   <tr>
                     <td>
                       <a
-                        href="https://dev-blog-a-nextjs-app.vercel.app/posts/${
-                          post.slug
-                        }"
+                        href="${DOMAIN}/posts/${post.slug}"
                         ><img
                           style="width: 100%; object-fit: cover; max-height: 260px"
                           src=${post.img}
@@ -301,9 +298,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                     <td class="post_content">
                       <a
                         style="color: #ddd; text-decoration: none"
-                        href="https://dev-blog-a-nextjs-app.vercel.app/posts/${
-                          post.slug
-                        }"
+                        href="${DOMAIN}/posts/${post.slug}"
                       >
                         <h2 class="postTitle" style="padding: 30px 0 20px">
                          ${getTrimmedString(post.title, 55)}
@@ -323,9 +318,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                         </div>
                       </a>
                       <a
-                        href="https://dev-blog-a-nextjs-app.vercel.app/posts/${
-                          post.slug
-                        }"
+                        href="${DOMAIN}/posts/${post.slug}"
                         style="
                           padding: 7px 20px;
                           text-decoration: none;
@@ -395,9 +388,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                   </tr>
                   <tr>
                     <td style="text-align: center; padding-top: 10px">
-                     <a href='https://dev-blog-a-nextjs-app.vercel.app/dev/${getUserSlug(
-                       post.user
-                     )}'>
+                     <a href='${DOMAIN}/dev/${getUserSlug(post.user)}'>
                       <img
                         width="60"
                         style="max-width: 60px; border-radius: 50%; cursor:pointer"
@@ -411,9 +402,7 @@ export const getEmailTemplate = (post, unsubscribeLink) => {
                   <tr>
                     <td style="width: 100%; text-align: center; padding-top: 20px">
                       <a
-                        href='https://dev-blog-a-nextjs-app.vercel.app/dev/${getUserSlug(
-                          post.user
-                        )}'
+                        href='${DOMAIN}/dev/${getUserSlug(post.user)}'
                         style="
                           color: #d6d6d6;
                           text-decoration: underline;
