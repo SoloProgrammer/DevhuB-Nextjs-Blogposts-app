@@ -44,7 +44,7 @@ const ReactionsMenu = ({ post }) => {
     let postReactions = structuredClone(storedPost.reactions);
 
     // optimistically updates reactions into a post that is stored in a store/redux to show changes quickly to user when he adds or removes the reaction!
-    if (postReactions.hasOwnProperty(reactionType)) {
+    if (reactionType in postReactions) {
       let reaction = postReactions[reactionType];
       if (reaction.includes(user.id)) {
         let filteredReaction = reaction.filter((uId) => uId !== user.id);
@@ -82,7 +82,7 @@ const ReactionsMenu = ({ post }) => {
           e.stopPropagation();
           if (!user) {
             router.push("/login");
-          } else setShow(prev => !prev);
+          } else setShow((prev) => !prev);
         }}
       >
         <span

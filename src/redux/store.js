@@ -9,6 +9,7 @@ import { postsApi } from "./api/postsApi";
 import { commentsApi } from "./api/commentsApi";
 import { repliesApi } from "./api/repliesApi";
 import { tagsApi } from "./api/tagsApi";
+import { reactionsApi } from "./api/postReactionsApi";
 
 const store = configureStore({
   reducer: {
@@ -22,13 +23,15 @@ const store = configureStore({
     [commentsApi.reducerPath]: commentsApi.reducer,
     [repliesApi.reducerPath]: repliesApi.reducer,
     [tagsApi.reducerPath]: tagsApi.reducer,
+    [reactionsApi.reducerPath]: reactionsApi.reducer,
   },
   middleware: (mid) =>
     mid().concat(
       postsApi.middleware,
       commentsApi.middleware,
       repliesApi.middleware,
-      tagsApi.middleware
+      tagsApi.middleware,
+      reactionsApi.middleware
     ),
 });
 export default store;

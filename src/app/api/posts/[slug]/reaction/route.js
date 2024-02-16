@@ -32,7 +32,7 @@ const reactionHandler = async (req, { params }) => {
 
   let reactions = structuredClone(post.reactions);
 
-  if (reactions.hasOwnProperty(reactionType)) {
+  if (reactionType in reactions) {
     if (reactions[reactionType].includes(userId)) {
       reactions[reactionType] = reactions[reactionType].filter(
         (uId) => uId !== userId

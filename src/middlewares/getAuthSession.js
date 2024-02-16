@@ -1,7 +1,7 @@
 import { getAuthSession } from "@/utils/auth";
 import { Response } from "@/utils/responses";
 
-// Middleware fucntion to authenticate user on server side
+// Middleware function to authenticate user on server side
 export const authenticate = (handler) => {
   return async (req, ...args) => {
     const session = await getAuthSession();

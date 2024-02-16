@@ -70,9 +70,9 @@ const AudienceStatsDetail = ({ profileUser, audienceType }) => {
                 onChange={handleChange}
                 aria-label="basic tabs example"
               >
-                <Tab label="Followers" value={"1"} />
-                <Tab label="Following" value={"2"} />
-                <Tab label="Subscribers" value={"3"} />
+                {Object.keys(audiences).map((key, i) => (
+                  <Tab label={audiences[key]} value={(i + 1).toString()} />
+                ))}
               </Tabs>
             </Box>
             {Object.values(audiences).map((audience, index) => {
