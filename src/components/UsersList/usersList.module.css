@@ -1,0 +1,7 @@
+.card {
+    position: relative !important;
+}
+
+.card.dark {
+    background: #1a2238 !important;
+}

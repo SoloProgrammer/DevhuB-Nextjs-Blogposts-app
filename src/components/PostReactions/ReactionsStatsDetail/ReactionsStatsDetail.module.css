@@ -1,6 +1,3 @@
-/* AudienceStatsDetail +  AudienceList Components Css*/
-
-
 .container {
     position: absolute;
     left: 50%;
@@ -32,37 +29,4 @@
 
 .container {
     background-color: #fff !important;
-}
-
-.wrapper {
-    padding: 20px;
-}
-
-.audienceListWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.folllowBtn {
-    position: absolute;
-    z-index: 2;
-    right: 10px;
-    top: 10px;
-    font-size: .65rem !important;
-}
-
-
-@media screen and (max-width:770px) {
-    .container {
-        top: 50%;
-        transform: translate(-50%, -50%);
-        margin-top: -2rem;
-    }
-
-    .container.show {
-        opacity: 1;
-        margin-top: 0;
-    }
-
 }

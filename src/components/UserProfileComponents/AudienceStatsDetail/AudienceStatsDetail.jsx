@@ -3,26 +3,15 @@
 import React, { useEffect, useState } from "react";
 import styles from "./audienceStatsDetail.module.css";
 import { useTheme } from "@/context/ThemeContext";
-import {
-  Avatar,
-  Box,
-  Card,
-  CardActionArea,
-  CardHeader,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
 import TabPanel from "@mui/lab/TabPanel";
 import { TabContext } from "@mui/lab";
 import { audiences } from "../UserActionComponent/UserActionComponent";
 import { showToast, toastStatus } from "@/utils/toast";
 import { api } from "@/services/api";
-import FollowUserBtn from "../FollowUserBtn/FollowUserBtn";
 import Skeleton from "react-loading-skeleton";
-import { useRouter } from "next/navigation";
-import { getUserSlug } from "@/app/posts/[slug]/page";
 import { useDispatch, useSelector } from "react-redux";
+import UsersList from "@/components/UsersList/UsersList";
 import { setAudience } from "@/redux/slices/profileUserSlice";
 
 const AudienceStatsDetail = ({ profileUser, audienceType }) => {
@@ -39,7 +28,7 @@ const AudienceStatsDetail = ({ profileUser, audienceType }) => {
 
   const [show, setShow] = useState(false);
 
-  useState(() => {
+  useEffect(() => {
     setTimeout(() => {
       setShow(true);
     }, 100);
@@ -71,7 +60,11 @@ const AudienceStatsDetail = ({ profileUser, audienceType }) => {
                 aria-label="basic tabs example"
               >
                 {Object.keys(audiences).map((key, i) => (
-                  <Tab label={audiences[key]} value={(i + 1).toString()} />
+                  <Tab
+                    key={key}
+                    label={audiences[key]}
+                    value={(i + 1).toString()}
+                  />
                 ))}
               </Tabs>
             </Box>
@@ -105,7 +98,6 @@ const AudienceList = ({ audienceType, author }) => {
 
   const dispatch = useDispatch();
 
-  const { theme } = useTheme();
   const [audiences, setAudiences] = useState(initialAudiences || []);
   const [loading, setLoading] = useState(false);
 
@@ -137,12 +129,10 @@ const AudienceList = ({ audienceType, author }) => {
     setAudiences(initialAudiences || []);
   }, [initialAudiences]);
 
-  const router = useRouter();
-
   return (
     <div className={styles.audienceListWrapper}>
       {loading ? (
-        <AudienceListLoadingSkeleton />
+        <UsersListLoadingSkeleton />
       ) : audiences.length < 1 ? (
         <>
           {audienceType === "following" ? (
@@ -159,55 +149,25 @@ const AudienceList = ({ audienceType, author }) => {
           )}
         </>
       ) : (
-        audiences.map((audience) => {
-          return (
-            <Card
-              onClick={() => router.push(`/dev/${getUserSlug(audience)}`)}
-              key={audience.id}
-              className={`${styles.card} ${theme === "dark" && styles.dark}`}
-            >
-              <CardActionArea
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  padding: "10px",
-                  alignItems: "flex-start",
-                  justifyContent: "space-between",
-                }}
-              >
-                <CardHeader
-                  sx={{
-                    padding: "0px",
-                  }}
-                  avatar={<Avatar src={audience.image} aria-label="recipe" />}
-                  title={audience.name}
-                  subheader={audience.email}
-                />
-                <div className={styles.folllowBtn}>
-                  <FollowUserBtn author={audience} size="small" />
-                </div>
-              </CardActionArea>
-            </Card>
-          );
-        })
+        <UsersList users={audiences} />
       )}
     </div>
   );
 };
 
-const AudienceListLoadingSkeleton = () => {
+export const UsersListLoadingSkeleton = () => {
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: "10px",
+        gap: "7px",
       }}
     >
       {Array(4)
         .fill(0)
         .map((_, i) => (
-          <Skeleton key={i} width={"100%"} height={56} />
+          <Skeleton key={i} width={"100%"} height={58} />
         ))}
     </div>
   );

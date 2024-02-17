@@ -1,25 +1,31 @@
-.container{
+.container {
     display: flex;
     gap: 40px;
     align-items: center;
     padding: 5px 0 10px;
 }
-.container .reactionCount{
+
+.container .reactionCount {
     display: flex;
     align-items: center;
+    cursor: pointer;
     gap: 8px;
 }
-.container .reactionCount img{
+
+.container .reactionCount img {
     width: 28px;
 }
-.count{
+
+.count {
     padding-top: 3px;
 }
+
 @media screen and (max-width:600px) {
-    .container{
+    .container {
         gap: 35px;
     }
-    .container .reactionCount img{
+
+    .container .reactionCount img {
         width: 24px;
     }
 }
