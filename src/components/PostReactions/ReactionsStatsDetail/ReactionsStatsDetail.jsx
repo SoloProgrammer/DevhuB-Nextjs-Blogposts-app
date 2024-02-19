@@ -18,7 +18,7 @@ const ReactionsStatsDetail = ({
   post,
 }) => {
   const [show, setShow] = useState(false);
-  
+
   const getReactionTypes = () => {
     return Object.keys(post.reactions).reduce((accum, reactionKey) => {
       accum[reactionKey.toUpperCase()] = reactionKey;
@@ -33,7 +33,7 @@ const ReactionsStatsDetail = ({
       // };
     }, {});
   };
-  const reactionTypes = useMemo(() => getReactionTypes()[post]);
+  const reactionTypes = useMemo(() => getReactionTypes(), [post]);
 
   function getTabValues() {
     // converting reactionTypes object to tabValues as shown below
