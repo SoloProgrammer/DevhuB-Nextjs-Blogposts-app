@@ -37,6 +37,8 @@ const reactionHandler = async (req, { params }) => {
       reactions[reactionType] = reactions[reactionType].filter(
         (uId) => uId !== userId
       );
+      // deleting the reaction key if the length of that particular reaction is 0
+      if (reactions[reactionType].length < 1) delete reactions[reactionType];
       message = "reaction removed";
     } else {
       reactions[reactionType].push(userId);

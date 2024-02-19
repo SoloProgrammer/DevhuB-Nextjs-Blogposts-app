@@ -18,7 +18,6 @@ const AuthUser = () => {
       try {
         dispatch(setLoading(true));
         let { data } = await axiosClient.get(api.getUser());
-        console.log(data);
         dispatch(addUser(data.user));
       } catch (error) {
         showToast("You are not logged in!", "", "🧑‍💻");

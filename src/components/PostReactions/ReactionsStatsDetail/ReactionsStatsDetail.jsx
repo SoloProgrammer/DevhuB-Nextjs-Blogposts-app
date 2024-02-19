@@ -1,6 +1,6 @@
 import { UsersListLoadingSkeleton } from "@/components/UserProfileComponents/AudienceStatsDetail/AudienceStatsDetail";
 import UsersList from "@/components/UsersList/UsersList";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./ReactionsStatsDetail.module.css";
 import { TabContext, TabList } from "@mui/lab";
 import { Box, Tab } from "@mui/material";
@@ -8,14 +8,6 @@ import {
   getReactionImageByType,
   getReactionsCountByType,
 } from "../ReactionsCount/ReactionsCount";
-
-export const reactionTypes = Object.freeze({
-  LIKE: "like",
-  UNICORN: "unicorn",
-  EXPLODING_HEAD: "exploding_head",
-  RAISED_HANDS: "raised_hands",
-  FIRE: "fire",
-});
 
 const ReactionsStatsDetail = ({
   handleTabChange,
@@ -26,13 +18,22 @@ const ReactionsStatsDetail = ({
   post,
 }) => {
   const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setShow(true);
-    }, 100);
-    return () => setShow(false);
-  }, []);
+  
+  const getReactionTypes = () => {
+    return Object.keys(post.reactions).reduce((accum, reactionKey) => {
+      accum[reactionKey.toUpperCase()] = reactionKey;
+      return accum;
+      // OUTPUT: 👇
+      // {
+      //   LIKE: "like", // if this reaction present in post
+      //   UNICORN: "unicorn", // if present ..""
+      //   EXPLODING_HEAD: "exploding_head", // if present ..""
+      //   RAISED_HANDS: "raised_hands", // if present ..""
+      //   FIRE: "fire", // if present ..""
+      // };
+    }, {});
+  };
+  const reactionTypes = useMemo(() => getReactionTypes()[post]);
 
   function getTabValues() {
     // converting reactionTypes object to tabValues as shown below
@@ -48,9 +49,15 @@ const ReactionsStatsDetail = ({
       return acc;
     }, {});
   }
-  const tabValues = getTabValues();
-
+  const tabValues = useMemo(() => getTabValues(), [reactionTypes]);
   const [value, setValue] = useState(tabValues[reactionType]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(true);
+    }, 100);
+    return () => setShow(false);
+  }, []);
 
   return (
     <div
@@ -65,7 +72,6 @@ const ReactionsStatsDetail = ({
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <TabList
                   variant="scrollable"
-                  centered
                   value={value}
                   onChange={(_, newVal) => {
                     setValue(newVal);

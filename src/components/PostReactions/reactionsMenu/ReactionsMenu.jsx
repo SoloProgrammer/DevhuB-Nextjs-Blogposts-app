@@ -49,6 +49,9 @@ const ReactionsMenu = ({ post }) => {
       if (reaction.includes(user.id)) {
         let filteredReaction = reaction.filter((uId) => uId !== user.id);
         postReactions[reactionType] = filteredReaction;
+        // deleting the reaction key if the length of that particular reaction is 0
+        if (postReactions[reactionType].length < 1)
+          delete postReactions[reactionType];
       } else {
         reaction.push(user.id);
         postReactions[reactionType] = reaction;
