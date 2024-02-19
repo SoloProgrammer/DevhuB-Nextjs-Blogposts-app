@@ -119,10 +119,6 @@ a {
   margin: 0 !important;
 }
 
-.MuiButtonBase-root.MuiTab-root{
-  min-width: 75px !important;
-}
-
 .MuiAvatarGroup-root .MuiAvatar-root {
   border: 2px solid var(--main-color-light) !important;
   box-sizing: content-box !important;
@@ -282,6 +278,9 @@ a {
 }
 
 @media screen and (max-width:768px) {
+  .MuiButtonBase-root.MuiTab-root {
+    min-width: 75px !important;
+  }
 
   .wrapper {
     width: 90%;
