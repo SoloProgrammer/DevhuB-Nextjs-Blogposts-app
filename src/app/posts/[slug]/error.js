@@ -1,9 +1,9 @@
-"use client"
-import Notfound from "@/components/NotFound/Notfound";
+"use client";
+import ErrorPage from "@/components/Error/Error";
 import React from "react";
 
 const Error = (props) => {
-  return <Notfound/>;
+  return <ErrorPage source="post"/>;
 };
 
 export default Error;

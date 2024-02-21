@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./error.module.css";
 
-const ErrorPage = () => {
+const ErrorPage = ({ source } = { source: "posts" }) => {
   return (
     <div
       style={{
@@ -19,7 +19,7 @@ const ErrorPage = () => {
         alt="error"
         width={260}
       />
-      <ErrorBlock soure={"posts"} refetch={() => window.location.reload()} />
+      <ErrorBlock source={source} refetch={() => window.location.reload()} />
     </div>
   );
 };
@@ -27,12 +27,12 @@ const ErrorPage = () => {
 export default ErrorPage;
 
 export const ErrorBlock = ({
-  soure,
+  source,
   refetch = () => window.location.reload(),
 }) => {
   return (
     <div className={styles.errorBox}>
-      <h2>Unable to get {soure} at the moment!</h2>
+      <h2>Unable to get {source} at the moment!</h2>
       <button onClick={refetch}>Try again</button>
     </div>
   );
