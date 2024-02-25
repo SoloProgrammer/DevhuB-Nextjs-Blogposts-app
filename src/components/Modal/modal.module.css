@@ -13,6 +13,7 @@
     transition: .1s opacity;
     opacity: 0;
     pointer-events: none;
+    z-index: 21 !important;
 
 }
 
