@@ -23,7 +23,7 @@ const ReactionsCount = () => {
 
   const [getReactionUsers, { isFetching, isError, error, data }] =
     useLazyGetReactionUsersQuery();
-  const [isModalOpen, _, openModal, hideModal] = useModal();
+  const { isOpen: isModalOpen, openModal, closeModal } = useModal();
 
   const [reactionType, setReactionType] = useState("");
 
@@ -58,7 +58,7 @@ const ReactionsCount = () => {
         <Modal
           closeAfterTransition
           open={isModalOpen}
-          onClose={hideModal}
+          onClose={closeModal}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
           slots={{ backdrop: Backdrop }}

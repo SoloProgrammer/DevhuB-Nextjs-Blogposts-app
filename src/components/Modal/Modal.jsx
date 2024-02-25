@@ -5,21 +5,21 @@ import styles from "./modal.module.css";
 import useModal from "@/Hooks/useModal";
 
 const Modal = ({ children, handleHide, isCloseable = true }) => {
-  const [show, setShow] = useModal();
+  const { isOpen, setOpen } = useModal();
   useEffect(() => {
-    !show &&
+    !isOpen &&
       setTimeout(() => {
-        setShow(true);
+        setOpen(true);
       }, 50);
   }, []);
   return (
     <div
       onClick={isCloseable ? handleHide : () => {}}
-      className={`${styles.container} ${show ? styles.show : ""}`}
+      className={`${styles.container} ${isOpen ? styles.show : ""}`}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`${styles.inner} ${show ? styles.show : ""}`}
+        className={`${styles.inner} ${isOpen ? styles.show : ""}`}
       >
         {children}
       </div>

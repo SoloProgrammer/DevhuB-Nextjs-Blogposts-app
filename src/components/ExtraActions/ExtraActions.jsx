@@ -28,7 +28,11 @@ const ExtraActions = ({
   const { user, loading: userLoading } = useSelector((state) => state.auth);
   const router = useRouter();
 
-  const [showDelModal, , openDelModal, hideDelModal] = useModal();
+  const {
+    isOpen: showDelModal,
+    openModal: openDelModal,
+    closeModal: hideDelModal,
+  } = useModal();
 
   const [
     deletePost,
@@ -53,7 +57,11 @@ const ExtraActions = ({
 
   const handleDeletePost = () => deletePost(slug);
 
-  const [showShareModal, , , hideShareModal, toggleModal] = useModal();
+  const {
+    isOpen: showShareModal,
+    closeModal: hideShareModal,
+    toggleModal,
+  } = useModal();
 
   return (
     <div className={styles.extraActionsContainer}>

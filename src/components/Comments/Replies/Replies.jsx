@@ -90,7 +90,11 @@ const SingleReply = ({ reply, commentId }) => {
     setValue(reply.desc);
   };
 
-  const [showDelModal, , openDelModal, handleCloseConfirmDelModal] = useModal();
+  const {
+    isOpen: showDelModal,
+    openModal: openDelModal,
+    closeModal: handleCloseConfirmDelModal,
+  } = useModal();
 
   return (
     <>

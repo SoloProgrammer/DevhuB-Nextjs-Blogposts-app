@@ -14,7 +14,6 @@ import styles from "./postCard.module.css";
 import { useTheme } from "@/context/ThemeContext";
 import { getTrimmedString } from "@/helpers/string";
 import { useRouter } from "next/navigation";
-import { getFormattedPostDate } from "@/utils/date";
 import { getUserSlug } from "@/app/posts/[slug]/page";
 import moment from "moment";
 

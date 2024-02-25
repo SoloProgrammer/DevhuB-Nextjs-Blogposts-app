@@ -20,7 +20,7 @@ export const audiences = Object.freeze({
 const UserActionComponent = ({ profileUser }) => {
   const { user, loading } = useSelector((state) => state.auth);
 
-  const [isModalOpen, _, openModal, hideModal] = useModal();
+  const { isOpen: isModalOpen, openModal, closeModal } = useModal();
 
   const [audienceType, setAudienceType] = useState(audiences.FOLLOWERS);
 
@@ -99,7 +99,7 @@ const UserActionComponent = ({ profileUser }) => {
         <Modal
           closeAfterTransition
           open={isModalOpen}
-          onClose={hideModal}
+          onClose={closeModal}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
           slots={{ backdrop: Backdrop }}

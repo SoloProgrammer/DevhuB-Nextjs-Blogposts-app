@@ -32,8 +32,12 @@ const SingleComment = ({ comment }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState(comment.desc);
   const [edit, setEdit] = useState(false);
-  const [showDelModal, , openDelModal, handleCloseConfirmDelModal, hideModal] =
-    useModal();
+  const {
+    isOpen: showDelModal,
+    openModal: openDelModal,
+    closeModal: handleCloseConfirmDelModal,
+    hideModal,
+  } = useModal();
 
   const router = useRouter();
 
