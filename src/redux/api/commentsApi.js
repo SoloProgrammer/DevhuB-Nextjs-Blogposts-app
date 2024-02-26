@@ -1,11 +1,10 @@
-import { server } from "@/services/api";
 import { axiosBaseQuery } from "@/services/axiosClient";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const commentsApi = createApi({
   reducerPath: "commentsApi",
   baseQuery: axiosBaseQuery({
-    baseURL: `${server.URL}/api/comments`,
+    baseURL: `comments`,
   }),
   endpoints: (builder) => ({
     getComments: builder.query({
@@ -15,7 +14,7 @@ export const commentsApi = createApi({
     }),
     newComment: builder.mutation({
       query: (newComment) => ({
-        url: ``,
+        url: `/`,
         method: `POST`,
         data: newComment,
       }),

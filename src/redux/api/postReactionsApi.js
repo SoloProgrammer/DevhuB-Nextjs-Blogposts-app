@@ -1,10 +1,9 @@
-import { server } from "@/services/api";
 import { axiosBaseQuery } from "@/services/axiosClient";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const reactionsApi = createApi({
   baseQuery: axiosBaseQuery({
-    baseURL: server.URL + `/api/posts`,
+    baseURL: `posts`,
   }),
   reducerPath: "reactionsApi",
   endpoints: (builder) => ({

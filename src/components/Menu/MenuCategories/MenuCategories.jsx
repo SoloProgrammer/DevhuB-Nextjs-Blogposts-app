@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setTags } from "@/redux/slices/tagsSlice";
 import TagsList from "@/components/TagsList/TagsList";
 import { useLazyGetTagsQuery } from "@/redux/api/tagsApi";
+import { showToast, toastStatus } from "@/utils/toast";
 
 const MenuCategories = () => {
   const [getTags, { isFetching, isError, error, data }] = useLazyGetTagsQuery();

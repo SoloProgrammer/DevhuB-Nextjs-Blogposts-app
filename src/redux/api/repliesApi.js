@@ -1,4 +1,3 @@
-import { server } from "@/services/api";
 import { axiosBaseQuery } from "@/services/axiosClient";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
@@ -7,7 +6,7 @@ const getCommonBaseUrl = (commentId) => `/${commentId}/reply`;
 export const repliesApi = createApi({
   reducerPath: "repliesApi",
   baseQuery: axiosBaseQuery({
-    baseURL: `${server.URL}/api/comments`,
+    baseURL: `comments`,
   }),
   endpoints: (builder) => ({
     getReplies: builder.query({
