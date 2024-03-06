@@ -52,7 +52,7 @@ const createCommentHandler = async (req) => {
   ]);
   return Response("Your Comment is added", 200, true, false, { comment });
 };
-export const POST = authenticate(TryCatch(createCommentHandler));
+export const POST = TryCatch(authenticate(createCommentHandler));
 
 // DELETE A COMMENT
 const deleteCommentHandler = async (req) => {
@@ -73,7 +73,7 @@ const deleteCommentHandler = async (req) => {
 
   return Response("Comment deleted", 200, true, false);
 };
-export const DELETE = authenticate(TryCatch(deleteCommentHandler));
+export const DELETE = TryCatch(authenticate(deleteCommentHandler));
 
 // UPDATE A COMMENT
 const updateCommentHandler = async (req) => {
@@ -89,4 +89,4 @@ const updateCommentHandler = async (req) => {
 
   return Response("Your Comment is updated", 200, true, false);
 };
-export const PUT = authenticate(TryCatch(updateCommentHandler));
+export const PUT = TryCatch(authenticate(updateCommentHandler));
