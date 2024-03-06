@@ -6,7 +6,7 @@ import { Response } from "@/utils/responses";
 export const GET = TryCatch(async (req) => {
   const { searchParams } = new URL(req.url);
 
-  const page = searchParams.get("page");
+  const page = (searchParams.get("page") || 1) - 1;
   const tagSlug = searchParams.get("tag");
   const uId = searchParams.get("uId");
   const saved = JSON.parse(searchParams.get("saved"));
@@ -20,10 +20,7 @@ export const GET = TryCatch(async (req) => {
     user = await prisma.User.findUnique({
       where: { id: uId },
     });
-    if (!user)
-      return Response("Something went wrong", 500, false, {
-        message: "User not found!",
-      });
+    if (!user) throw new Error("User not found!");
   }
 
   const POSTS_PER_PAGE = 5;
@@ -66,7 +63,7 @@ export const GET = TryCatch(async (req) => {
 
   const query = {
     take: POSTS_PER_PAGE,
-    skip: POSTS_PER_PAGE * (page - 1),
+    skip: POSTS_PER_PAGE * page,
     where: whereQuery, // main logic goes here
     include: {
       user: true,
