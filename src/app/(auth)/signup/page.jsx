@@ -35,7 +35,6 @@ const SignUpPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSignUp = async (credentials) => {
-    // Todo react hook form validation
     setIsSubmitting(true);
     const res = await signIn("custom-signup", {
       ...credentials,
