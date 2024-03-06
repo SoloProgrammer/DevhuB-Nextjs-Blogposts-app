@@ -24,15 +24,12 @@ const handleSubscriptionController = async (req) => {
 
   const MESSAGE = checkIsSubscribed() ? "unsubscribed" : "subscribed";
 
-  await prisma.User.update(
-    {
-      where: { id: authorId },
-      data: {
-        subscribers: checkIsSubscribed() ? pullQuery : pushQuery,
-      },
+  await prisma.User.update({
+    where: { id: authorId },
+    data: {
+      subscribers: checkIsSubscribed() ? pullQuery : pushQuery,
     },
-    { new: true }
-  );
+  });
 
   return Response(MESSAGE, 200, true);
 };

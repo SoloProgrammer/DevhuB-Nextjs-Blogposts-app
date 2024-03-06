@@ -139,7 +139,7 @@ const AuthFrom = ({
                   type={"bio"}
                   errors={errors}
                   value={field.value}
-                  classNames={[styles.textareaInpt]}
+                  classNames={styles.textareaInpt}
                 >
                   <textarea
                     {...register("bio", { required: "bio is required" })}
@@ -217,12 +217,12 @@ const AuthFrom = ({
   );
 };
 
-const InputBox = ({ value, errors, type, classNames = [], children }) => {
+const InputBox = ({ value, errors, type, classNames, children }) => {
   return (
     <div
-      className={`${classNames.join("")} ${styles.inpt} ${
-        value ? styles.valid : ""
-      } ${errors[type] ? styles.error : ""}`}
+      className={`${classNames} ${styles.inpt} ${value ? styles.valid : ""} ${
+        errors[type] ? styles.error : ""
+      }`}
     >
       <>{children}</>
       <small
