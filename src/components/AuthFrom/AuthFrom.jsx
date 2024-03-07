@@ -162,7 +162,7 @@ const AuthFrom = ({
           />
         </form>
         <div className={styles.subtext}>
-          <Link href={isSignIn ? "/signup" : "/login"}>
+          <Link href={isSignIn ? "/signup" : "/sign-in"}>
             {isSignIn
               ? "New to DevhuB, let's go and create an account!"
               : "Already have an account? SignIn"}

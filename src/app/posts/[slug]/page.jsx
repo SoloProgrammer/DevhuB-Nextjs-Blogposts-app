@@ -39,7 +39,7 @@ const SingleBlogPage = async ({ params }) => {
       <div className={styles.container}>
         <div className={styles.infoContainer}>
           <h1 className={styles.title}>{post.title}</h1>
-          <ReactionsCount/>
+          <ReactionsCount />
           {post.tags.length > 0 && (
             <TagsList tags={post.tags.map((tag) => tag.tag)} size="medium" />
           )}
@@ -92,7 +92,7 @@ const SingleBlogPage = async ({ params }) => {
         <div className={styles.Menu}>
           <Menu />
         </div>
-        <ReactionsMenu post={post}/>
+        <ReactionsMenu post={post} />
       </div>
     </Suspense>
   );

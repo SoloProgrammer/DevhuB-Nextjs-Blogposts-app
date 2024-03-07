@@ -14,7 +14,7 @@ const CommentsCount = ({ post }) => {
     console.log(status);
     router.push(
       status === "unauthenticated"
-        ? "/login"
+        ? "/sign-in"
         : `/posts/${post.slug}?add-comment=true`
     );
   };

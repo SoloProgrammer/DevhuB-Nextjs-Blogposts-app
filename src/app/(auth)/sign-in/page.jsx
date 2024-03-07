@@ -9,6 +9,7 @@ import AuthFrom from "@/components/AuthFrom/AuthFrom";
 import toast from "react-hot-toast";
 import { showToast } from "@/utils/toast";
 import { z } from "zod";
+import styles from '../auth.module.css'
 
 var toastId;
 const schema = z.object({
@@ -17,7 +18,13 @@ const schema = z.object({
     .string()
     .min(5, { message: "Password must be 5 characters long" }),
 });
-const LoginPage = () => {
+const SignInPage = () => (
+  <div className={styles.container}>
+    <SignIn />
+  </div>
+);
+
+export const SignIn = () => {
   const router = useRouter();
   const { status } = useSession();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -60,4 +67,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignInPage;

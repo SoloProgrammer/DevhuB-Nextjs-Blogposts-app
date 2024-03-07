@@ -9,6 +9,7 @@ import AuthFrom from "@/components/AuthFrom/AuthFrom";
 import toast from "react-hot-toast";
 import { showToast } from "@/utils/toast";
 import { z } from "zod";
+import styles from "../auth.module.css";
 
 var toastId;
 const schema = z
@@ -28,7 +29,13 @@ const schema = z
     path: ["crnfpassword"], // path of error
   }); // we can chain more refine functions if we want!
 
-const SignUpPage = () => {
+const SignUpPage = () => (
+  <div className={styles.container}>
+    <SignUp />
+  </div>
+);
+
+export const SignUp = () => {
   const router = useRouter();
   const { status } = useSession();
 

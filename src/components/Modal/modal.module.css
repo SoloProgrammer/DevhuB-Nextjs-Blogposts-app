@@ -10,7 +10,7 @@
     top: 0;
     left: 0;
     z-index: 10;
-    transition: .1s opacity;
+    transition: 0s opacity;
     opacity: 0;
     pointer-events: none;
     z-index: 21 !important;
@@ -28,7 +28,7 @@
     min-height: 100px;
     box-shadow: var(--shadow-light);
     border-radius: .3rem;
-    transition: .1s all;
+    transition: .05s all;
     transform: scale(.5);
     max-width: 700px;
 }

@@ -69,7 +69,7 @@ const ReactionsMenu = ({ post }) => {
   };
 
   const handleCommentClick = () => {
-    if (!user) router.push("/login");
+    if (!user) router.push("/sign-in");
     else focusTextArea();
   };
 
@@ -84,7 +84,7 @@ const ReactionsMenu = ({ post }) => {
         onClick={(e) => {
           e.stopPropagation();
           if (!user) {
-            router.push("/login");
+            router.push("/sign-in");
           } else setShow((prev) => !prev);
         }}
       >

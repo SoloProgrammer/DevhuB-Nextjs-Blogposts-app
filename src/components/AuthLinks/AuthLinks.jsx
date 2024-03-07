@@ -8,7 +8,7 @@ const AuthLinks = ({ status }) => {
     <>
       {status === "unauthenticated" ? (
         <>
-          <Link href="/login">
+          <Link href="/sign-in">
             <Commonbtn text={"Login"} />
           </Link>
         </>

@@ -10,7 +10,6 @@
     box-shadow: var(--shadow-light);
     padding: 40px;
     transition: padding .2s;
-    margin-top: 40px;
 }
 
 .inputBox {

@@ -14,6 +14,9 @@ import {
 } from "@/redux/slices/profileUserSlice";
 import { showToast, toastStatus } from "@/utils/toast";
 import { useSavePostMutation } from "@/redux/api/postsApi";
+import Modal from "../Modal/Modal";
+import useModal from "@/Hooks/useModal";
+import { SignIn } from "@/app/(auth)/sign-in/page";
 
 const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
   const { user: loggedInUser, loading } = useSelector((state) => state.auth);
@@ -42,7 +45,7 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
 
   const hanldeSavePost = async (e) => {
     e.stopPropagation();
-    if (!user) return router.push("/login");
+    if (!user) return router.push("/sign-in");
     savePostOnServer(slug);
   };
 
@@ -74,6 +77,8 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
       );
     }
   }, [isError, error, isSuccess]);
+
+  const { isOpen, closeModal } = useModal();
 
   if (loading) return <></>;
 
@@ -111,8 +116,8 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
         </span>
       )}
       {!user && !loading && !profileUser && showMsg && (
-        <Link href={"/login"}>
-          <small className={styles.loginText}>Login to save this post!</small>
+        <Link href={"/sign-in"}>
+          <small className={styles.loginText}>Sign-in to save this post!</small>
         </Link>
       )}
     </div>

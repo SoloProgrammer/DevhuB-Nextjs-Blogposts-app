@@ -26,7 +26,7 @@ const SubUnSubBtn = ({ author, subscriber, tooltipPlacement = "top" }) => {
 
   const handleSubscribe = async () => {
     if (!subscriber) {
-      return router.push("/login");
+      return router.push("/sign-in");
     }
 
     const query = `?subId=${subscriber?.id}&authorId=${author.id}`;

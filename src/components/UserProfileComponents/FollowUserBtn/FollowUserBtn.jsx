@@ -34,7 +34,7 @@ const FollowUserBtn = ({ author, size = "medium" }) => {
     e.stopPropagation();
 
     if (!user) {
-      return router.push("/login");
+      return router.push("/sign-in");
     }
 
     try {
