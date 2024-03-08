@@ -1,3 +1,7 @@
-.container{
+.signInContainer {
     margin-top: 40px;
+}
+
+.signUpContainer {
+    margin-top: 10px;
 }

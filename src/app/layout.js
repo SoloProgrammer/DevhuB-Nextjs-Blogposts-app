@@ -18,7 +18,7 @@ export const metadata = {
   description: "Blog app created using nextjs",
 };
 
-export default function RootLayout({ children, auth }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -32,7 +32,6 @@ export default function RootLayout({ children, auth }) {
                       <Navbar />
                       <div className="children">
                         {children}
-                        {auth}
                       </div>
                       <Footer />
                     </div>
