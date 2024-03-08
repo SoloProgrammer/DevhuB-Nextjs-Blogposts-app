@@ -52,6 +52,7 @@ const AuthFrom = ({
               render={({ field }) => (
                 <InputBox type={"name"} value={field.value} errors={errors}>
                   <input
+                    autoFocus
                     {...field}
                     ref={register("name").ref}
                     autoComplete="off"
@@ -73,6 +74,7 @@ const AuthFrom = ({
               <InputBox type={"email"} errors={errors} value={field.value}>
                 <input
                   {...field}
+                  autoFocus={isSignIn}
                   ref={register("email").ref}
                   autoComplete="off"
                   type="text"

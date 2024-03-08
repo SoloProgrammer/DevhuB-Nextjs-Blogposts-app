@@ -29,7 +29,7 @@
     left: 10px;
     color: var(--softTextColor);
     pointer-events: none;
-    transition: all .2s;
+    transition: all .1s;
     font-size: .9rem;
 }
 
