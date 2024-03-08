@@ -3,6 +3,7 @@
   --main-color: #4063ff;
   --main-color-dark: #2b52ff;
   --main-color-light: #587eed;
+  --modal-bg:rgba(0,0,0,.3);
   --error-color: rgb(244, 67, 54);
 }
 
