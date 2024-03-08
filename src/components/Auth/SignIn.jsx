@@ -5,7 +5,7 @@ import { showToast } from "@/utils/toast";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import AuthFrom from "../AuthFrom/AuthFrom";
+import AuthFrom from "./AuthFrom/AuthFrom";
 import Loader from "../Loader/Loader";
 import toast from "react-hot-toast";
 import { z } from "zod";

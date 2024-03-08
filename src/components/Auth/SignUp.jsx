@@ -1,6 +1,6 @@
 "use client"
 import HomePageLoading from "@/app/(HomePage)/loading";
-import AuthFrom from "../AuthFrom/AuthFrom";
+import AuthFrom from "./AuthFrom/AuthFrom";
 import Loader from "../Loader/Loader";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";

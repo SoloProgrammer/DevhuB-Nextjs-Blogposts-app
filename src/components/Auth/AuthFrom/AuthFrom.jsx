@@ -1,8 +1,8 @@
 "use client";
 import styles from "./auth-form.module.css";
 import React from "react";
-import Commonbtn from "../Commonbtn/Commonbtn";
-import Loader from "../Loader/Loader";
+import Commonbtn from "../../Commonbtn/Commonbtn";
+import Loader from "../../Loader/Loader";
 import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
 import { useTheme } from "@/context/ThemeContext";
