@@ -17,11 +17,13 @@ const Modal = ({ children, handleHide, isCloseable = true }) => {
       onClick={isCloseable ? handleHide : () => {}}
       className={`${styles.container} ${isOpen ? styles.show : ""}`}
     >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className={`${styles.inner} ${isOpen ? styles.show : ""}`}
-      >
-        {children}
+      <div className={styles.wrapper}>
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className={`${styles.inner} ${isOpen ? styles.show : ""} `}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
