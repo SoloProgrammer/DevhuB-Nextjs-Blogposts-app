@@ -78,8 +78,6 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
     }
   }, [isError, error, isSuccess]);
 
-  const { isOpen, closeModal } = useModal();
-
   if (loading) return <></>;
 
   return (

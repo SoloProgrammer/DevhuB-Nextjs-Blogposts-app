@@ -1,5 +1,6 @@
 .saveIcon {
     color: var(--softTextColor);
+    user-select: none;
 }
 
 .iconWrapper {
