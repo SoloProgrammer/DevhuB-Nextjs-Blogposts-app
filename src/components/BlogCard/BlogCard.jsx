@@ -58,6 +58,7 @@ const BlogCard = ({ post }) => {
                   return Object.keys(post?.reactions).includes(reaction.type) &&
                     post?.reactions[reaction.type].length > 0 ? (
                     <Avatar
+                      key={reaction.type}
                       sx={{ width: 18, height: 18 }}
                       alt={reaction.type}
                       src={reaction.src}
