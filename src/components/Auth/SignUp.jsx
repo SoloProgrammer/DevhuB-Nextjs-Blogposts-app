@@ -1,11 +1,10 @@
-"use client"
-import HomePageLoading from "@/app/(HomePage)/loading";
+"use client";
 import AuthFrom from "./AuthFrom/AuthFrom";
 import Loader from "../Loader/Loader";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { z } from "zod";
 
 var toastId;
@@ -57,14 +56,12 @@ const SignUp = () => {
   }
 
   return (
-    <Suspense fallback={<HomePageLoading />}>
-      <AuthFrom
-        isSignIn={false}
-        isSubmitting={isSubmitting}
-        onSubmit={onSignUp}
-        zodValidationSchema={schema}
-      />
-    </Suspense>
+    <AuthFrom
+      isSignIn={false}
+      isSubmitting={isSubmitting}
+      onSubmit={onSignUp}
+      zodValidationSchema={schema}
+    />
   );
 };
 

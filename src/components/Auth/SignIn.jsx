@@ -1,10 +1,9 @@
 "use client";
 
-import HomePageLoading from "@/app/(HomePage)/loading";
 import { showToast } from "@/utils/toast";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AuthFrom from "./AuthFrom/AuthFrom";
 import Loader from "../Loader/Loader";
 import toast from "react-hot-toast";
@@ -53,14 +52,12 @@ const SignIn = () => {
     return router.push("/");
   }
   return (
-    <Suspense fallback={<HomePageLoading />}>
-      <AuthFrom
-        isSignIn={true}
-        isSubmitting={isSubmitting}
-        onSubmit={onSignIn}
-        zodValidationSchema={schema}
-      />
-    </Suspense>
+    <AuthFrom
+      isSignIn={true}
+      isSubmitting={isSubmitting}
+      onSubmit={onSignIn}
+      zodValidationSchema={schema}
+    />
   );
 };
 export default SignIn;
