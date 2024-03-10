@@ -6,7 +6,7 @@ import { Response } from "@/utils/responses";
 export const GET = TryCatch(async (req) => {
   const { searchParams } = new URL(req.url);
 
-  const page = (searchParams.get("page") || 1) - 1;
+  const page = searchParams.get("page") || 1;
   const tagSlug = searchParams.get("tag");
   const uId = searchParams.get("uId");
   const saved = JSON.parse(searchParams.get("saved"));
@@ -63,7 +63,7 @@ export const GET = TryCatch(async (req) => {
 
   const query = {
     take: POSTS_PER_PAGE,
-    skip: POSTS_PER_PAGE * page,
+    skip: POSTS_PER_PAGE * (page - 1),
     where: whereQuery, // main logic goes here
     include: {
       user: true,
@@ -91,6 +91,7 @@ export const GET = TryCatch(async (req) => {
       where: whereQuery,
     }),
   ]);
+  console.log(postsCount, "---postsCount", page);
   const totalPages = Math.ceil(postsCount / POSTS_PER_PAGE) || 1;
   const metadata = {
     totalPages,

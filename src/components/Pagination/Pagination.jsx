@@ -6,9 +6,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 const Pagination = ({ page, hasPrev, hasNext }) => {
   const searchParams = useSearchParams();
-  const categoryParam = searchParams.get("category");
+  const tagParam = searchParams.get("tag");
 
-  const extraParam = categoryParam ? `&category=${categoryParam}` : "";
+  const extraParam = tagParam ? `&tag=${tagParam}` : "";
 
   const router = useRouter();
   return (
