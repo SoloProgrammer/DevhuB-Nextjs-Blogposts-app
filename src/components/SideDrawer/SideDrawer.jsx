@@ -9,7 +9,7 @@ const SideDrawer = ({ pos = "left", minW = "30%", handleClose, children }) => {
         className={`${styles.wrapper} ${styles[pos]}`}
       >
         <div className={styles.backIcon}>
-          <span class="material-symbols-outlined">keyboard_backspace</span>
+          <span className="material-symbols-outlined">keyboard_backspace</span>
         </div>
         {children}
       </div>

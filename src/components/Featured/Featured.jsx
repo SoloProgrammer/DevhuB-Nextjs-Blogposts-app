@@ -46,7 +46,7 @@ const Featured = async () => {
               <span>{post?.user.name}</span>
             </Link>
             <span className={styles.featuredText}>
-              <span class="material-symbols-outlined">editor_choice</span>
+              <span className="material-symbols-outlined">editor_choice</span>
               <i>Featured</i>
             </span>
           </div>

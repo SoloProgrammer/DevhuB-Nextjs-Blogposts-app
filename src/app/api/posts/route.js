@@ -91,7 +91,6 @@ export const GET = TryCatch(async (req) => {
       where: whereQuery,
     }),
   ]);
-  console.log(postsCount, "---postsCount", page);
   const totalPages = Math.ceil(postsCount / POSTS_PER_PAGE) || 1;
   const metadata = {
     totalPages,
