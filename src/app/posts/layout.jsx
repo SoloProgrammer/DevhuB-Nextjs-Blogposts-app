@@ -8,15 +8,16 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 const RootLayout = ({ children }) => {
   const params = useSearchParams();
   const router = useRouter();
+  const path = usePathname();
 
   const handleCloseModal = () => {
     router.back();
   };
 
   useEffect(() => {
-    // Save scroll position when navigating away from the page
+    // Save scroll position to the session storage when user scrolls the page 
 
-    // Restore scroll position on initial page load
+    // Restore scroll position whenever path changes for eg when user redirects to ?sign-in route
     const restoreScrollPosition = () => {
       const scrollPosition = window.sessionStorage.getItem("scrollPosition");
       if (scrollPosition) {
@@ -24,7 +25,6 @@ const RootLayout = ({ children }) => {
       }
     };
 
-    // Restore scroll position when navigating back
     restoreScrollPosition();
 
     const handleScrollChange = () => {
@@ -39,7 +39,7 @@ const RootLayout = ({ children }) => {
 
   useEffect(() => {
     window.sessionStorage.removeItem("scrollPosition");
-  }, [usePathname()]);
+  }, [path]);
 
   return (
     <div>

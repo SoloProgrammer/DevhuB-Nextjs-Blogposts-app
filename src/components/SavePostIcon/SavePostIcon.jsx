@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./saveposticon.module.css";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import Loader from "../Loader/Loader";
 import {
   addToSavedPostsSavedPostsInProfile,
@@ -43,6 +43,7 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
   // taking out itinerable params map and converting it into params.entreis array like the below example
   // [['param1','value1'],['param2','value2']]
   const paramsArr = Array.from(useSearchParams().entries());
+  const path = usePathname();
   const hanldeSavePost = async (e) => {
     e.stopPropagation();
 
@@ -57,11 +58,14 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
     // appending ?sign-in param to the exsisting params string so that sign-in modal will open also we prevent all the dynamic data that is depend on the exsisting params on the route!
     paramsStr = paramsStr.concat(`${paramsStr.length > 0 ? "&" : "?"}sign-in`);
 
-    // final output 
-    // * (?param1=value&param2=value2&sign-in) if exsistingF params string length > 0 
+    // final output
+    // * (?param1=value&param2=value2&sign-in) if exsistingF params string length > 0
     // else (?sign-in) this is the params string on those pages that don't have any exsisting params
 
-    if (!user) return router.push(paramsStr);
+    if (!user)
+      return router.push(path === "/" ? "/sign-in" : paramsStr, {
+        scroll: false,
+      });
 
     savePostOnServer(slug);
   };

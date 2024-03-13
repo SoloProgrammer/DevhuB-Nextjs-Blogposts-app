@@ -87,7 +87,10 @@ const SingleComment = ({ comment }) => {
   const [reply, setReply] = useState(false);
 
   const handleReply = () => {
-    if (!user) return router.push("?sign-in");
+    if (!user)
+      return router.push("?sign-in", {
+        scroll: false,
+      });
     setReply(true);
     setShowReplies(false);
   };
