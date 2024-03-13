@@ -3,7 +3,7 @@
   --main-color: #4063ff;
   --main-color-dark: #2b52ff;
   --main-color-light: #587eed;
-  --modal-bg:rgba(0,0,0,.3);
+  --modal-bg: rgba(0, 0, 0, .3);
   --error-color: rgb(244, 67, 54);
 }
 
@@ -154,13 +154,14 @@ a {
 }
 
 .ql-syntax {
-  white-space: pre-wrap !important;
   margin-bottom: 5px !important;
   margin-top: 5px !important;
-  padding: 5px 10px !important;
+  padding: 15px !important;
   background: var(--softBg);
   border-radius: .3rem;
   font-size: 1rem !important;
+  max-width: 90vw !important;
+  overflow: auto;
 }
 
 .quill,
