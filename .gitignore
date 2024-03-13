@@ -4,11 +4,10 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-@auth
 
 # testing
 /coverage
-
+@auth
 # next.js
 /.next/
 /out/

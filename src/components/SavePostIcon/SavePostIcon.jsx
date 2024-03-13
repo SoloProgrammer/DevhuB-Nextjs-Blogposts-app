@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./saveposticon.module.css";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Loader from "../Loader/Loader";
 import {
   addToSavedPostsSavedPostsInProfile,
@@ -14,9 +14,6 @@ import {
 } from "@/redux/slices/profileUserSlice";
 import { showToast, toastStatus } from "@/utils/toast";
 import { useSavePostMutation } from "@/redux/api/postsApi";
-import Modal from "../Modal/Modal";
-import useModal from "@/Hooks/useModal";
-import { SignIn } from "@/app/(auth)/sign-in/page";
 
 const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
   const { user: loggedInUser, loading } = useSelector((state) => state.auth);
@@ -43,9 +40,29 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
   const [savePostOnServer, { isLoading, isError, error, isSuccess }] =
     useSavePostMutation();
 
+  // taking out itinerable params map and converting it into params.entreis array like the below example
+  // [['param1','value1'],['param2','value2']]
+  const paramsArr = Array.from(useSearchParams().entries());
   const hanldeSavePost = async (e) => {
     e.stopPropagation();
-    if (!user) return router.push("/sign-in");
+
+    // here converting params entries to params string dynamically
+    // ?param1=value&param2=value2....
+
+    let paramsStr = paramsArr.reduce((str, it, i) => {
+      str += `${i > 0 ? "&" : "?"}${it[0]}=${it[1]}`;
+      return str;
+    }, "");
+
+    // appending ?sign-in param to the exsisting params string so that sign-in modal will open also we prevent all the dynamic data that is depend on the exsisting params on the route!
+    paramsStr = paramsStr.concat(`${paramsStr.length > 0 ? "&" : "?"}sign-in`);
+
+    // final output 
+    // * (?param1=value&param2=value2&sign-in) if exsistingF params string length > 0 
+    // else (?sign-in) this is the params string on those pages that don't have any exsisting params
+
+    if (!user) return router.push(paramsStr);
+
     savePostOnServer(slug);
   };
 
@@ -114,7 +131,7 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
         </span>
       )}
       {!user && !loading && !profileUser && showMsg && (
-        <Link href={"/sign-in"}>
+        <Link href={"?sign-in"}>
           <small className={styles.loginText}>Sign-in to save this post!</small>
         </Link>
       )}
