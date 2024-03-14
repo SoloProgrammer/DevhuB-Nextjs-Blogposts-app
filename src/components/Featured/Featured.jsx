@@ -7,6 +7,7 @@ import { api } from "@/services/api";
 import Link from "next/link";
 import { getTrimmedString } from "@/helpers/string";
 import { getUserSlug } from "@/app/posts/[slug]/page";
+import Reveal from "@/components/animations/Reveal/Reveal";
 
 const getData = async () => {
   const response = await axios.get(api.getFeaturedPost());
@@ -21,9 +22,12 @@ const Featured = async () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
-        <b>One stop&nbsp;platform,</b>
-        <br />
-        <p>To discover stories and creative ideas for developers!</p>
+        <Reveal>
+          <b>One stop&nbsp;platform,</b>
+        </Reveal>
+        <Reveal>
+          <p>To discover stories and creative ideas for developers!</p>
+        </Reveal>
       </h1>
       <div>
         <h1 className={styles.featuredHeading}>

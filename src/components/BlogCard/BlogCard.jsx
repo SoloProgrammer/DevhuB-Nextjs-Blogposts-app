@@ -11,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import { reactions } from "../PostReactions/data";
 import CommentsCount from "./CommentCount/CommentCount";
+import Reveal from "../animations/Reveal/Reveal";
 
 const BlogCard = ({ post }) => {
   const totalReactionsCount = useMemo(() => {
@@ -26,31 +27,37 @@ const BlogCard = ({ post }) => {
       </div>
       <div className={styles.postTextContent}>
         <div className={styles.seperator}>
-          <div className={styles.details}>
-            <span className={styles.date}>
-              {moment(post?.createdAt).fromNow()}
-              {" - "}&nbsp;
-            </span>
-            <Link
-              href={`/dev/${getUserSlug(post?.user)}`}
-              className={styles.postAuthor}
-            >
-              {post?.user.name}
-            </Link>
-          </div>
+          <Reveal>
+            <div className={styles.details}>
+              <span className={styles.date}>
+                {moment(post?.createdAt).fromNow()}
+                {" - "}&nbsp;
+              </span>
+              <Link
+                href={`/dev/${getUserSlug(post?.user)}`}
+                className={styles.postAuthor}
+              >
+                {post?.user.name}
+              </Link>
+            </div>
+          </Reveal>
           <SavePostIcon slug={post?.slug} postId={post?.id} showMsg={false} />
         </div>
         <Link
           href={`/posts/${post?.slug}`}
           style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
         >
-          <h3 style={{ marginBottom: "1rem" }} className={styles.postTitle}>
-            {getTrimmedString(post?.title, 38)}
-          </h3>
+          <Reveal>
+            <h3 style={{ marginBottom: "1rem" }} className={styles.postTitle}>
+              {getTrimmedString(post?.title, 38)}
+            </h3>
+          </Reveal>
           <TagsList tags={post?.tags.map((tag) => tag.tag)} />
-          <p className={styles.postDesc}>
-            {getTrimmedString(post?.desc, 130).replace(/<[^>]*>/g, "")}
-          </p>
+          <Reveal>
+            <p className={styles.postDesc}>
+              {getTrimmedString(post?.desc, 130).replace(/<[^>]*>/g, "")}
+            </p>
+          </Reveal>
           <div className={styles.reaactionsGroup}>
             <div className={styles.reactionsSection}>
               <AvatarGroup max={5}>

@@ -9,9 +9,10 @@
 }
 .title p{
     font-size: 2.2rem;
+    overflow: hidden;
 }
 .title b{
-    /* font-size: 2.6rem; */
+    overflow: hidden;
 }
 .featuredText{
     display: flex;

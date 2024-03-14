@@ -53,7 +53,7 @@ const Navbar = () => {
       <div className={`${styles.links}`}>
         <ThemeToggle />
         <div className={`${styles.linksCenter} ${!hide ? styles.show : ""}`}>
-          <Link href={"/"}>Homepage</Link>
+          <Link href={"/"}>Home</Link>
           <AuthLinks status={status} />
         </div>
         <div onClick={toggleSideBar} className={styles.menuIcon}>
