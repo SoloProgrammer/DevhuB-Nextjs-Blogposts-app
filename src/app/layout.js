@@ -30,9 +30,7 @@ export default function RootLayout({ children }) {
                   <div className="container">
                     <div className="wrapper">
                       <Navbar />
-                      <div className="children">
-                        {children}
-                      </div>
+                      <div className="children">{children}</div>
                       <Footer />
                     </div>
                     <AuthUser />
