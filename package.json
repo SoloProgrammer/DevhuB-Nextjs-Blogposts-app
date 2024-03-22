@@ -30,6 +30,7 @@
     "next-share": "^0.27.0",
     "nodemailer": "^6.9.8",
     "react": "^18",
+    "react-animate-components-ts": "^1.0.7",
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.50.0",
@@ -48,6 +49,6 @@
   "devDependencies": {
     "eslint": "^8",
     "eslint-config-next": "14.0.1",
-    "prisma": "^5.6.0"
+    "prisma": "^5.11.0"
   }
 }

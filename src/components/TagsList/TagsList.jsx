@@ -3,8 +3,7 @@ import chroma from "chroma-js";
 import Link from "next/link";
 import React from "react";
 import styles from "./tagsList.module.css";
-import { motion } from "framer-motion";
-import { anim } from "@/utils/framer";
+import { SlideIn } from "react-animate-components-ts";
 
 const TagsList = ({ tags, size = "small", isColored = true }) => {
   return (
@@ -13,13 +12,20 @@ const TagsList = ({ tags, size = "small", isColored = true }) => {
         const color = chroma(tag.clr);
         return (
           <Link key={tag.id} href={`/posts?tag=${tag.slug}`}>
-            <TagChip
-              i={i}
-              tag={tag}
-              color={color}
-              size={size}
-              isColored={isColored}
-            />
+            <SlideIn
+              type="spring"
+              from="left"
+              left={(i * 15)}
+              delay={i*0.1}
+            >
+              <TagChip
+                i={i}
+                tag={tag}
+                color={color}
+                size={size}
+                isColored={isColored}
+              />
+            </SlideIn>
           </Link>
         );
       })}
@@ -27,32 +33,15 @@ const TagsList = ({ tags, size = "small", isColored = true }) => {
   );
 };
 
-export const TagChip = ({ tag, color, size, isColored, i }) => {
+export const TagChip = ({ tag, color, size, isColored }) => {
   const SIZES = {
     small: "12px",
     medium: "14px",
     large: "16px",
   };
 
-  const slide = {
-    initial: {
-      opacity: 0,
-      x: -(i * 10),
-    },
-    inview: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        type: "spring", // You can use different types of transitions
-        delay: i * 0.1, // Adjust duration as needed
-      },
-    },
-  };
-  
   return (
-    <motion.span
-      {...anim(slide)}
-      viewport={{ once: true }}
+    <span
       className={styles.tag}
       style={{
         "--color": isColored ? color : "var(--softTextColor)",
@@ -63,7 +52,7 @@ export const TagChip = ({ tag, color, size, isColored, i }) => {
       }}
     >
       #{tag.slug}
-    </motion.span>
+    </span>
   );
 };
 
