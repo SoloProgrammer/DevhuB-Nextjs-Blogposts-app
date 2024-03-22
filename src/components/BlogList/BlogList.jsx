@@ -40,9 +40,9 @@ const BlogList = async ({ page, tag = "" }) => {
           <>
             <h1 className={styles.title}>Recent Posts</h1>
             <div className={styles.posts}>
-              {posts?.map((post, i) => {
+              {posts?.map((post) => {
                 return (
-                  <Skate iSkate={-100}>
+                  <Skate key={post.id} iSkate={-100}>
                     <BlogCard post={post} key={post._id} />
                   </Skate>
                 );
