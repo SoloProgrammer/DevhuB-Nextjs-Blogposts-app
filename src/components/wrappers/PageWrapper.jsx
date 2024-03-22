@@ -25,7 +25,14 @@ const PageWrapper = ({ children }) => {
 
   return (
     <motion.div {...anim(opacity)}>
-      <ProgressBar bg={"var(--main-color)"} h={5} position={"top"} />
+      <ProgressBar
+        trackColor="var(--progress-bar-color)"
+        showTrack={true}
+        bg={"var(--main-color)"}
+        h={5}
+        position={"top"}
+        top={70}
+      />
       {children}
     </motion.div>
   );

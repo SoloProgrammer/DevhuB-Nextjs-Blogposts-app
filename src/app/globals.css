@@ -25,10 +25,12 @@ hr {
   --bg-light-transperent: rgba(0, 0, 0, .025);
   --lightTextColor: rgba(255, 255, 255, 0.5);
   --side-box-shadow: 6px 0 4px -4px var(--bg-light), -6px 0 4px -4px var(--bg-light);
+  --progress-bar-color: #030406;
 }
 
 .light {
   --bg: white;
+  --progress-bar-color: #f0f2f6;
   --textColor: rgb(14, 14, 14);
   --lightBG: hsl(0, 0%, 100%);
   --lightTextColor: rgba(0, 0, 0, 0.4);
