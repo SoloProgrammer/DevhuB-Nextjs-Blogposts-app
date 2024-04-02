@@ -6,7 +6,6 @@ import { api } from "@/services/api";
 import PageProvider from "@/providers/PageProvider";
 import Commonbtn from "../Commonbtn/Commonbtn";
 import Link from "next/link";
-import { Skate } from "react-animate-components-ts";
 
 const getPosts = async (page, tag) => {
   const query = `?page=${page}&tag=${tag}`;
@@ -41,11 +40,7 @@ const BlogList = async ({ page, tag = "" }) => {
             <h1 className={styles.title}>Recent Posts</h1>
             <div className={styles.posts}>
               {posts?.map((post) => {
-                return (
-                  <Skate key={post.id} iSkate={-100}>
-                    <BlogCard post={post} key={post._id} />
-                  </Skate>
-                );
+                return <BlogCard post={post} key={post._id} />;
               })}
             </div>
             <Pagination page={page} hasPrev={hasPrev} hasNext={hasNext} />

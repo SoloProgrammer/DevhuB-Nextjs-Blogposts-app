@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import { reactions } from "../PostReactions/data";
 import CommentsCount from "./CommentCount/CommentCount";
-import { Pop, Reveal } from "react-animate-components-ts";
+import { Reveal } from "react-animate-components-ts";
 
 const BlogCard = ({ post }) => {
   const totalReactionsCount = useMemo(() => {
@@ -53,7 +53,7 @@ const BlogCard = ({ post }) => {
             </h3>
           </Reveal>
           <TagsList tags={post?.tags.map((tag) => tag.tag)} />
-          <Reveal>
+          <Reveal overlayBg="var(--main-color)">
             <p className={styles.postDesc}>
               {getTrimmedString(post?.desc, 130).replace(/<[^>]*>/g, "")}
             </p>
