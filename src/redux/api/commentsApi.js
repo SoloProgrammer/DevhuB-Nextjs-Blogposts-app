@@ -35,7 +35,6 @@ export const commentsApi = createApi({
   }),
 });
 export const {
-  useGetCommentsQuery,
   useLazyGetCommentsQuery,
   useNewCommentMutation,
   useUpdateCommentMutation,
