@@ -45,7 +45,7 @@ const profile = createSlice({
         [payload.page]: payload.savedPosts,
       };
     },
-    addToSavedPostsSavedPostsInProfile: (state, { payload }) => {
+    addToSavedPostsInProfile: (state, { payload }) => {
       state.profile.savedPosts.push(payload.postId);
     },
     removeFromSavedPostsInProfile: (state, { payload }) => {
@@ -67,7 +67,7 @@ export const {
   setAudience,
   addPosts,
   addSavedPosts,
-  addToSavedPostsSavedPostsInProfile,
+  addToSavedPostsInProfile,
   removeFromSavedPostsInProfile,
   clearFollowingAudienceInProfile,
   clearFollowersAudienceInProfile,

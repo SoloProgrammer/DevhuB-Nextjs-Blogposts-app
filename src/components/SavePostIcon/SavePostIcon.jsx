@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import Loader from "../Loader/Loader";
 import {
-  addToSavedPostsSavedPostsInProfile,
+  addToSavedPostsInProfile,
   clearSavedPosts,
   removeFromSavedPostsInProfile,
 } from "@/redux/slices/profileUserSlice";
@@ -87,7 +87,7 @@ const SavePostIcon = ({ slug, postId, profileUser, showMsg = true }) => {
       if (profile) {
         profile.savedPosts.includes(postId)
           ? dispatch(removeFromSavedPostsInProfile({ postId }))
-          : dispatch(addToSavedPostsSavedPostsInProfile({ postId }));
+          : dispatch(addToSavedPostsInProfile({ postId }));
       }
 
       dispatch(clearSavedPosts());
