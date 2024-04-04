@@ -36,7 +36,12 @@ const ReactionsStatsDetail = ({
   const reactionTypes = useMemo(() => getReactionTypes(), [post]);
 
   function getTabValues() {
-    // converting reactionTypes object to tabValues as shown below
+    // converting reactionTypes object to tabValues
+    return Object.keys(reactionTypes).reduce((tabValues, k, i) => {
+      tabValues[reactionTypes[k]] = String(i + 1);
+      return tabValues;
+    }, {});
+    // OUTPUT: 👇
     // {
     //     "like": "1",
     //     "unicorn": "2",
@@ -44,10 +49,6 @@ const ReactionsStatsDetail = ({
     //     "raised_hands": "4",
     //     "fire": "5"
     // }
-    return Object.keys(reactionTypes).reduce((acc, k, i) => {
-      acc[reactionTypes[k]] = String(i + 1);
-      return acc;
-    }, {});
   }
   const tabValues = useMemo(() => getTabValues(), [reactionTypes]);
   const [value, setValue] = useState(tabValues[reactionType]);
@@ -61,9 +62,7 @@ const ReactionsStatsDetail = ({
 
   return (
     <div
-      className={`${styles.container} ${show && styles.show} ${
-        theme === "dark" ? styles.dark : styles.light
-      }`}
+      className={`${styles.container} ${show && styles.show} ${styles[theme]}`}
     >
       <div className={styles.wrapper}>
         {
@@ -76,7 +75,7 @@ const ReactionsStatsDetail = ({
                   onChange={(_, newVal) => {
                     setValue(newVal);
                   }}
-                  aria-label="basic tabs example"
+                  aria-label="Reactions tabs"
                 >
                   {Object.keys(reactionTypes).map((reaction, i) => (
                     <Tab

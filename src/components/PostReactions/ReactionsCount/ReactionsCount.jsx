@@ -59,8 +59,8 @@ const ReactionsCount = () => {
           closeAfterTransition
           open={isModalOpen}
           onClose={closeModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          aria-labelledby="Reactions-detail-modal"
+          aria-describedby="Modal that shows users corresponding to each reactions"
           slots={{ backdrop: Backdrop }}
           slotProps={{
             backdrop: {
