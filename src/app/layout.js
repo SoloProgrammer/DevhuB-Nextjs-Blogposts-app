@@ -14,8 +14,11 @@ import "react-loading-skeleton/dist/skeleton.css";
 import ToastProvider from "@/providers/ToastProvider";
 
 export const metadata = {
-  title: "<Dev>.huB",
-  description: "Blog app created using nextjs",
+  title: "DevhuB - Home",
+  description: "Discover creative ideas, stories & best articles about development",
+  openGraph:{
+    images:['/og_image.png']
+  }
 };
 
 export default function RootLayout({ children }) {
