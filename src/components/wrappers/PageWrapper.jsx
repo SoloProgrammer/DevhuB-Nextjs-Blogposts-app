@@ -25,6 +25,7 @@ const PageWrapper = ({ children }) => {
 
   return (
     <motion.div {...anim(opacity)}>
+<<<<<<< HEAD
       <ProgressBar
         trackColor="var(--progress-bar-color)"
         showTrack={true}
@@ -33,6 +34,8 @@ const PageWrapper = ({ children }) => {
         position={"top"}
         top={70}
       />
+=======
+>>>>>>> fdac5fa (connected local repo to remote repo)
       {children}
     </motion.div>
   );
