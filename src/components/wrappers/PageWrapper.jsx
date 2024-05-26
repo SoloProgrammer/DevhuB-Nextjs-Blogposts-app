@@ -1,7 +1,6 @@
 "use client";
 import { anim } from "@/utils/framer";
 import { motion } from "framer-motion";
-import { ProgressBar } from "react-animate-components-ts";
 
 const PageWrapper = ({ children }) => {
   const opacity = {
@@ -25,17 +24,6 @@ const PageWrapper = ({ children }) => {
 
   return (
     <motion.div {...anim(opacity)}>
-<<<<<<< HEAD
-      <ProgressBar
-        trackColor="var(--progress-bar-color)"
-        showTrack={true}
-        bg={"var(--main-color)"}
-        h={5}
-        position={"top"}
-        top={70}
-      />
-=======
->>>>>>> fdac5fa (connected local repo to remote repo)
       {children}
     </motion.div>
   );
