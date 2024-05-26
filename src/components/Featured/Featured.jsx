@@ -27,7 +27,7 @@ const Featured = async () => {
         </Reveal>
         <p>
           <TextReveal
-            delay={1}
+            delay={0.3}
             words={"To discover stories and creative ideas for developers!".split(
               " "
             )}
