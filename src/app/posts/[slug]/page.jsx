@@ -17,6 +17,7 @@ import TextViewer from "@/components/TextViewer/TextViewer";
 import TagsList from "@/components/TagsList/TagsList";
 import ReactionsMenu from "@/components/PostReactions/reactionsMenu/ReactionsMenu";
 import ReactionsCount from "@/components/PostReactions/ReactionsCount/ReactionsCount";
+import { ProgressBar } from "react-animate-components-ts";
 
 const getSinglePost = TryCatchWrapper(async (slug) => {
   const { data } = await axiosClient.get(api.getSinglePost(slug));
@@ -36,6 +37,7 @@ const SingleBlogPage = async ({ params }) => {
   if (!post) notFound();
   return (
     <Suspense fallback={<SinglePostLoadingSkeleton />}>
+      <ProgressBar bg="var(--main-color)" top={0} position="top" origin="top left" h={5}/>
       <div className={styles.container}>
         <div className={styles.infoContainer}>
           <h1 className={styles.title}>{post.title}</h1>
