@@ -2,6 +2,7 @@ import { TryCatch } from "@/helpers/ErrorHandler";
 import prisma from "@/lib/connect";
 import { Response } from "@/utils/responses";
 
+// sign-in controller
 export const PUT = TryCatch(async (req) => {
   const { credentials } = await req.json();
 
@@ -32,6 +33,7 @@ export const PUT = TryCatch(async (req) => {
   return Response("User authenticated!", 200, true, false, { user });
 });
 
+// sign-up controller
 export const POST = TryCatch(async (req) => {
   const credentials = await req.json();
 
