@@ -31,9 +31,8 @@ const AuthFrom = ({
 
   const handleCredentialsLogin = (data) => {
     const { email, password, name, bio } = data;
-    const payload = isSignIn
-      ? { email, password }
-      : { name, email, password, bio };
+    let data = { email, password };
+    const payload = isSignIn ? data : { ...data, name, bio };
     onSubmit(payload);
   };
 
@@ -96,7 +95,6 @@ const AuthFrom = ({
                   autoComplete="off"
                   type="password"
                   id="password"
-                  isValid
                 />
                 <label htmlFor="password">Password</label>
               </InputBox>
