@@ -31,8 +31,8 @@ const AuthFrom = ({
 
   const handleCredentialsLogin = (data) => {
     const { email, password, name, bio } = data;
-    let data = { email, password };
-    const payload = isSignIn ? data : { ...data, name, bio };
+    let userData = { email, password };
+    const payload = isSignIn ? userData : { ...userData, name, bio };
     onSubmit(payload);
   };
 
