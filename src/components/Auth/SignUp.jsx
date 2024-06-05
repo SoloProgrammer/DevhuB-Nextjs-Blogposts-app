@@ -3,11 +3,11 @@ import AuthFrom from "./AuthFrom/AuthFrom";
 import Loader from "../Loader/Loader";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useRef, useState } from "react";
 import { z } from "zod";
+import { showToast } from "@/utils/toast";
 
-var toastId;
 const schema = z
   .object({
     name: z.string().min(3, { message: "Username must be 3 characters long" }),
@@ -31,15 +31,16 @@ const SignUp = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const toastId = useRef(null);
   const onSignUp = async (credentials) => {
     setIsSubmitting(true);
     const res = await signIn("custom-signup", {
       ...credentials,
       redirect: false,
     });
-    toast.dismiss(toastId);
+    toastId.current && toast.dismiss(toastId.current);
     if (!res.ok) {
-      toastId = showToast(res.error, "error", null, 5000);
+      toastId.current = showToast(res.error, "error", null, 5000);
     }
     setIsSubmitting(false);
   };
