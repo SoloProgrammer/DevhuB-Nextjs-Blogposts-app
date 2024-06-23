@@ -11,8 +11,6 @@ import { repliesApi } from "./api/repliesApi";
 import { tagsApi } from "./api/tagsApi";
 import { reactionsApi } from "./api/postReactionsApi";
 
-// Store configuration
-
 const store = configureStore({
   reducer: {
     auth: authReducer,
